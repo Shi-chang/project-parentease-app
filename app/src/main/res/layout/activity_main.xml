@@ -53,16 +53,29 @@
             app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <SearchView
+        <EditText
             android:id="@+id/search_tv"
-            android:layout_width="328dp"
-            android:layout_height="29dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:autofillHints=""
+            android:ems="10"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageButton
+            android:id="@+id/searchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toEndOf="@+id/search_tv"
+            app:layout_constraintTop_toBottomOf="@+id/guideline"
+            app:srcCompat="?android:attr/actionModeWebSearchDrawable"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -93,7 +106,7 @@
             app:layout_constraintGuide_percent="0.90" />
 
 
-        <EditText
+        <TextView
             android:id="@+id/tv_filter1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +116,7 @@
             app:layout_constraintTop_toBottomOf="@id/guideline3"
             app:layout_constraintBottom_toTopOf="@id/guideline4" />
 
-        <EditText
+        <TextView
             android:id="@+id/tv_filter2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +126,7 @@
             app:layout_constraintTop_toBottomOf="@id/guideline3"
             app:layout_constraintBottom_toTopOf="@id/guideline4" />
 
-        <EditText
+        <TextView
             android:id="@+id/tv_filter3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -2,4 +2,10 @@
     <string name="app_name">ParentEase</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+    <string name="my_profile">My Profile</string>
+    <string name="name">Name</string>
+    <string name="id">ID</string>
+    <string name="gender">Gender</string>
+    <string name="brith_date">Brith Date</string>
+    <string name="location">Location</string>
 </resources>

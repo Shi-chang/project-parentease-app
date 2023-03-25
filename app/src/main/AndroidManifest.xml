@@ -28,6 +28,13 @@
             android:name=".NannyInfoActivity"
             android:exported="false" />
         <activity
+            android:name=".NannyshareSingle"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".NannyshareMain"
             android:exported="false">
             <meta-data

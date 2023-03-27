@@ -8,8 +8,7 @@ import android.widget.TextView;
 public class MyInfoActivity extends AppCompatActivity {
     private TextView inputNameTextView;
     private TextView inputIdTextView;
-    private TextView inputGenderTextView;
-    private TextView inputBrithDateTextView;
+    private TextView inputEmailTextView;
     private TextView inputLocationTextView;
 
     @Override
@@ -19,8 +18,7 @@ public class MyInfoActivity extends AppCompatActivity {
 
         inputNameTextView = findViewById(R.id.inputNameTextView);
         inputIdTextView = findViewById(R.id.inputIdTextView);
-        inputGenderTextView = findViewById(R.id.inputGenderTextView);
-        inputBrithDateTextView = findViewById(R.id.inputBrithDateTextView);
+        inputEmailTextView = findViewById(R.id.inputEmailTextView);
         inputLocationTextView = findViewById(R.id.inputLocationTextView);
 
     }

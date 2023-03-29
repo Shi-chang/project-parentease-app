@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerUsername = findViewById(R.id.registerUsername);
         registerPassword = findViewById(R.id.registerPassword);
-        registerConfirmPassword = findViewById(R.id.registerCofirmPassword);
+        registerConfirmPassword = findViewById(R.id.registerConfirmPassword);
         registerBtn = findViewById(R.id.registerBtn);
     }
 }

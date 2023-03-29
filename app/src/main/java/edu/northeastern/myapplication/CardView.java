@@ -13,7 +13,7 @@ public class CardView extends AppCompatActivity {
 
     private List<Tip> tipDataList;
     RecyclerView recyclerView;
-    Adapter adapter;
+    CardViewAdapter adapter;
     Tip tipData;
 
     @Override
@@ -28,7 +28,7 @@ public class CardView extends AppCompatActivity {
         tipDataList = new ArrayList<>();
 
 
-        adapter = new Adapter(tipDataList);
+        adapter = new CardViewAdapter(tipDataList);
         recyclerView.setAdapter(adapter);
     }
 }

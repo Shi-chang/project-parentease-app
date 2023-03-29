@@ -13,13 +13,13 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/registerCofirmPassword"
+        app:layout_constraintBottom_toTopOf="@+id/registerConfirmPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
 
     <EditText
-        android:id="@+id/registerCofirmPassword"
+        android:id="@+id/registerConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"

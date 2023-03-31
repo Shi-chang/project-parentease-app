@@ -6,23 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".NannyshareMain">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_nannynearyou"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:subtitleTextColor="#F4F2F2"
-        app:title="Nanny Near You" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_gender"
@@ -32,7 +21,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/chip_yoegreater1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_nannynearyou" />
+       />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_yoegreater1"
@@ -42,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/chip_distancelessthanfive"
         app:layout_constraintStart_toEndOf="@+id/chip_gender"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_nannynearyou" />
+         />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_distancelessthanfive"
@@ -52,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/chip_yoegreater1"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_nannynearyou" />
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"

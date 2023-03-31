@@ -11,7 +11,9 @@ public class NannyshareMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nannyshare_main);
 
-        //top bar -- Nanny Near You
+        //test: card view for nanny
+
+
 
 
     }

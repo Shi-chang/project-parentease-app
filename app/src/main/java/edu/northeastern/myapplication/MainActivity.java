@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -119,6 +120,18 @@ public class MainActivity extends AppCompatActivity {
         // ImageView(browse, nanny share, tips share, my account)
         browseImageView = findViewById(R.id.tv_browse);
         nannyShareImageView = findViewById(R.id.tv_nanny);
+        // Apply OnClickListener  to imageView to
+        // switch from one activity to another
+        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent class will help to go to next activity using
+                // it's object named intent.
+                // SecondActivty is the name of new created EmptyActivity.
+                Intent intent = new Intent(MainActivity.this, NannyshareMain.class);
+                startActivity(intent);
+            }
+        });
         tipsShareImageView = findViewById(R.id.tv_tips);
         myAccountImageView = findViewById(R.id.tv_myAccount);
 

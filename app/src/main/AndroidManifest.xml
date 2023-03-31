@@ -34,10 +34,7 @@
             android:name=".AddTipActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".authorisation.LoginActivity"
+            android:name=".authorisation.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".nanny.NannyInfoActivity"

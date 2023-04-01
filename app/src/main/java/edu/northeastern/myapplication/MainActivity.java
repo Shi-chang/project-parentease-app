@@ -1,139 +1,173 @@
 package edu.northeastern.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
-import android.annotation.SuppressLint;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.CancellationToken;
+import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import edu.northeastern.myapplication.authorisation.RegisterActivity;
+import edu.northeastern.myapplication.dao.UserDao;
+import edu.northeastern.myapplication.utils.Utils;
+
+/**
+ * The main activity of the app.
+ */
 public class MainActivity extends AppCompatActivity {
+    private final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private EditText login_email, login_password;
+    private FirebaseAuth mAuth;
+    private Button btn_login;
+    private Button btn_register;
+    private String cityName;
 
-    public DrawerLayout drawerLayout;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
-    private TextView greetingTextView;
-    private TextView userNameTextView;
-    private EditText searchTextView;
-    private ImageButton searchBtn;
-    private TextView filter1TextView;
-    private TextView filter2TextView;
-    private TextView filter3TextView;
-    private TextView nannyShareTextView;
-    private ImageView browseImageView;
-    private ImageView nannyShareImageView;
-    private ImageView tipsShareImageView;
-    private ImageView myAccountImageView;
-
-    private RecyclerView tipsRecyclerView;
-//    private TipsAdapter tipsAdapter;
-    private RecyclerView.LayoutManager tipsLayoutManager;
-
-
-//    private static ArrayList <tips> tipsList;
-
-    @SuppressLint("MissingInflatedId")
+    /**
+     * Called when the app is starting.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        tipsList = new ArrayList<>();
+        getUserLocationPermission();
 
-        // drawer layout instance to toggle the menu icon to open
-        // drawer and back button to close drawer
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        login_email = findViewById(R.id.loginEmail);
+        login_password = findViewById(R.id.loginPassword);
+        btn_login = findViewById(R.id.loginBtn);
+        btn_register = findViewById(R.id.goToRegisterBtn);
 
+        mAuth = FirebaseAuth.getInstance();
 
-        // pass the Open and Close toggle for the drawer layout listener to toggle the button
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+        btn_login.setOnClickListener(v -> {
+            String email = login_email.getText().toString().trim();
+            String password = login_password.getText().toString().trim();
+            if (email.isEmpty()) {
+                login_email.setError("Email can not be empty.");
+                login_email.requestFocus();
+                return;
+            }
 
-        // to make the Navigation drawer icon always appear on the action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                login_email.setError("Please enter the valid email address.");
+                login_email.requestFocus();
+                return;
+            }
 
-        // greeting according to time of day in textView
-        greetingTextView = findViewById(R.id.greet_tv);
-        Calendar c = Calendar.getInstance();
-        int currentHour = c.get(Calendar.HOUR_OF_DAY);
-        System.out.println("currentHour" + currentHour);
-        String message = "";
-        if(currentHour >= 12 && currentHour < 17){
-            message = "Good Afternoon, ";
-        } else if(currentHour >= 17 && currentHour < 21){
-            message = "Good Evening, ";
-        } else if(currentHour >= 21 && currentHour < 24){
-            message = "Good Night, ";
+            if (password.isEmpty()) {
+                login_password.setError("Password can not be empty.");
+                login_password.requestFocus();
+                return;
+            }
+
+            if (password.length() < 6) {
+                login_password.setError("Length of password must be more than 6.");
+                login_password.requestFocus();
+                return;
+            }
+
+            // Signs in the user with the email and password.
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(this, HomeActivity.class));
+                    // Updates the user's city name.
+                    if (cityName != null) {
+                        UserDao userDao = new UserDao();
+                        userDao.updateCity(mAuth.getUid(), cityName);
+                    }
+                    return;
+                }
+
+                if (task.getException() != null && task.getException() instanceof FirebaseAuthInvalidUserException) {
+                    Toast.makeText(this, "No registration found with the email. Please register.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (task.getException() != null && task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                    Toast.makeText(this, "Incorrect password.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            });
+        });
+
+        btn_register.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+    }
+
+    /**
+     * Gets the user's location.
+     */
+    private void getUserLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         } else {
-            message = "Good Morning, ";
+            getCityName();
         }
-
-        greetingTextView.setText(message);
-
-        // username in textview
-        userNameTextView = findViewById(R.id.username_tv);
-
-        // search in textview
-        searchTextView = findViewById(R.id.search_tv);
-
-        // search button
-        searchBtn = findViewById(R.id.searchBtn);
-
-        // filters
-        filter1TextView = findViewById(R.id.tv_filter1);
-        filter2TextView = findViewById(R.id.tv_filter2);
-        filter3TextView = findViewById(R.id.tv_filter3);
-
-        // nanny share info textview
-        nannyShareTextView = findViewById(R.id.nannyShareInfo);
-
-        // recyclerView
-        tipsRecyclerView = findViewById(R.id.recyclerView);
-        tipsLayoutManager = new LinearLayoutManager(this);
-//        tipsAdapter = new tipsAdapter(tipsList);
-//        tipsRecyclerView.setHasFixedSize(true);
-//        tipsRecyclerView.setLayoutManager(tipsLayoutManager);
-//        tipsRecyclerView.setAdapter(tipsAdapter);
-//        tipsRecyclerView.setItemAnimator(null);
-
-        // ImageView(browse, nanny share, tips share, my account)
-        browseImageView = findViewById(R.id.tv_browse);
-        nannyShareImageView = findViewById(R.id.tv_nanny);
-        tipsShareImageView = findViewById(R.id.tv_tips);
-        myAccountImageView = findViewById(R.id.tv_myAccount);
-
     }
 
-    // override the onOptionsItemSelected() function to implement the item click listener callback
-    // to open and close the navigation drawer when the icon is clicked
+    /**
+     * Called when the request permission activity finishes.
+     *
+     * @param requestCode  The request code
+     * @param permissions  The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *                     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *                     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     */
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getCityName();
+                    Toast.makeText(MainActivity.this, "Permission granted.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "No permission granted.", Toast.LENGTH_SHORT).show();
+                }
         }
-        return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gets the city that the user is current in.
+     */
+    private void getCityName() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        CancellationToken cancellationToken = cancellationTokenSource.getToken();
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(MainActivity.this, "Failed to get the location.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cancellationToken).addOnSuccessListener(location -> {
+            if (location == null) {
+                Toast.makeText(MainActivity.this, "Failed to get the location.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            cityName = Utils.getCityName(MainActivity.this, location);
+            System.out.println("city name: " + cityName);
+        });
+    }
 }

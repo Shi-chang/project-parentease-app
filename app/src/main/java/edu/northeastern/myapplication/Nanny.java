@@ -2,7 +2,7 @@ package edu.northeastern.myapplication;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Nanny extends RecyclerView.ViewHolder {
+public class Nanny {
     //Nanny: Name, Gender, birthday, review score, Year of experience, location
     private String name;
     private String gender;

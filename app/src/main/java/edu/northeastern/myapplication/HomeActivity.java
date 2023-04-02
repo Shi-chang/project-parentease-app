@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,7 +17,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,12 +39,11 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView tipsShareImageView;
     private ImageView myAccountImageView;
 
-    private RecyclerView tipsRecyclerView;
-//    private TipsAdapter tipsAdapter;
-    private RecyclerView.LayoutManager tipsLayoutManager;
+    private RecyclerView recyclerView;
+    private CardViewAdapter adapter;
+    private StaggeredGridLayoutManager layoutManager;
+    private List<Tip> tipsList = new ArrayList();
 
-
-//    private static ArrayList <tips> tipsList;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,7 +51,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        tipsList = new ArrayList<>();
 
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -98,14 +100,6 @@ public class HomeActivity extends AppCompatActivity {
         // nanny share info textview
         nannyShareTextView = findViewById(R.id.nannyShareInfo);
 
-        // recyclerView
-        tipsRecyclerView = findViewById(R.id.recyclerView);
-        tipsLayoutManager = new LinearLayoutManager(this);
-//        tipsAdapter = new tipsAdapter(tipsList);
-//        tipsRecyclerView.setHasFixedSize(true);
-//        tipsRecyclerView.setLayoutManager(tipsLayoutManager);
-//        tipsRecyclerView.setAdapter(tipsAdapter);
-//        tipsRecyclerView.setItemAnimator(null);
 
         // ImageView(browse, nanny share, tips share, my account)
         browseImageView = findViewById(R.id.tv_browse);
@@ -113,7 +107,37 @@ public class HomeActivity extends AppCompatActivity {
         tipsShareImageView = findViewById(R.id.tv_tips);
         myAccountImageView = findViewById(R.id.tv_myAccount);
 
+        initView();
+        setData();
+        setRecycler();
+
     }
+
+    private void setData() {
+        //RecyclerView
+        tipsList.add(new Tip("RecylerView", "chair", R.drawable.ic_baseline_chair_24));
+        tipsList.add(new Tip("dggfgfghghgjhjhh", "dfsdfs", R.drawable.ic_baseline_insert_emoticon_24));
+        tipsList.add(new Tip("ttttttttttttttttttttttttttttttttt","687", R.drawable.ic_baseline_airport_shuttle_24));
+        tipsList.add(new Tip("title-title", "123", R.drawable.ic_baseline_account_circle_24));
+        tipsList.add(new Tip("RecylerView实现瀑布流布局StaggeredGridLayoutManager", "阿呆", R.drawable.ic_baseline_add_circle_outline_24));
+        tipsList.add(new Tip("RecylerView Title", "amzsd1", R.drawable.ic_baseline_baby_changing_station_24));
+        tipsList.add(new Tip("title-title-title-title", "kk", R.drawable.ic_baseline_travel_explore_24));
+
+    }
+
+    private void setRecycler() {
+        adapter = new CardViewAdapter(tipsList);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        //每行两个瀑布流排列
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void initView() {
+        recyclerView = findViewById(R.id.recyclerView);
+    }
+
 
     // override the onOptionsItemSelected() function to implement the item click listener callback
     // to open and close the navigation drawer when the icon is clicked

@@ -12,33 +12,45 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CardViewAdapter extends RecyclerView.Adapter<ViewHolder>{
+public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
 
     private List<Tip> tipDataList;
 
-    public CardViewAdapter(List<Tip> tips) {
-        this.tipDataList = tips;
+    public CardViewAdapter(List<Tip> tipDataList) {
+        this.tipDataList = tipDataList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_card_view, parent,false);
-        return new ViewHolder(view);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_card_view, parent,false);
+        final ViewHolder holder = new ViewHolder(itemView);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Tip currentTip = tipDataList.get(position);
 //        holder.image.setImageResource(currentTip.getUrl());
+        holder.image.setImageResource(currentTip.getImageId());
         holder.title.setText(currentTip.getTitle());
         holder.username.setText(currentTip.getUsername());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // tip detail page
-            }
-        });
+
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        View tipView;
+        public ImageView image;
+        public TextView title;
+        public TextView username;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tipView = itemView;
+            image = itemView.findViewById(R.id.imageView);
+            title = itemView.findViewById(R.id.titleView);
+            username = itemView.findViewById(R.id.usernameView);
+        }
     }
 
     @Override
@@ -46,19 +58,5 @@ public class CardViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         return tipDataList.size();
     }
 
-}
 
-class ViewHolder extends RecyclerView.ViewHolder {
-    ImageView image;
-    TextView title;
-    TextView username;
-    CardView cardView;
-
-    ViewHolder(View itemView) {
-        super(itemView);
-        image = itemView.findViewById(R.id.imageView);
-        title = itemView.findViewById(R.id.titleView);
-        username = itemView.findViewById(R.id.usernameView);
-        cardView = itemView.findViewById(R.id.cardView);
-    }
 }

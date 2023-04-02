@@ -59,7 +59,7 @@
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name:"
+        android:text="@string/user_name"
         android:textStyle="bold"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
@@ -73,13 +73,14 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title: "
+        android:text="@string/title"
         android:textStyle="bold"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -87,10 +88,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/textTextView"
+        android:id="@+id/contentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Text: "
+        android:text="@string/content"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />

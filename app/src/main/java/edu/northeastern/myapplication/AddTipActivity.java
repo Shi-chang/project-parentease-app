@@ -11,7 +11,7 @@ public class AddTipActivity extends AppCompatActivity {
 
     private Button addPictureButton;
     private EditText addTitleEditText;
-    private EditText addTextEditText;
+    private EditText addContentEditText;
     private CheckBox pediatriciansCheckBox;
     private CheckBox daycareCheckBox;
     private CheckBox eventInfoCheckBox;
@@ -24,7 +24,7 @@ public class AddTipActivity extends AppCompatActivity {
 
         addPictureButton = findViewById(R.id.addPictureButton);
         addTitleEditText = findViewById(R.id.addTitleEditText);
-        addTextEditText = findViewById(R.id.addTextEditText);
+        addContentEditText = findViewById(R.id.addContentEditText);
         pediatriciansCheckBox = findViewById(R.id.pediatriciansCheckBox);
         daycareCheckBox = findViewById(R.id.daycareCheckBox);
         eventInfoCheckBox = findViewById(R.id.eventInfoCheckBox);

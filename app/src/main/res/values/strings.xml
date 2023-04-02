@@ -15,4 +15,9 @@
     <string name="daycare">Daycare</string>
     <string name="event_info">Event Info</string>
     <string name="post">Post</string>
+    <string name="add_content_here">Add Content Here</string>
+    <string name="title">Title:</string>
+    <string name="user_name">User Name:</string>
+    <string name="content">Content:</string>
+    <string name="todo">TODO</string>
 </resources>

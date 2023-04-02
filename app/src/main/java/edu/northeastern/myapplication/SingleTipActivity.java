@@ -15,7 +15,7 @@ public class SingleTipActivity extends AppCompatActivity {
 
     private TextView titleTextView;
 
-    private TextView textTextView;
+    private TextView contentTextView;
 
     private RecyclerView commentRecyclerView;
 
@@ -27,7 +27,7 @@ public class SingleTipActivity extends AppCompatActivity {
         userNameTextView = findViewById(R.id.userNameTextView);
         pictureImageView = findViewById(R.id.pictureImageView);
         titleTextView = findViewById(R.id.titleTextView);
-        textTextView = findViewById(R.id.textTextView);
+        contentTextView = findViewById(R.id.contentTextView);
         commentRecyclerView = findViewById(R.id.commentRecyclerView);
 
 

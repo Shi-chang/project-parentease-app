@@ -8,6 +8,7 @@ import java.net.URL;
 
 public class Tip {
     private String tipId;
+    private String userId;
     private String title;
     private URL pictureUrl;
     private String content;
@@ -17,8 +18,9 @@ public class Tip {
     public Tip() {
     }
 
-    public Tip(String tipId, String title, URL pictureUrl, String content, String filter, Comment[] comments) {
+    public Tip(String tipId, String userId, String title, URL pictureUrl, String content, String filter, Comment[] comments) {
         this.tipId = tipId;
+        this.userId = userId;
         this.title = title;
         this.pictureUrl = pictureUrl;
         this.content = content;
@@ -28,6 +30,9 @@ public class Tip {
 
     public String getTipId() {
         return tipId;
+    }
+    public String getUserId() {
+        return userId;
     }
 
     public String getTitle() {

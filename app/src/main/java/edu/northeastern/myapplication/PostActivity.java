@@ -31,7 +31,7 @@ public class PostActivity extends AppCompatActivity {
         btnPostANannyAd = findViewById(R.id.btnPostANannyAd);
 
         btnPostATip.setOnClickListener(view -> {
-            Intent intent = new Intent(this, SingleTipActivity.class);
+            Intent intent = new Intent(this, AddTipActivity.class);
             startActivity(intent);
         });
 

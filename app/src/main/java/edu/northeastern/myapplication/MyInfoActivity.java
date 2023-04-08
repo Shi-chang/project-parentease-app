@@ -27,18 +27,22 @@ public class MyInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
 
-        currentUser = getIntent().getExtras().getParcelable("currentUser");
+
+
+        // currentUser = getIntent().getExtras().getParcelable("currentUser");
 
         inputNameTextView = findViewById(R.id.inputNameTextView);
         inputEmailTextView = findViewById(R.id.inputEmailTextView);
         inputLocationTextView = findViewById(R.id.inputLocationTextView);
 
-        String name = currentUser.getUsername();
-        String email = currentUser.getEmail();
-        String location = currentUser.getCity();
+//        String name = currentUser.getUsername();
+//        String email = currentUser.getEmail();
+//        String location = currentUser.getCity();
+//
+//        inputNameTextView.setText(name);
+//        inputEmailTextView.setText(email);
+//        inputLocationTextView.setText(location);
 
-        inputNameTextView.setText(name);
-        inputEmailTextView.setText(email);
-        inputLocationTextView.setText(location);
+
     }
 }

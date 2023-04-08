@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import edu.northeastern.myapplication.entity.User;
+
 public class HomeActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout;
@@ -41,11 +43,12 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView tipsShareImageView;
     private ImageView myAccountImageView;
 
+    private User user;
+
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
     private StaggeredGridLayoutManager layoutManager;
     private List<Tip> tipsList = new ArrayList();
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        user = getIntent().getExtras().getParcelable("user");
 
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -73,11 +77,11 @@ public class HomeActivity extends AppCompatActivity {
         int currentHour = c.get(Calendar.HOUR_OF_DAY);
         System.out.println("currentHour" + currentHour);
         String message = "";
-        if(currentHour >= 12 && currentHour < 17){
+        if (currentHour >= 12 && currentHour < 17) {
             message = "Good Afternoon, ";
-        } else if(currentHour >= 17 && currentHour < 21){
+        } else if (currentHour >= 17 && currentHour < 21) {
             message = "Good Evening, ";
-        } else if(currentHour >= 21 && currentHour < 24){
+        } else if (currentHour >= 21 && currentHour < 24) {
             message = "Good Night, ";
         } else {
             message = "Good Morning, ";
@@ -123,6 +127,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         initView();
         setData();
         setRecycler();
@@ -133,7 +148,7 @@ public class HomeActivity extends AppCompatActivity {
         //RecyclerView
         tipsList.add(new Tip("RecylerView", "chair", R.drawable.ic_baseline_chair_24));
         tipsList.add(new Tip("dggfgfghghgjhjhh", "dfsdfs", R.drawable.ic_baseline_insert_emoticon_24));
-        tipsList.add(new Tip("ttttttttttttttttttttttttttttttttt","687", R.drawable.ic_baseline_airport_shuttle_24));
+        tipsList.add(new Tip("ttttttttttttttttttttttttttttttttt", "687", R.drawable.ic_baseline_airport_shuttle_24));
         tipsList.add(new Tip("title-title", "123", R.drawable.ic_baseline_account_circle_24));
         tipsList.add(new Tip("RecylerView实现瀑布流布局StaggeredGridLayoutManager", "阿呆", R.drawable.ic_baseline_add_circle_outline_24));
         tipsList.add(new Tip("RecylerView Title", "amzsd1", R.drawable.ic_baseline_baby_changing_station_24));

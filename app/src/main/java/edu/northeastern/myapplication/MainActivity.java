@@ -14,9 +14,12 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.database.DataSnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 
 import edu.northeastern.myapplication.authorisation.RegisterActivity;
 import edu.northeastern.myapplication.dao.UserDao;
+import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.utils.Utils;
 
 /**
@@ -90,12 +94,26 @@ public class MainActivity extends AppCompatActivity {
             // Signs in the user with the email and password.
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(this, HomeActivity.class));
+
                     // Updates the user's city name.
+                    UserDao userDao = new UserDao();
                     if (cityName != null) {
-                        UserDao userDao = new UserDao();
                         userDao.updateCity(mAuth.getUid(), cityName);
                     }
+
+                    String userId = mAuth.getUid();
+                    userDao.findUserById(userId).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            User user = task.getResult().getValue(User.class);
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("user", user);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
+
                     return;
                 }
 

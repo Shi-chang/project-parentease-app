@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyPostActivity;
 
 /**
@@ -14,6 +15,7 @@ import edu.northeastern.myapplication.nanny.NannyPostActivity;
 public class PostActivity extends AppCompatActivity {
     Button btnPostATip;
     Button btnPostANannyAd;
+    User user;
 
     /**
      * Called when the activity is starting.
@@ -27,6 +29,8 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        user = getIntent().getExtras().getParcelable("user");
+
         btnPostATip = findViewById(R.id.btnPostATip);
         btnPostANannyAd = findViewById(R.id.btnPostANannyAd);
 
@@ -37,6 +41,9 @@ public class PostActivity extends AppCompatActivity {
 
         btnPostANannyAd.setOnClickListener(view -> {
             Intent intent = new Intent(this, NannyPostActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user", user);
+            intent.putExtras(bundle);
             startActivity(intent);
         });
     }

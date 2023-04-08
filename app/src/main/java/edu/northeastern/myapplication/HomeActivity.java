@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -105,7 +107,21 @@ public class HomeActivity extends AppCompatActivity {
         browseImageView = findViewById(R.id.tv_browse);
         nannyShareImageView = findViewById(R.id.tv_nanny);
         tipsShareImageView = findViewById(R.id.tv_tips);
+        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, AddTipActivity.class);
+                startActivity(intent);
+            }
+        });
         myAccountImageView = findViewById(R.id.tv_myAccount);
+        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, MyInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         initView();
         setData();

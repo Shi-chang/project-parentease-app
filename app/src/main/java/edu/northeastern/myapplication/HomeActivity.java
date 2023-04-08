@@ -126,6 +126,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, MyInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

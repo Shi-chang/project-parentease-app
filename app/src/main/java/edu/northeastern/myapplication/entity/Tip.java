@@ -14,19 +14,17 @@ public class Tip {
     private URL pictureUrl;
     private String content;
     private String filter;
-    private List<Comment> comments;
 
     public Tip() {
     }
 
-    public Tip(String tipId, String userId, String title, URL pictureUrl, String content, String filter, List<Comment> comments) {
+    public Tip(String tipId, String userId, String title, URL pictureUrl, String content, String filter) {
         this.tipId = tipId;
         this.userId = userId;
         this.title = title;
         this.pictureUrl = pictureUrl;
         this.content = content;
         this.filter = filter;
-        this.comments = comments;
     }
 
     public String getTipId() {
@@ -52,7 +50,4 @@ public class Tip {
         return filter;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
 }

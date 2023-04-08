@@ -114,7 +114,10 @@ public class HomeActivity extends AppCompatActivity {
         tipsShareImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AddTipActivity.class);
+                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -127,16 +130,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", user);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+
 
         initView();
         setData();

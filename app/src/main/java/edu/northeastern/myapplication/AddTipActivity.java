@@ -24,15 +24,22 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.UUID;
 
 import edu.northeastern.myapplication.authorisation.RegisterActivity;
 import edu.northeastern.myapplication.entity.Comment;
+import edu.northeastern.myapplication.entity.Tip;
 
+/**
+ * The Add Tip activity of this app.
+ */
 public class AddTipActivity extends AppCompatActivity {
 
     private Button addPictureButton;
@@ -47,7 +54,15 @@ public class AddTipActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 2;
     FirebaseStorage storage;
     String downloadUrl;
+    private FirebaseAuth mAuth;
 
+    /**
+     * Called when the Add Tip activity is starting.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +81,12 @@ public class AddTipActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
     }
 
+    /**
+     * Get the permission of image load from the device.
+     */
     private void getLoadImagePermission() {
         if (ActivityCompat.checkSelfPermission(AddTipActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(AddTipActivity.this, "permission request.", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(AddTipActivity.this, "Permission request.", Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(AddTipActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
@@ -87,6 +104,10 @@ public class AddTipActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Select the image from the device.
+     * @param view the view of this activity
+     */
     public void selectImage(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
@@ -131,6 +152,10 @@ public class AddTipActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Post the tip to the firebase.
+     * @param view the Add Tip activity view
+     */
     public void postTip(View view) {
         // get title
         if (addTitleEditText.getText().equals("")) {
@@ -163,23 +188,28 @@ public class AddTipActivity extends AppCompatActivity {
         UUID uuid = UUID.randomUUID();
         String tipId = uuid.toString();
         // get the current user Id
-
-        // get comments, is empty
-        //Comment[] comments = new Comment[];
-
+        mAuth = FirebaseAuth.getInstance();
+        String userId = mAuth.getUid();
         // get the urL
-        String pictureUrl = downloadUrl;
-        // create a tip
-        // Tip tip = new Tip(tipId, userId, title, pictureUrl, content, filter, comments);
-
+        try {
+            URL pictureUrl = new URL(downloadUrl);
+            // create a tip
+            Tip tip = new Tip(tipId, userId, title, pictureUrl, content, filter);
+        } catch (MalformedURLException e) {
+            // Handle the exception if the string is not a valid URL
+            Toast.makeText(AddTipActivity.this, "Please add valid URL", Toast.LENGTH_SHORT).show();
+        }
 
 
 
         // post the tip to database under currentUser
 
+
         // post the tip to Tip table
 
+
         // go back to the home page
+
 
     }
 

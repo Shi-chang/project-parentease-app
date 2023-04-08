@@ -1,6 +1,7 @@
 package edu.northeastern.myapplication.entity;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * The tip class.
@@ -13,12 +14,12 @@ public class Tip {
     private URL pictureUrl;
     private String content;
     private String filter;
-    private Comment[] comments;
+    private List<Comment> comments;
 
     public Tip() {
     }
 
-    public Tip(String tipId, String userId, String title, URL pictureUrl, String content, String filter, Comment[] comments) {
+    public Tip(String tipId, String userId, String title, URL pictureUrl, String content, String filter, List<Comment> comments) {
         this.tipId = tipId;
         this.userId = userId;
         this.title = title;
@@ -51,7 +52,7 @@ public class Tip {
         return filter;
     }
 
-    public Comment[] getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 }

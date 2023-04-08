@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import edu.northeastern.myapplication.HomeActivity;
@@ -130,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             getCityName();
         }
+
     }
 
     /**

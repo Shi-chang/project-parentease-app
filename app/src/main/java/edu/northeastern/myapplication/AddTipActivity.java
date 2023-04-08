@@ -64,7 +64,6 @@ public class AddTipActivity extends AppCompatActivity {
         eventInfoCheckBox = findViewById(R.id.eventInfoCheckBox);
         postButton = findViewById(R.id.postButton);
         storage = FirebaseStorage.getInstance();
-
     }
 
     private void getLoadImagePermission() {

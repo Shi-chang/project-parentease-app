@@ -1,6 +1,7 @@
 package edu.northeastern.myapplication.dao;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,7 +35,7 @@ public class UserDao {
     }
 
     /**
-     * Update the user's city information.
+     * Updates the user's city information.
      *
      * @param userId   the user id
      * @param cityName the city name
@@ -44,5 +45,16 @@ public class UserDao {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(cityName);
         return databaseReference.child(PATH_USERS).child(userId).child(PATH_CITY).setValue(cityName);
+    }
+
+    /**
+     * Finds a user by Id.
+     *
+     * @param userId the user's id
+     * @return the DataSnapshot that contains the user
+     */
+    public Task<DataSnapshot> findUserById(String userId) {
+        Objects.requireNonNull(userId);
+        return databaseReference.child(PATH_USERS).child(userId).get();
     }
 }

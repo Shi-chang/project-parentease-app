@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.04" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
@@ -46,7 +46,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click the date to book"
+        android:text="Click the date to select"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
@@ -75,7 +75,6 @@
         android:id="@+id/locationLabelTv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="Location: "
         android:textSize="18sp"
@@ -97,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <TextView
         android:id="@+id/yoeLabel2"
@@ -110,26 +109,73 @@
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:text="10"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/yoeLabel2"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
-
     <EditText
         android:id="@+id/introductionTv2"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="10dp"
+        android:background="@null"
         android:ems="10"
+        android:hint="  About me..."
         android:inputType="textMultiLine|textPersonName"
-        android:text="About me..."
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/availabilityTv"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+
+    <EditText
+        android:id="@+id/yoePt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:ems="2"
+        android:inputType="textPersonName"
+        android:text="10"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toEndOf="@+id/yoeLabel2"
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Gender: "
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/locationLabelTv2" />
+
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/locationTv2" />
+
+    <TextView
+        android:id="@+id/hourlyRateTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Hourly rate: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toBottomOf="@+id/yoeLabel2" />
+
+    <EditText
+        android:id="@+id/hourlyRatePt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@null"
+        android:ems="2"
+        android:inputType="textPersonName"
+        android:text="**"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toEndOf="@+id/hourlyRateTv"
+        app:layout_constraintTop_toBottomOf="@+id/yoePt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

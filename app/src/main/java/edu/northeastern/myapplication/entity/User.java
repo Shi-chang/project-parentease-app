@@ -60,6 +60,10 @@ public class User implements Parcelable {
         return tips;
     }
 
+    public void setTips(List<Tip> tips) {
+        this.tips = tips;
+    }
+
     @Override
     public int describeContents() {
         return 0;

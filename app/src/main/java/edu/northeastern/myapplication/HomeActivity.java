@@ -1,8 +1,10 @@
 package edu.northeastern.myapplication;
 
+import edu.northeastern.myapplication.entity.Tip;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,13 +13,25 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,6 +51,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView filter2TextView;
     private TextView filter3TextView;
     private TextView nannyShareTextView;
+    private Button allTipsBtn;
+    private Button myTipsBtn;
     private ImageView browseImageView;
     private ImageView nannyShareImageView;
     private ImageView tipsShareImageView;
@@ -47,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
     private StaggeredGridLayoutManager layoutManager;
-    private List<Tip> tipsList = new ArrayList();
+    private List<Tip> tipsList = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -67,29 +83,34 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
+
+
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // greeting according to time of day in textView
         greetingTextView = findViewById(R.id.greet_tv);
-        Calendar c = Calendar.getInstance();
-        int currentHour = c.get(Calendar.HOUR_OF_DAY);
+        LocalDateTime currentTime = LocalDateTime.now();
+        int currentHour = currentTime.getHour();
         System.out.println("currentHour" + currentHour);
+
         String message = "";
-        if (currentHour >= 12 && currentHour < 17) {
-            message = "Good Afternoon, ";
-        } else if (currentHour >= 17 && currentHour < 21) {
-            message = "Good Evening, ";
-        } else if (currentHour >= 21 && currentHour < 24) {
-            message = "Good Night, ";
-        } else {
+        if (currentHour >= 6 && currentHour < 12) {
             message = "Good Morning, ";
+        } else if (currentHour >= 12 && currentHour < 18) {
+            message = "Good Afternoon, ";
+        } else if (currentHour >= 18 && currentHour < 22) {
+            message = "Good Evening, ";
+        } else {
+            message = "Good Night, ";
         }
 
         greetingTextView.setText(message);
 
+
         // username in textview
         userNameTextView = findViewById(R.id.username_tv);
+        userNameTextView.setText(user.getUsername());
 
         // search in textview
         searchTextView = findViewById(R.id.search_tv);
@@ -105,6 +126,9 @@ public class HomeActivity extends AppCompatActivity {
         // nanny share info textview
         nannyShareTextView = findViewById(R.id.nannyShareInfo);
 
+        // allTips button, myTips button
+        allTipsBtn = findViewById(R.id.btn_allTips);
+        myTipsBtn = findViewById(R.id.btn_myTips);
 
         // ImageView(browse, nanny share, tips share, my account)
         browseImageView = findViewById(R.id.tv_browse);
@@ -132,28 +156,33 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
-
         initView();
-        setData();
         setRecycler();
+        loadDataFromFirebase();
 
     }
 
-    private void setData() {
-        //RecyclerView
-        tipsList.add(new Tip("RecylerView", "chair", R.drawable.ic_baseline_chair_24));
-        tipsList.add(new Tip("dggfgfghghgjhjhh", "dfsdfs", R.drawable.ic_baseline_insert_emoticon_24));
-        tipsList.add(new Tip("ttttttttttttttttttttttttttttttttt", "687", R.drawable.ic_baseline_airport_shuttle_24));
-        tipsList.add(new Tip("title-title", "123", R.drawable.ic_baseline_account_circle_24));
-        tipsList.add(new Tip("RecylerView实现瀑布流布局StaggeredGridLayoutManager", "阿呆", R.drawable.ic_baseline_add_circle_outline_24));
-        tipsList.add(new Tip("RecylerView Title", "amzsd1", R.drawable.ic_baseline_baby_changing_station_24));
-        tipsList.add(new Tip("title-title-title-title", "kk", R.drawable.ic_baseline_travel_explore_24));
-
+    private void loadDataFromFirebase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("tips");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Tip> tipDataList = new ArrayList<>(); //initial tipDataList
+                for (DataSnapshot tipSnapshot : dataSnapshot.getChildren()) {
+                    Tip tip = tipSnapshot.getValue(Tip.class);
+                    tipDataList.add(tip);
+                }
+                adapter.setTipDataList(tipDataList);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
     }
 
     private void setRecycler() {
-        adapter = new CardViewAdapter(tipsList);
+        adapter = new CardViewAdapter(this, tipsList);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         //每行两个瀑布流排列
         recyclerView.setLayoutManager(layoutManager);
@@ -176,6 +205,41 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    public void logout(View view) {
+//        FirebaseAuth.getInstance().signOut();
+//        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+////            case R.id.nav_account:
+////                Intent intent = new Intent(this, MyAccountActivity.class);
+////                startActivity(intent);
+////                break;
+////            case R.id.nav_settings:
+////                Intent intent1 = new Intent(this, SettingsActivity.class);
+////                startActivity(intent1);
+////                break;
+//            case R.id.nav_logout:
+//                FirebaseAuth.getInstance().signOut();
+//                Intent intent2 = new Intent(this, MainActivity.class);
+//                startActivity(intent2);
+//                finish();
+//                break;
+//        }
+//
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+
+
+
+
 
 
 }

@@ -83,7 +83,7 @@ public class SingleTipActivity extends AppCompatActivity {
 
         // get URL and then get the picture loading
         storage = FirebaseStorage.getInstance();
-        URL pictureUrl = currentTip.getPictureUrl();
+        String pictureUrl = currentTip.getPictureUrl();
         Glide.with(this)
                 .load(pictureUrl)
                 .into(pictureImageView);

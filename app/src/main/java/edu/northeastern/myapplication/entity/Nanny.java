@@ -1,30 +1,30 @@
 package edu.northeastern.myapplication.entity;
 
-import java.util.Map;
+import java.util.List;
 
 /**
- * The nanny information class.
+ * The nanny class.
  */
-public class NannyInfo {
+public class Nanny {
     private String userId;
     private int yoe;
     private String gender;
-    private Review[] reviews;
-    private float hourlyRate;
-    private Map<String, Boolean> availability;
+    private int hourlyRate;
+    private List<TimeSlot> availability;
     private float ratings;
+    private String introduction;
 
-    public NannyInfo() {
+    public Nanny() {
     }
 
-    public NannyInfo(String userId, int yoe, String gender, Review[] reviews, float hourlyRate, Map<String, Boolean> availability, float ratings) {
+    public Nanny(String userId, int yoe, String gender, int hourlyRate, List<TimeSlot> availability, float ratings, String introduction) {
         this.userId = userId;
         this.yoe = yoe;
         this.gender = gender;
-        this.reviews = reviews;
         this.hourlyRate = hourlyRate;
         this.availability = availability;
         this.ratings = ratings;
+        this.introduction = introduction;
     }
 
     public String getUserId() {
@@ -39,19 +39,19 @@ public class NannyInfo {
         return gender;
     }
 
-    public Review[] getReviews() {
-        return reviews;
-    }
-
     public float getHourlyRate() {
         return hourlyRate;
     }
 
-    public Map<String, Boolean> getAvailability() {
+    public List<TimeSlot> getAvailability() {
         return availability;
     }
 
     public float getRatings() {
         return ratings;
+    }
+
+    public String getIntroduction() {
+        return introduction;
     }
 }

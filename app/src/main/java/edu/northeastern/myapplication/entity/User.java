@@ -77,4 +77,14 @@ public class User implements Parcelable {
         dest.writeString(city);
         dest.writeList(tips);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", tips=" + tips +
+                '}';
+    }
 }

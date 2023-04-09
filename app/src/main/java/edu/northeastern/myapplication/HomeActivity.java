@@ -4,7 +4,6 @@ import edu.northeastern.myapplication.entity.Tip;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,8 +82,6 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-
-
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -106,7 +103,6 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         greetingTextView.setText(message);
-
 
         // username in textview
         userNameTextView = findViewById(R.id.username_tv);
@@ -144,6 +140,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         myAccountImageView = findViewById(R.id.tv_myAccount);
         myAccountImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +156,6 @@ public class HomeActivity extends AppCompatActivity {
         initView();
         setRecycler();
         loadDataFromFirebase();
-
     }
 
     private void loadDataFromFirebase() {
@@ -193,7 +189,6 @@ public class HomeActivity extends AppCompatActivity {
     private void initView() {
         recyclerView = findViewById(R.id.recyclerView);
     }
-
 
     // override the onOptionsItemSelected() function to implement the item click listener callback
     // to open and close the navigation drawer when the icon is clicked
@@ -236,10 +231,4 @@ public class HomeActivity extends AppCompatActivity {
 //        drawerLayout.closeDrawer(GravityCompat.START);
 //        return true;
 //    }
-
-
-
-
-
-
 }

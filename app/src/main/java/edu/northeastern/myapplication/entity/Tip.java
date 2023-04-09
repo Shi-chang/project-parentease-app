@@ -11,14 +11,14 @@ public class Tip {
     private String tipId;
     private String userId;
     private String title;
-    private URL pictureUrl;
+    private String pictureUrl;
     private String content;
     private String filter;
 
     public Tip() {
     }
 
-    public Tip(String tipId, String userId, String title, URL pictureUrl, String content, String filter) {
+    public Tip(String tipId, String userId, String title, String pictureUrl, String content, String filter) {
         this.tipId = tipId;
         this.userId = userId;
         this.title = title;
@@ -30,6 +30,7 @@ public class Tip {
     public String getTipId() {
         return tipId;
     }
+
     public String getUserId() {
         return userId;
     }
@@ -38,7 +39,7 @@ public class Tip {
         return title;
     }
 
-    public URL getPictureUrl() {
+    public String getPictureUrl() {
         return pictureUrl;
     }
 
@@ -49,5 +50,4 @@ public class Tip {
     public String getFilter() {
         return filter;
     }
-
 }

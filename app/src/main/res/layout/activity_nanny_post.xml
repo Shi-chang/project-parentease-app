@@ -39,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toBottomOf="@+id/introductionTv2" />
@@ -48,9 +49,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Click the date to select"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView2" />
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <TextView
         android:id="@+id/nannyNameTv2"
@@ -170,13 +171,4 @@
         app:layout_constraintStart_toEndOf="@+id/hourlyRateTv"
         app:layout_constraintTop_toBottomOf="@+id/yoePt" />
 
-    <Button
-        android:id="@+id/postMyAdBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Post My Ad"
-        app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/guideline12" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,8 +32,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -115,6 +117,7 @@ public class AddTipActivity extends AppCompatActivity {
 
     /**
      * Select the image from the device.
+     *
      * @param view the view of this activity
      */
     public void selectImage(View view) {
@@ -163,6 +166,7 @@ public class AddTipActivity extends AppCompatActivity {
 
     /**
      * Post the tip to the firebase.
+     *
      * @param view the Add Tip activity view
      */
     public void postTip(View view) {
@@ -199,47 +203,41 @@ public class AddTipActivity extends AppCompatActivity {
         // get the current user Id
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getUid();
+        System.out.println(userId);
         // get the urL
-        try {
-            URL pictureUrl = new URL(downloadUrl);
-            // create a tip
-            Tip tip = new Tip(tipId, userId, title, pictureUrl, content, filter);
 
-            // post the tip to database under currentUser
+        // create a tip
+        Tip tip = new Tip(tipId, userId, title, downloadUrl, content, filter);
 
-            // List<Tip> tips = currentUser.getTips();
-            // tips.add(tip);
-            // currentUser.setTips(tips);
-            // mDatabase.child("users").child(userId).setValue(currentUser);
-
-            // post the tip to Tip table
-            // mDatabase.child("tips").child(tipId).setValue(tip);
-
-            mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Toast.makeText(AddTipActivity.this, "Failed to add the tip.", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    User user = task.getResult().getValue(User.class);
-                    List<Tip> tips = user.getTips();
-                    tips.add(tip);
-                    user.setTips(tips);
-                    mDatabase.child("users").child(userId).setValue(user);
-
-                    mDatabase.child("tips").child(tipId).setValue(tip);
-
-                    Toast.makeText(AddTipActivity.this, "Add Tip successfully.", Toast.LENGTH_LONG).show();
+        mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(AddTipActivity.this, "Failed to add the tip.", Toast.LENGTH_LONG).show();
+                    return;
                 }
-            });
 
-        } catch (MalformedURLException e) {
-            // Handle the exception if the string is not a valid URL
-            Toast.makeText(AddTipActivity.this, "Please add valid URL", Toast.LENGTH_SHORT).show();
-        }
+                User user = task.getResult().getValue(User.class);
 
+                List<Tip> tips = user.getTips();
+                if (tips == null) {
+                    tips = new ArrayList<>();
+                }
+
+                tips.add(tip);
+                user.setTips(tips);
+
+                System.out.println(user);
+
+                try {
+                    mDatabase.child("users").child(userId).setValue(user);
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                }
+
+                mDatabase.child("tips").child(tipId).setValue(tip);
+                Toast.makeText(AddTipActivity.this, "Add Tip successfully.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
-
 }

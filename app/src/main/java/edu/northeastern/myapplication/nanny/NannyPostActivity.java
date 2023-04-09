@@ -1,7 +1,9 @@
 package edu.northeastern.myapplication.nanny;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import edu.northeastern.myapplication.R;
@@ -27,7 +30,6 @@ public class NannyPostActivity extends AppCompatActivity {
     TextView hourlyRatePt;
     private TextView introductionTv2;
     CalendarView calendarView2;
-    Button postMyAdBtn;
 
     private List<String> genderList;
     private ArrayAdapter<String> genderAdapter;
@@ -51,7 +53,6 @@ public class NannyPostActivity extends AppCompatActivity {
         hourlyRatePt = findViewById(R.id.hourlyRatePt);
         introductionTv2 = findViewById(R.id.introductionTv2);
         calendarView2 = findViewById(R.id.calendarView2);
-        postMyAdBtn = findViewById(R.id.postMyAdBtn);
         nannyNameTv2.setText(user.getUsername());
 
         genderList = new ArrayList<>();
@@ -75,12 +76,26 @@ public class NannyPostActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        // Sets the dates starting from today to 7 days from now selectable.
+        calendarView2.setMinDate(System.currentTimeMillis() - 1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 7);
+        long maxDate = calendar.getTimeInMillis();
+        calendarView2.setMaxDate(maxDate);
+
+        calendarView2.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Toast.makeText(NannyPostActivity.this, "CHANGE!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-//    private String userId;
-//    private int yoe;
-//    private String gender;
-//    private Review[] reviews;
-//    private float hourlyRate;
-//    private Map<String, Boolean> availability;
+    private void handleDateSelected(int year, int month, int dayOfMonth) {
+        Intent intent = new Intent(NannyPostActivity.this, AvailableTimeSlots.class);
+        intent.putExtra("year", year);
+        intent.putExtra("month", month);
+        intent.putExtra("dayOfMonth", dayOfMonth);
+        startActivity(intent);
+    }
 }

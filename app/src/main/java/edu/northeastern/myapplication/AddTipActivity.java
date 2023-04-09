@@ -25,17 +25,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.UUID;
 
 import edu.northeastern.myapplication.authorisation.RegisterActivity;
 import edu.northeastern.myapplication.entity.Comment;
 import edu.northeastern.myapplication.entity.Tip;
+import edu.northeastern.myapplication.entity.User;
 
 /**
  * The Add Tip activity of this app.
@@ -55,6 +60,8 @@ public class AddTipActivity extends AppCompatActivity {
     FirebaseStorage storage;
     String downloadUrl;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
 
     /**
      * Called when the Add Tip activity is starting.
@@ -69,6 +76,8 @@ public class AddTipActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_tip);
 
         getLoadImagePermission();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         addPictureButton = findViewById(R.id.addPictureButton);
         addPictureImageView = findViewById(R.id.addPictureImageView);
@@ -195,21 +204,41 @@ public class AddTipActivity extends AppCompatActivity {
             URL pictureUrl = new URL(downloadUrl);
             // create a tip
             Tip tip = new Tip(tipId, userId, title, pictureUrl, content, filter);
+
+            // post the tip to database under currentUser
+
+            // List<Tip> tips = currentUser.getTips();
+            // tips.add(tip);
+            // currentUser.setTips(tips);
+            // mDatabase.child("users").child(userId).setValue(currentUser);
+
+            // post the tip to Tip table
+            // mDatabase.child("tips").child(tipId).setValue(tip);
+
+            mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(AddTipActivity.this, "Failed to add the tip.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    User user = task.getResult().getValue(User.class);
+                    List<Tip> tips = user.getTips();
+                    tips.add(tip);
+                    user.setTips(tips);
+                    mDatabase.child("users").child(userId).setValue(user);
+
+                    mDatabase.child("tips").child(tipId).setValue(tip);
+
+                    Toast.makeText(AddTipActivity.this, "Add Tip successfully.", Toast.LENGTH_LONG).show();
+                }
+            });
+
         } catch (MalformedURLException e) {
             // Handle the exception if the string is not a valid URL
             Toast.makeText(AddTipActivity.this, "Please add valid URL", Toast.LENGTH_SHORT).show();
         }
-
-
-
-        // post the tip to database under currentUser
-
-
-        // post the tip to Tip table
-
-
-        // go back to the home page
-
 
     }
 

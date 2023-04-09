@@ -1,5 +1,6 @@
 package edu.northeastern.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,11 +11,19 @@ import android.telephony.mbms.MbmsErrors;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.northeastern.myapplication.entity.Tip;
 import edu.northeastern.myapplication.entity.User;
 
-public class NannyshareMain extends AppCompatActivity {
+public class NannyshareMain extends AppCompatActivity implements RecyclerViewInterface{
     private RecyclerView recyclerView;
     private NannyCardAdapter adapter;
     private ArrayList<Nanny> nannyArrayList;
@@ -63,8 +72,9 @@ public class NannyshareMain extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         nannyArrayList = new ArrayList<Nanny>();
+        //TODO:loadDataFromFirebase();
 
-        adapter = new NannyCardAdapter(this, nannyArrayList);
+        adapter = new NannyCardAdapter(this, nannyArrayList, this);
         recyclerView.setAdapter(adapter);
 
         //test nanny data
@@ -74,6 +84,41 @@ public class NannyshareMain extends AppCompatActivity {
         nannyArrayList.add(nannyB);
         System.out.println("my list size: " + nannyArrayList.size());
         adapter.notifyDataSetChanged();
+
+    }
+
+    //TODO
+//    private void loadDataFromFirebase() {
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("nannies");
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                ArrayList<Nanny> nannyDataList = new ArrayList<>(); //initial tipDataList
+//                for (DataSnapshot nannySnapshot : dataSnapshot.getChildren()) {
+//                    Nanny nanny = nannySnapshot.getValue(Nanny.class);
+//                    nannyDataList.add(nanny);
+//                }
+//                nannyArrayList = nannyDataList;
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // Handle error
+//            }
+//        });
+//    }
+
+    @Override
+    public void onItemClick(int pos) {
+        Nanny nannyA = new Nanny("Nancy Smith", "Female","1990-01-01",4.8,3,"Richmond,BC");
+        Intent intent = new Intent(this, NannyshareSingle.class);
+        intent.putExtra("NAME", nannyArrayList.get(pos).getName());
+        intent.putExtra("GENDER", nannyArrayList.get(pos).getGender());
+        intent.putExtra("BIRTHDAY", nannyArrayList.get(pos).getBirthday());
+        intent.putExtra("REVIEW_SCORE", nannyArrayList.get(pos).getReviewScore());
+        intent.putExtra("YOE", nannyArrayList.get(pos).getYoe());
+        intent.putExtra("LOCATION", nannyArrayList.get(pos).getLocation());
+
+        startActivity(intent);
 
     }
 }

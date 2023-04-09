@@ -6,29 +6,30 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-import edu.northeastern.myapplication.entity.Nanny;
+import edu.northeastern.myapplication.entity.Tip;
+import edu.northeastern.myapplication.entity.User;
 
-public class NannyDao {
-    private final String PATH_NANNIES = "nannies";
+public class TipsDao {
+    private final String PATH_TIPS = "tips";
     private DatabaseReference databaseReference;
 
     /**
      * No argument constructor for the class.
      */
-    public NannyDao() {
+    public TipsDao() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     /**
-     * Creates a nanny in the Firebase Realtime Database.
+     * Creates a tip in the Firebase Realtime Database.
      *
-     * @param userId the user id
-     * @param nanny  the nanny object
+     * @param userId the tip id
+     * @param tip    the tip object
      * @return a task
      */
-    public Task<Void> create(String userId, Nanny nanny) {
+    public Task<Void> create(String userId, Tip tip) {
         Objects.requireNonNull(userId);
-        Objects.requireNonNull(nanny);
-        return databaseReference.child(PATH_NANNIES).child(userId).setValue(nanny);
+        Objects.requireNonNull(tip);
+        return databaseReference.child(PATH_TIPS).child(userId).setValue(tip);
     }
 }

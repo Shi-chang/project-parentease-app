@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.UUID;
 
 import edu.northeastern.myapplication.authorisation.RegisterActivity;
+import edu.northeastern.myapplication.dao.TipsDao;
+import edu.northeastern.myapplication.dao.UserDao;
 import edu.northeastern.myapplication.entity.Comment;
 import edu.northeastern.myapplication.entity.Tip;
 import edu.northeastern.myapplication.entity.User;
@@ -227,15 +229,12 @@ public class AddTipActivity extends AppCompatActivity {
                 tips.add(tip);
                 user.setTips(tips);
 
-                System.out.println(user);
+                UserDao userDao = new UserDao();
+                userDao.updateUser(userId, user);
 
-                try {
-                    mDatabase.child("users").child(userId).setValue(user);
-                } catch (Exception e) {
-                    System.out.println(e.getCause());
-                }
+                TipsDao tipsDao = new TipsDao();
+                tipsDao.create(tipId, tip);
 
-                mDatabase.child("tips").child(tipId).setValue(tip);
                 Toast.makeText(AddTipActivity.this, "Add Tip successfully.", Toast.LENGTH_LONG).show();
             }
         });

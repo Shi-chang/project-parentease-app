@@ -1,4 +1,4 @@
-package edu.northeastern.myapplication;
+package edu.northeastern.myapplication.tip;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
-import java.net.URL;
-
-import edu.northeastern.myapplication.entity.Comment;
+import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.entity.Tip;
-import edu.northeastern.myapplication.entity.User;
 
 /**
  * The Single Tip activity of this app.

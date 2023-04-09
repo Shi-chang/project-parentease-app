@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyPostActivity;
+import edu.northeastern.myapplication.tip.AddTipActivity;
 
 /**
  * The post activity that redirects the user to either a posting tip activity or a posting nanny ad activity.

@@ -1,14 +1,10 @@
-package edu.northeastern.myapplication;
-
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+package edu.northeastern.myapplication.tip;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,17 +28,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import edu.northeastern.myapplication.authorisation.RegisterActivity;
+import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.TipsDao;
 import edu.northeastern.myapplication.dao.UserDao;
-import edu.northeastern.myapplication.entity.Comment;
 import edu.northeastern.myapplication.entity.Tip;
 import edu.northeastern.myapplication.entity.User;
 

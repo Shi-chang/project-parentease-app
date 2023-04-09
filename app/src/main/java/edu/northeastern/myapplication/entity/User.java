@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 /**
  * The user class.
  */
@@ -12,12 +14,12 @@ public class User implements Parcelable {
     private String username;
     private String email;
     private String city;
-    private Tip[] tips;
+    private List<Tip> tips;
 
     public User() {
     }
 
-    public User(String username, String email, String city, Tip[] tips) {
+    public User(String username, String email, String city, List<Tip> tips) {
         this.username = username;
         this.email = email;
         this.city = city;
@@ -54,7 +56,7 @@ public class User implements Parcelable {
         return city;
     }
 
-    public Tip[] getTips() {
+    public List<Tip> getTips() {
         return tips;
     }
 

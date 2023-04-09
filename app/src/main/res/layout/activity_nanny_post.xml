@@ -38,28 +38,19 @@
         android:id="@+id/calendarView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/introductionTv2" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Click the date to select"
-        app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintStart_toStartOf="@+id/guideline12" />
-
-    <TextView
-        android:id="@+id/availabilityTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Availability"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView2" />
 
     <TextView
         android:id="@+id/nannyNameTv2"
@@ -96,13 +87,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.54" />
 
     <TextView
         android:id="@+id/yoeLabel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="67dp"
         android:layout_marginTop="10dp"
         android:text="YOE: "
         android:textSize="18sp"
@@ -113,14 +104,15 @@
         android:id="@+id/introductionTv2"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginTop="5dp"
         android:background="@null"
         android:ems="10"
-        android:hint="  About me..."
+        android:hint="About me..."
         android:inputType="textMultiLine|textPersonName"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/availabilityTv"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/hourlyRateTv" />
 
     <EditText
         android:id="@+id/yoePt"
@@ -129,10 +121,10 @@
         android:layout_marginTop="10dp"
         android:background="@null"
         android:ems="2"
+        android:hint=" ? "
         android:inputType="textPersonName"
-        android:text="10"
+        android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toEndOf="@+id/yoeLabel2"
         app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
 
@@ -148,7 +140,7 @@
 
     <Spinner
         android:id="@+id/genderSpinner"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -172,10 +164,19 @@
         android:layout_marginTop="15dp"
         android:background="@null"
         android:ems="2"
+        android:hint=" ? "
         android:inputType="textPersonName"
-        android:text="**"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toEndOf="@+id/hourlyRateTv"
         app:layout_constraintTop_toBottomOf="@+id/yoePt" />
+
+    <Button
+        android:id="@+id/postMyAdBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post My Ad"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,6 +36,9 @@ public class PostActivity extends AppCompatActivity {
 
         btnPostATip.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddTipActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user", user);
+            intent.putExtras(bundle);
             startActivity(intent);
         });
 

@@ -4,21 +4,57 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.mbms.MbmsErrors;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import edu.northeastern.myapplication.entity.User;
 
 public class NannyshareMain extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NannyCardAdapter adapter;
     private ArrayList<Nanny> nannyArrayList;
+    private ImageView nannyShareImageView;
+    private ImageView tipsShareImageView;
+    private ImageView myAccountImageView;
+    private User currentUser;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nannyshare_main);
+
+        currentUser = getIntent().getExtras().getParcelable("user");
+
+        //button link to other activities
+        tipsShareImageView = findViewById(R.id.tv_tips);
+        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NannyshareMain.this, PostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", currentUser);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        myAccountImageView = findViewById(R.id.tv_myAccount);
+        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NannyshareMain.this, MyInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", currentUser);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         InitializeCardView();
     }

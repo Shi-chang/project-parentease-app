@@ -153,6 +153,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, NannyshareMain.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         initView();
         setRecycler();
         loadDataFromFirebase();

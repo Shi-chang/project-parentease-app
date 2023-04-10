@@ -20,5 +20,7 @@
     <string name="user_name">User Name:</string>
     <string name="content">Content:</string>
     <string name="todo">TODO</string>
-    <string name="add_a_comment">Add a comment:</string>
+    <string name="add_a_comment">Add a comment</string>
+    <string name="addComment">Add</string>
+    <string name="tip_from">Tip From:</string>
 </resources>

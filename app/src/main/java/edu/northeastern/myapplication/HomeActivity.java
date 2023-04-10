@@ -250,11 +250,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * return to and refresh Home page
+     * return to and refresh Home page, at the meantime keep user login.
      */
 
     private void refreshHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }

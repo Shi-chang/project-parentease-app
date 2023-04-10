@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.39" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
@@ -170,98 +170,26 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="412dp"
-            android:layout_height="385dp"
+            android:layout_width="401dp"
+            android:layout_height="375dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.437"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline12"
             app:layout_constraintVertical_bias="0.441" />
+        
 
-        <ImageView
-            android:id="@+id/tv_myAccount"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_account_circle_24"
-            app:layout_constraintTop_toBottomOf="@id/guideline6"
-            app:layout_constraintBottom_toBottomOf="@id/guideline7"
-            app:layout_constraintStart_toEndOf="@id/tv_tips"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_myAccount"-->
-<!--            android:layout_width="52dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:text="Account"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/guideline7"-->
-<!--            app:layout_constraintStart_toEndOf="@id/tv_tips"-->
-<!--            app:layout_constraintEnd_toEndOf="parent" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_Home"-->
-<!--            android:layout_width="46dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:text="Home"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/guideline7"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/tv_nanny" />-->
-
-        <ImageView
-            android:id="@+id/tv_nanny"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_baby_changing_station_24"
-            app:layout_constraintTop_toBottomOf="@id/guideline6"
-            app:layout_constraintBottom_toBottomOf="@id/guideline7"
-            app:layout_constraintStart_toEndOf="@id/tv_browse"
-            app:layout_constraintEnd_toStartOf="@id/tv_tips" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_nanny"-->
-<!--            android:layout_width="46dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:text="Nanny"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/guideline7"-->
-<!--            app:layout_constraintStart_toEndOf="@id/tv_Home"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/tv_tips" />-->
-
-        <ImageView
-            android:id="@+id/tv_browse"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_nanny"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline6"
-            app:layout_constraintBottom_toBottomOf="@id/guideline7"
-            app:srcCompat="@drawable/ic_baseline_home_24" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_tips"-->
-<!--            android:layout_width="46dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:text="Tips"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/guideline7"-->
-<!--            app:layout_constraintStart_toEndOf="@id/tv_nanny"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/tv_myAccount" />-->
-
-        <ImageView
-            android:id="@+id/tv_tips"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
-            app:layout_constraintTop_toBottomOf="@id/guideline6"
-            app:layout_constraintBottom_toBottomOf="@id/guideline7"
-            app:layout_constraintStart_toEndOf="@id/tv_nanny"
-            app:layout_constraintEnd_toStartOf="@id/tv_myAccount" />
+        <include
+            android:id="@+id/bottom_navigation"
+            layout="@layout/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
@@ -275,6 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Tips"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintEnd_toStartOf="@+id/btn_myTips"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline5" />
@@ -284,6 +213,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Tips"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_allTips"
             app:layout_constraintTop_toBottomOf="@id/guideline5" />

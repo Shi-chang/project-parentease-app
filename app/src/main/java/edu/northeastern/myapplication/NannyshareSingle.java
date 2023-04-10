@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.AvailableTimeSlots;
+import edu.northeastern.myapplication.nanny.NannyInfoActivity;
 
 public class NannyshareSingle extends AppCompatActivity {
     private TextView tv_name;
@@ -43,14 +44,12 @@ public class NannyshareSingle extends AppCompatActivity {
         tv_reviewScore.setText("★ "+ reviewScore.toString());
 
 
-
-
         //button link to check availability
         btn_availability = findViewById(R.id.btn_book);
         btn_availability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NannyshareSingle.this, AvailableTimeSlots.class);
+                Intent intent = new Intent(NannyshareSingle.this, NannyInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", currentUser);
                 intent.putExtras(bundle);

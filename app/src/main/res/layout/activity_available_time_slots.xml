@@ -127,10 +127,10 @@
         app:layout_constraintStart_toStartOf="@+id/guideline28" />
 
     <TextView
-        android:id="@+id/dateTv"
+        android:id="@+id/dateTv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2023-03-30"
+        android:text="YYYY-MM-DD"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="243dp"
         tools:layout_editor_absoluteY="60dp" />
@@ -155,13 +155,6 @@
         android:layout_height="wrap_content"
         app:barrierDirection="left"
         tools:layout_editor_absoluteX="411dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"

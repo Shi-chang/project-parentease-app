@@ -30,6 +30,7 @@ public class User implements Parcelable {
         username = in.readString();
         email = in.readString();
         city = in.readString();
+        tips = in.readArrayList(Tip.class.getClassLoader());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -74,5 +75,16 @@ public class User implements Parcelable {
         dest.writeString(username);
         dest.writeString(email);
         dest.writeString(city);
+        dest.writeList(tips);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", tips=" + tips +
+                '}';
     }
 }

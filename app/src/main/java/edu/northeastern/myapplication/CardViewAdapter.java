@@ -47,7 +47,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
                 .into(holder.image);
     }
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View tipView;
         public ImageView image;

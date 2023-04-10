@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 import edu.northeastern.myapplication.HomeActivity;
 import edu.northeastern.myapplication.MainActivity;
 import edu.northeastern.myapplication.R;
@@ -110,12 +112,12 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
 
-                    User user = new User(username, email, cityName, null);
+                    User user = new User(username, email, cityName, new ArrayList<>());
                     UserDao userDao = new UserDao();
                     userDao.create(mAuth.getUid(), user);
                     Toast.makeText(RegisterActivity.this, "You have registered successfully.", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                 });
             }

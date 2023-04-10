@@ -34,6 +34,12 @@ public class UserDao {
         return databaseReference.child(PATH_USERS).child(userId).setValue(user);
     }
 
+    public Task<Void> updateUser(String userId, User user) {
+        Objects.requireNonNull(userId);
+        Objects.requireNonNull(user);
+        return databaseReference.child(PATH_USERS).child(userId).setValue(user);
+    }
+
     /**
      * Updates the user's city information.
      *

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import edu.northeastern.myapplication.entity.User;
 
 /**
- * MyInfo Activity.
+ * MyInfo Activity of this app.
  */
 public class MyInfoActivity extends AppCompatActivity {
     private TextView inputNameTextView;
@@ -27,22 +27,19 @@ public class MyInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
 
-
-
-        // currentUser = getIntent().getExtras().getParcelable("currentUser");
+        currentUser = getIntent().getExtras().getParcelable("user");
 
         inputNameTextView = findViewById(R.id.inputNameTextView);
         inputEmailTextView = findViewById(R.id.inputEmailTextView);
         inputLocationTextView = findViewById(R.id.inputLocationTextView);
 
-//        String name = currentUser.getUsername();
-//        String email = currentUser.getEmail();
-//        String location = currentUser.getCity();
-//
-//        inputNameTextView.setText(name);
-//        inputEmailTextView.setText(email);
-//        inputLocationTextView.setText(location);
+        String name = currentUser.getUsername();
+        String email = currentUser.getEmail();
+        String location = currentUser.getCity();
 
+        inputNameTextView.setText(name);
+        inputEmailTextView.setText(email);
+        inputLocationTextView.setText(location);
 
     }
 }

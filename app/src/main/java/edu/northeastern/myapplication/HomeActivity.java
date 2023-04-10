@@ -148,6 +148,14 @@ public class HomeActivity extends AppCompatActivity {
 
         // ImageView(browse, nanny share, tips share, my account)
         browseImageView = findViewById(R.id.tv_browse);
+
+        browseImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshHomeActivity();
+            }
+        });
+
         nannyShareImageView = findViewById(R.id.tv_nanny);
         tipsShareImageView = findViewById(R.id.tv_tips);
         tipsShareImageView.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +240,10 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Logout in drawer
+     */
+
     private void logout() {
         // Perform any necessary cleanup, such as clearing user data
         // Redirect the user to the login screen
@@ -240,34 +252,16 @@ public class HomeActivity extends AppCompatActivity {
         finish();
     }
 
-//    public void logout(View view) {
-//        FirebaseAuth.getInstance().signOut();
-//        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
+    /**
+     * return to and refresh Home page
+     */
+
+    private void refreshHomeActivity() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-////            case R.id.nav_account:
-////                Intent intent = new Intent(this, MyAccountActivity.class);
-////                startActivity(intent);
-////                break;
-////            case R.id.nav_settings:
-////                Intent intent1 = new Intent(this, SettingsActivity.class);
-////                startActivity(intent1);
-////                break;
-//            case R.id.nav_logout:
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent2 = new Intent(this, MainActivity.class);
-//                startActivity(intent2);
-//                finish();
-//                break;
-//        }
-//
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
+
 }

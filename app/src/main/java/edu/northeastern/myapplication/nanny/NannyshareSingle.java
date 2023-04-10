@@ -45,13 +45,12 @@ public class NannyshareSingle extends AppCompatActivity {
         tv_reviewScore = findViewById(R.id.tv_star);
         tv_reviewScore.setText("★ "+ reviewScore.toString());
 
-
         //button link to check availability
         btn_availability = findViewById(R.id.btn_book);
         btn_availability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NannyshareSingle.this, NannyInfoActivity.class);
+                Intent intent = new Intent(NannyshareSingle.this, NannyInformation.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", currentUser);
                 intent.putExtras(bundle);

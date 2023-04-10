@@ -1,4 +1,4 @@
-package edu.northeastern.myapplication;
+package edu.northeastern.myapplication.nanny;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.northeastern.myapplication.MyInfoActivity;
+import edu.northeastern.myapplication.Nanny;
+import edu.northeastern.myapplication.PostActivity;
+import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.entity.User;
-import edu.northeastern.myapplication.nanny.AvailableTimeSlots;
-import edu.northeastern.myapplication.nanny.NannyInfoActivity;
 
 public class NannyshareSingle extends AppCompatActivity {
     private TextView tv_name;
@@ -67,7 +69,7 @@ public class NannyshareSingle extends AppCompatActivity {
         btn_postReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NannyshareSingle.this, NannyReview.class);
+                Intent intent = new Intent(NannyshareSingle.this, NannyPostReview.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", currentUser);
                 intent.putExtras(bundle);

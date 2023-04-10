@@ -1,4 +1,4 @@
-package edu.northeastern.myapplication;
+package edu.northeastern.myapplication.nanny;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import edu.northeastern.myapplication.Nanny;
+import edu.northeastern.myapplication.R;
+import edu.northeastern.myapplication.RecyclerViewInterface;
 
 public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.NannyHolder> {
     private final RecyclerViewInterface recyclerViewInterface;

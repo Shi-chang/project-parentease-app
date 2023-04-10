@@ -111,14 +111,15 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     public void onItemClick(int pos) {
         Nanny nannyA = new Nanny("Nancy Smith", "Female","1990-01-01",4.8,3,"Richmond,BC");
         Intent intent = new Intent(this, NannyshareSingle.class);
-        intent.putExtra("NAME", nannyArrayList.get(pos).getName());
-        intent.putExtra("GENDER", nannyArrayList.get(pos).getGender());
-        intent.putExtra("BIRTHDAY", nannyArrayList.get(pos).getBirthday());
-        intent.putExtra("REVIEW_SCORE", nannyArrayList.get(pos).getReviewScore());
-        intent.putExtra("YOE", nannyArrayList.get(pos).getYoe());
-        intent.putExtra("LOCATION", nannyArrayList.get(pos).getLocation());
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", currentUser);
+        intent.putExtras(bundle);
+
+        Bundle nannyBundle = new Bundle();
+        nannyBundle.putParcelable("nanny", nannyArrayList.get(pos));
+        intent.putExtras(nannyBundle);
 
         startActivity(intent);
-
     }
 }

@@ -22,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -164,6 +166,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void loadDataFromFirebase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("tips");
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

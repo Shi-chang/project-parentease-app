@@ -4,6 +4,7 @@ import edu.northeastern.myapplication.entity.Tip;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,20 +24,19 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import edu.northeastern.myapplication.entity.User;
+import edu.northeastern.myapplication.nanny.NannyshareMain;
+import edu.northeastern.myapplication.recylerView.CardViewAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -77,6 +76,25 @@ public class HomeActivity extends AppCompatActivity {
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.my_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_account:
+                        // Handle "My Account" click
+                        break;
+                    case R.id.nav_settings:
+                        // Handle "Settings" click
+                        break;
+                    case R.id.nav_logout:
+                        logout();
+                        break;
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
 
@@ -130,6 +148,14 @@ public class HomeActivity extends AppCompatActivity {
 
         // ImageView(browse, nanny share, tips share, my account)
         browseImageView = findViewById(R.id.tv_browse);
+
+        browseImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshHomeActivity();
+            }
+        });
+
         nannyShareImageView = findViewById(R.id.tv_nanny);
         tipsShareImageView = findViewById(R.id.tv_tips);
         tipsShareImageView.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +174,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, MyInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, NannyshareMain.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", user);
                 intent.putExtras(bundle);
@@ -204,34 +241,31 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void logout(View view) {
-//        FirebaseAuth.getInstance().signOut();
-//        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
+    /**
+     * Logout in drawer
+     */
+
+    private void logout() {
+        // Perform any necessary cleanup, such as clearing user data
+        // Redirect the user to the login screen
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * return to and refresh Home page, at the meantime keep user login.
+     */
+
+    private void refreshHomeActivity() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
 
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-////            case R.id.nav_account:
-////                Intent intent = new Intent(this, MyAccountActivity.class);
-////                startActivity(intent);
-////                break;
-////            case R.id.nav_settings:
-////                Intent intent1 = new Intent(this, SettingsActivity.class);
-////                startActivity(intent1);
-////                break;
-//            case R.id.nav_logout:
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent2 = new Intent(this, MainActivity.class);
-//                startActivity(intent2);
-//                finish();
-//                break;
-//        }
-//
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
+
 }

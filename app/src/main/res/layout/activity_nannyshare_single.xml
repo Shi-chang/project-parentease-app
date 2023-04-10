@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NannyshareSingle">
+    tools:context=".nanny.NannyshareSingle">
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_nanny_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nanny's name"
@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_reviewSummary"
+        android:id="@+id/tv_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Review Summary"
-        android:textSize="18sp"
+        android:text="★ 0.00"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nanny_name" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:text="Availability"
         app:layout_constraintBottom_toTopOf="@id/guideline6"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_postReview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
 
@@ -75,7 +75,17 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reviewSummary" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_star" />
+
+    <Button
+        android:id="@+id/btn_postReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POST REVIEW"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_book"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

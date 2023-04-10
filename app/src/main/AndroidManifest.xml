@@ -59,14 +59,14 @@
             android:name=".authorisation.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".NannyshareSingle"
+            android:name=".nanny.NannyshareSingle"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NannyshareMain"
+            android:name=".nanny.NannyshareMain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

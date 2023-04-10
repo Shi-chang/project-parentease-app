@@ -19,13 +19,6 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".NannyReview"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -44,6 +37,9 @@
             android:name=".nanny.NannyPostActivity"
             android:exported="false" />
         <activity
+            android:name=".nanny.NannyPostReview"
+            android:exported="false" />
+        <activity
             android:name=".tip.SingleTipActivity"
             android:exported="false" />
         <activity
@@ -59,14 +55,14 @@
             android:name=".nanny.NannyInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".NannyshareSingle"
+            android:name=".nanny.NannyshareSingle"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NannyshareMain"
+            android:name=".nanny.NannyshareMain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

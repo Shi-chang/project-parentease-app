@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.net.URL;
-import java.util.List;
-
 /**
  * The tip class.
  */

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import edu.northeastern.myapplication.entity.User;
-import edu.northeastern.myapplication.nanny.NannyPostActivity;
+import edu.northeastern.myapplication.nanny.NannyInformation;
 import edu.northeastern.myapplication.tip.AddTipActivity;
 
 /**
@@ -44,7 +44,7 @@ public class PostActivity extends AppCompatActivity {
         });
 
         btnPostANannyAd.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NannyPostActivity.class);
+            Intent intent = new Intent(this, NannyInformation.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable("user", user);
             intent.putExtras(bundle);

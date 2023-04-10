@@ -6,7 +6,6 @@ import java.util.List;
  * The nanny class.
  */
 public class Nanny {
-    private String userId;
     private int yoe;
     private String gender;
     private int hourlyRate;
@@ -17,18 +16,13 @@ public class Nanny {
     public Nanny() {
     }
 
-    public Nanny(String userId, int yoe, String gender, int hourlyRate, List<TimeSlot> availability, float ratings, String introduction) {
-        this.userId = userId;
+    public Nanny(int yoe, String gender, int hourlyRate, List<TimeSlot> availability, float ratings, String introduction) {
         this.yoe = yoe;
         this.gender = gender;
         this.hourlyRate = hourlyRate;
         this.availability = availability;
         this.ratings = ratings;
         this.introduction = introduction;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public int getYoe() {
@@ -39,12 +33,16 @@ public class Nanny {
         return gender;
     }
 
-    public float getHourlyRate() {
+    public int getHourlyRate() {
         return hourlyRate;
     }
 
     public List<TimeSlot> getAvailability() {
         return availability;
+    }
+
+    public void setAvailability(List<TimeSlot> availability) {
+        this.availability = availability;
     }
 
     public float getRatings() {
@@ -53,5 +51,17 @@ public class Nanny {
 
     public String getIntroduction() {
         return introduction;
+    }
+
+    @Override
+    public String toString() {
+        return "Nanny{" +
+                "yoe=" + yoe +
+                ", gender='" + gender + '\'' +
+                ", hourlyRate=" + hourlyRate +
+                ", availability=" + availability +
+                ", ratings=" + ratings +
+                ", introduction='" + introduction + '\'' +
+                '}';
     }
 }

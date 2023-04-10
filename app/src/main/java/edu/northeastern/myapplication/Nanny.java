@@ -1,8 +1,12 @@
 package edu.northeastern.myapplication;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Nanny {
+public class Nanny implements Parcelable {
     //Nanny: Name, Gender, birthday, review score, Year of experience, location
     private String name;
     private String gender;
@@ -19,6 +23,27 @@ public class Nanny {
         this.yoe = yoe;
         this.location = location;
     }
+
+    protected Nanny(Parcel in) {
+        name = in.readString();
+        gender = in.readString();
+        birthday = in.readString();
+        reviewScore = in.readDouble();
+        yoe = in.readDouble();
+        location = in.readString();
+    }
+
+    public static final Creator<Nanny> CREATOR = new Creator<Nanny>() {
+        @Override
+        public Nanny createFromParcel(Parcel in) {
+            return new Nanny(in);
+        }
+
+        @Override
+        public Nanny[] newArray(int size) {
+            return new Nanny[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -66,5 +91,20 @@ public class Nanny {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(gender);
+        parcel.writeString(birthday);
+        parcel.writeDouble(reviewScore);
+        parcel.writeDouble(yoe);
+        parcel.writeString(location);
     }
 }

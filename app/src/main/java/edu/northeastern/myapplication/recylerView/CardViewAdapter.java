@@ -1,5 +1,6 @@
-package edu.northeastern.myapplication;
+package edu.northeastern.myapplication.recylerView;
 
+import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.entity.Tip;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;

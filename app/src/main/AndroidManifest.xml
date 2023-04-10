@@ -19,7 +19,13 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".NannyReview"
+            android:name=".nanny.NannyBookingTimeSlots"
+            android:exported="false" />
+        <activity
+            android:name=".nanny.NannyBookingInformation"
+            android:exported="false" />
+        <activity
+            android:name=".nanny.NannyPostReview"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -38,10 +44,10 @@
             android:name=".PostActivity"
             android:exported="false" />
         <activity
-            android:name=".nanny.AvailableTimeSlots"
+            android:name=".nanny.NannyTimeSlots"
             android:exported="false" />
         <activity
-            android:name=".nanny.NannyPostActivity"
+            android:name=".nanny.NannyInformation"
             android:exported="false" />
         <activity
             android:name=".tip.SingleTipActivity"
@@ -56,17 +62,14 @@
             android:name=".authorisation.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".nanny.NannyInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NannyshareSingle"
+            android:name=".nanny.NannyshareSingle"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NannyshareMain"
+            android:name=".nanny.NannyshareMain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

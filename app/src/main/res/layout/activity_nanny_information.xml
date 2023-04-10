@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nanny.NannyPostActivity">
+    tools:context=".nanny.NannyInformation">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
@@ -38,7 +38,6 @@
         android:id="@+id/calendarView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
@@ -68,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Location: "
+        android:text="City: "
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
@@ -83,29 +82,21 @@
         app:layout_constraintStart_toEndOf="@+id/locationLabelTv2"
         app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.54" />
-
     <TextView
         android:id="@+id/yoeLabel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="67dp"
         android:layout_marginTop="10dp"
         android:text="YOE: "
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/yoePt"
         app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
 
     <EditText
         android:id="@+id/introductionTv2"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:background="@null"
         android:ems="10"
         android:hint="About me..."
@@ -126,7 +117,7 @@
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/yoeLabel2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
 
     <TextView
@@ -151,11 +142,10 @@
         android:id="@+id/hourlyRateTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:text="Hourly rate: "
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/hourlyRatePt"
         app:layout_constraintTop_toBottomOf="@+id/yoeLabel2" />
 
     <EditText
@@ -168,7 +158,29 @@
         android:hint=" ? "
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintStart_toEndOf="@+id/hourlyRateTv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/yoePt" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Ratings: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/locationTv2"
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+
+    <TextView
+        android:id="@+id/ratingsTv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="0.0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

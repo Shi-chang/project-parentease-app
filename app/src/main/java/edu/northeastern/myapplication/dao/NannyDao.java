@@ -1,6 +1,7 @@
 package edu.northeastern.myapplication.dao;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,6 +28,17 @@ public class NannyDao {
      * @return a task
      */
     public Task<Void> create(String userId, Nanny nanny) {
+        Objects.requireNonNull(userId);
+        Objects.requireNonNull(nanny);
+        return databaseReference.child(PATH_NANNIES).child(userId).setValue(nanny);
+    }
+
+    public Task<DataSnapshot> findNannyById(String userId) {
+        Objects.requireNonNull(userId);
+        return databaseReference.child(PATH_NANNIES).child(userId).get();
+    }
+
+    public Task<Void> update(String userId, Nanny nanny) {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(nanny);
         return databaseReference.child(PATH_NANNIES).child(userId).setValue(nanny);

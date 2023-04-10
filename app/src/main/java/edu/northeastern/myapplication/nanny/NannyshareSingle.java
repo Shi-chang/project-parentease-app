@@ -50,7 +50,7 @@ public class NannyshareSingle extends AppCompatActivity {
         btn_availability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NannyshareSingle.this, NannyInformation.class);
+                Intent intent = new Intent(NannyshareSingle.this, NannyBookingInformation.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", currentUser);
                 intent.putExtras(bundle);

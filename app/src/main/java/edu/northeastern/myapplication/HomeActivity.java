@@ -316,12 +316,11 @@ public class HomeActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Tip> tipDataList = new ArrayList<>();
                 for (DataSnapshot tipSnapshot : dataSnapshot.getChildren()) {
                     Tip tip = tipSnapshot.getValue(Tip.class);
-                    tipDataList.add(tip);
+                    tipsList.add(tip);
                 }
-                adapter.setTipDataList(tipDataList);
+                adapter.setTipDataList(tipsList);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

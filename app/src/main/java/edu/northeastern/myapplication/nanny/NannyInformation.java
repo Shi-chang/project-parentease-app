@@ -29,6 +29,9 @@ import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.User;
 
+/**
+ * The NannyInformation activity.
+ */
 public class NannyInformation extends AppCompatActivity {
     private TextView nannyNameTv2;
     private TextView locationTv2;
@@ -53,6 +56,13 @@ public class NannyInformation extends AppCompatActivity {
     private float ratings;
     private String introduction;
 
+    /**
+     * Called when the activity starts.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +73,8 @@ public class NannyInformation extends AppCompatActivity {
 
         // Binds the widgets.
         nannyNameTv2 = findViewById(R.id.nannyNameTv2);
-        ratingsTv1 = findViewById(R.id.ratingsTv1);
         locationTv2 = findViewById(R.id.locationTv2);
+        ratingsTv1 = findViewById(R.id.ratingsTv1);
         yoePt = findViewById(R.id.yoePt);
         genderSpinner = findViewById(R.id.genderSpinner);
         hourlyRatePt = findViewById(R.id.hourlyRatePt);
@@ -114,13 +124,13 @@ public class NannyInformation extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
         // Sets the dates starting from today to 7 days from now selectable.
         calendarView2.setMinDate(System.currentTimeMillis() - 1000);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, 7);
         long maxDate = calendar.getTimeInMillis();
         calendarView2.setMaxDate(maxDate);
-
         calendarView2.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -129,6 +139,12 @@ public class NannyInformation extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets the gender position.
+     *
+     * @param gender the gender string
+     * @return the position
+     */
     private int getGenderPosition(String gender) {
         switch (gender) {
             case "Select":
@@ -146,7 +162,13 @@ public class NannyInformation extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Handles the response when the date on the calendar is selected.
+     *
+     * @param year       the year
+     * @param month      the month
+     * @param dayOfMonth the day
+     */
     private void handleDateSelected(int year, int month, int dayOfMonth) {
         Intent intent = new Intent(NannyInformation.this, NannyTimeSlots.class);
 
@@ -165,6 +187,11 @@ public class NannyInformation extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Checks if the form is valid.
+     *
+     * @return true if the form is valid, false otherwise
+     */
     private boolean isFormValid() {
         try {
             yoe = Integer.parseInt(yoePt.getText().toString());

@@ -15,15 +15,17 @@ public class User implements Parcelable {
     private String email;
     private String city;
     private List<Tip> tips;
+    private String userToken;
 
     public User() {
     }
 
-    public User(String username, String email, String city, List<Tip> tips) {
+    public User(String username, String email, String city, List<Tip> tips, String userToken) {
         this.username = username;
         this.email = email;
         this.city = city;
         this.tips = tips;
+        this.userToken = userToken;
     }
 
     protected User(Parcel in) {
@@ -31,6 +33,7 @@ public class User implements Parcelable {
         email = in.readString();
         city = in.readString();
         tips = in.readArrayList(Tip.class.getClassLoader());
+        userToken = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -65,6 +68,10 @@ public class User implements Parcelable {
         this.tips = tips;
     }
 
+    public String getUserToken() {
+        return userToken;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -76,6 +83,7 @@ public class User implements Parcelable {
         dest.writeString(email);
         dest.writeString(city);
         dest.writeList(tips);
+        dest.writeString(userToken);
     }
 
     @Override
@@ -85,6 +93,7 @@ public class User implements Parcelable {
                 ", email='" + email + '\'' +
                 ", city='" + city + '\'' +
                 ", tips=" + tips +
+                ", userToken='" + userToken + '\'' +
                 '}';
     }
 }

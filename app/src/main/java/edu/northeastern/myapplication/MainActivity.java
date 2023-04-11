@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_login;
     private Button btn_register;
     private String cityName;
+    private String userToken;
 
+    private FirebaseMessaging firebaseMessaging;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     /**
@@ -56,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getUserLocationPermission();
+        firebaseMessaging = FirebaseMessaging.getInstance();
+        firebaseMessaging.getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    userToken = task.getResult();
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed to get registration token", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         login_email = findViewById(R.id.loginEmail);
         login_password = findViewById(R.id.loginPassword);
@@ -95,13 +109,18 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
 
+                    String userId = mAuth.getUid();
                     // Updates the user's city name.
                     UserDao userDao = new UserDao();
                     if (cityName != null) {
-                        userDao.updateCity(mAuth.getUid(), cityName);
+                        userDao.updateCity(userId, cityName);
                     }
 
-                    String userId = mAuth.getUid();
+                    // Updates the user's token.
+                    if (userToken != null) {
+                        userDao.updateUserToken(userId, userToken);
+                    }
+
                     userDao.findUserById(userId).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {

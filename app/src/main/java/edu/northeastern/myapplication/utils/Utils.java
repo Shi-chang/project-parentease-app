@@ -1,14 +1,17 @@
 package edu.northeastern.myapplication.utils;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 public class Utils {
     /**
@@ -35,5 +38,18 @@ public class Utils {
             Toast.makeText(context, "Failed to get city name.", Toast.LENGTH_SHORT).show();
             return null;
         }
+    }
+
+    public static Properties getProperties(Context context) {
+        Properties properties = new Properties();
+        AssetManager assetManager = context.getAssets();
+        try {
+            InputStream inputStream = assetManager.open("firebase.properties");
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return properties;
     }
 }

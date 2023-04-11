@@ -32,7 +32,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyshareMain;
@@ -50,6 +52,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView filter1TextView;
     private TextView filter2TextView;
     private TextView filter3TextView;
+    private TextView filter4TextView;
+
     private TextView nannyShareTextView;
     private Button allTipsBtn;
     private Button myTipsBtn;
@@ -64,6 +68,11 @@ public class HomeActivity extends AppCompatActivity {
     private CardViewAdapter adapter;
     private StaggeredGridLayoutManager layoutManager;
     private List<Tip> tipsList = new ArrayList<>();
+
+    private boolean isPediatriciansSelected = false;
+    private boolean isDaycareSelected = false;
+    private boolean isEventInfoSelected = false;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -136,8 +145,60 @@ public class HomeActivity extends AppCompatActivity {
 
         // filters
         filter1TextView = findViewById(R.id.tv_filter1);
+        filter1TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set<String> selectedCategories = new HashSet<>();
+                selectedCategories.add("Pediatricians");
+                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                isPediatriciansSelected = !isPediatriciansSelected;
+//                updateFilteredTips();
+                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+                updateRecyclerView(filteredTipsSet);
+            }
+        });
+
         filter2TextView = findViewById(R.id.tv_filter2);
+        filter2TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set<String> selectedCategories = new HashSet<>();
+                selectedCategories.add("Daycare");
+                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                isDaycareSelected = !isDaycareSelected;
+//                updateFilteredTips();
+                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+                updateRecyclerView(filteredTipsSet);
+
+            }
+        });
+
         filter3TextView = findViewById(R.id.tv_filter3);
+        filter3TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set<String> selectedCategories = new HashSet<>();
+                selectedCategories.add("Event Info");
+                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                isEventInfoSelected = !isEventInfoSelected;
+//                updateFilteredTips();
+                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+                updateRecyclerView(filteredTipsSet);
+            }
+        });
+
+        filter4TextView = findViewById(R.id.tv_filter4);
+        filter4TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set<String> selectedCategories = new HashSet<>();
+                selectedCategories.add("Others");
+                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                updateFilteredTips();
+                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+                updateRecyclerView(filteredTipsSet);
+            }
+        });
 
         // nanny share info textview
         nannyShareTextView = findViewById(R.id.nannyShareInfo);
@@ -197,13 +258,65 @@ public class HomeActivity extends AppCompatActivity {
         loadDataFromFirebase();
     }
 
+    /**
+     * 根据所选类别过滤tips列表,getFilter()方法来获取分类信息
+     * @param tipsList
+     * @param selectedCategories
+     * @return
+     */
+    private List<Tip> filterTipsByCategories(List<Tip> tipsList, Set<String> selectedCategories) {
+        List<Tip> filteredTips = new ArrayList<>();
+
+        for (Tip tip : tipsList) {
+            String[] tipCategories = tip.getFilter().split(" ");
+            for (String tipCategory : tipCategories) {
+                if (selectedCategories.contains(tipCategory)) {
+                    filteredTips.add(tip);
+                    break;
+                }
+            }
+        }
+        return filteredTips;
+    }
+
+
+    /**
+     * 根据所选过滤器更新RecyclerView
+     */
+    private void updateFilteredTips() {
+        Set<String> selectedCategories = new HashSet<>();
+        if (isPediatriciansSelected) {
+            selectedCategories.add("Pediatricians");
+        } else if (isDaycareSelected) {
+            selectedCategories.add("Daycare");
+        } else if (isEventInfoSelected) {
+            selectedCategories.add("Event Info");
+        } else {
+            selectedCategories.add("Others");
+        }
+
+        List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+        Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+        updateRecyclerView(filteredTipsSet);
+    }
+
+
+
+    private void updateRecyclerView(Set<Tip> filteredTips) {
+        List<Tip> filteredTipsList = new ArrayList<>(filteredTips);
+
+        CardViewAdapter adapter = new CardViewAdapter(this, filteredTipsList);
+        recyclerView.setAdapter(adapter);
+    }
+
+
     private void loadDataFromFirebase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("tips");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Tip> tipDataList = new ArrayList<>(); //initial tipDataList
+                List<Tip> tipDataList = new ArrayList<>();
                 for (DataSnapshot tipSnapshot : dataSnapshot.getChildren()) {
                     Tip tip = tipSnapshot.getValue(Tip.class);
                     tipDataList.add(tip);
@@ -254,7 +367,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * return to and refresh Home page, at the meantime keep user login.
+     * return to and refresh Home page, at the meantime keeping the user login.
      */
 
     private void refreshHomeActivity() {

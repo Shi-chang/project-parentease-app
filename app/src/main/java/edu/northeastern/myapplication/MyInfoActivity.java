@@ -98,6 +98,9 @@ public class MyInfoActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Refresh my info activity.
+     */
     private void refreshMyInfoActivity() {
         Intent intent = new Intent(this, MyInfoActivity.class);
         Bundle bundle = new Bundle();

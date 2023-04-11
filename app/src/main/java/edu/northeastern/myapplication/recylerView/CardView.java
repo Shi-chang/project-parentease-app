@@ -16,7 +16,6 @@ public class CardView extends AppCompatActivity {
     private List<Tip> tipDataList;
     RecyclerView recyclerView;
     CardViewAdapter adapter;
-    Tip tipData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,33 +28,11 @@ public class CardView extends AppCompatActivity {
 
         tipDataList = new ArrayList<>();
 
-
         adapter = new CardViewAdapter(this, tipDataList);
         recyclerView.setAdapter(adapter);
 
-//        loadTipsFromFirebase();
     }
 
-//    private void loadTipsFromFirebase() {
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("tips");
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                tipDataList.clear();
-//                for (DataSnapshot tipSnapshot : dataSnapshot.getChildren()) {
-//                    Tip tip = tipSnapshot.getValue(Tip.class);
-//                    tipDataList.add(tip);
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Handle error
-//            }
-//        });
-//    }
 }
 
 

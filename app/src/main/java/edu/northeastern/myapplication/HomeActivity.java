@@ -4,6 +4,7 @@ import edu.northeastern.myapplication.entity.Tip;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -72,6 +75,8 @@ public class HomeActivity extends AppCompatActivity {
     private boolean isPediatriciansSelected = false;
     private boolean isDaycareSelected = false;
     private boolean isEventInfoSelected = false;
+
+    private Set<String> selectedCategories = new HashSet<>();
 
 
     @SuppressLint("MissingInflatedId")
@@ -148,13 +153,14 @@ public class HomeActivity extends AppCompatActivity {
         filter1TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set<String> selectedCategories = new HashSet<>();
-                selectedCategories.add("Pediatricians");
-                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+                toggleFilterSelection(filter1TextView, selectedCategories, "Pediatricians");
 //                isPediatriciansSelected = !isPediatriciansSelected;
-//                updateFilteredTips();
-                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
-                updateRecyclerView(filteredTipsSet);
+//                updateFilteredTipsByCategories();
+//                Set<String> selectedCategories = new HashSet<>();
+//                selectedCategories.add("Pediatricians");
+//                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+//                updateRecyclerView(filteredTipsSet);
             }
         });
 
@@ -162,13 +168,14 @@ public class HomeActivity extends AppCompatActivity {
         filter2TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set<String> selectedCategories = new HashSet<>();
-                selectedCategories.add("Daycare");
-                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+                toggleFilterSelection(filter2TextView, selectedCategories, "Daycare");
 //                isDaycareSelected = !isDaycareSelected;
-//                updateFilteredTips();
-                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
-                updateRecyclerView(filteredTipsSet);
+//                updateFilteredTipsByCategories();
+//                Set<String> selectedCategories = new HashSet<>();
+//                selectedCategories.add("Daycare");
+//                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+//                updateRecyclerView(filteredTipsSet);
 
             }
         });
@@ -177,13 +184,14 @@ public class HomeActivity extends AppCompatActivity {
         filter3TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set<String> selectedCategories = new HashSet<>();
-                selectedCategories.add("Event Info");
-                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+                toggleFilterSelection(filter3TextView, selectedCategories, "Event Info");
 //                isEventInfoSelected = !isEventInfoSelected;
-//                updateFilteredTips();
-                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
-                updateRecyclerView(filteredTipsSet);
+//                updateFilteredTipsByCategories();
+//                Set<String> selectedCategories = new HashSet<>();
+//                selectedCategories.add("Event Info");
+//                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+//                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+//                updateRecyclerView(filteredTipsSet);
             }
         });
 
@@ -191,14 +199,17 @@ public class HomeActivity extends AppCompatActivity {
         filter4TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set<String> selectedCategories = new HashSet<>();
-                selectedCategories.add("Others");
-                List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
-//                updateFilteredTips();
-                Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
-                updateRecyclerView(filteredTipsSet);
+                // 清空选中的分类
+                selectedCategories.clear();
+                // 取消所有过滤器的选中状态
+                resetFilterSelection(filter1TextView);
+                resetFilterSelection(filter2TextView);
+                resetFilterSelection(filter3TextView);
+                // 更新过滤后的提示
+                updateFilteredTipsByCategories();
             }
         });
+
 
         // nanny share info textview
         nannyShareTextView = findViewById(R.id.nannyShareInfo);
@@ -258,6 +269,29 @@ public class HomeActivity extends AppCompatActivity {
         loadDataFromFirebase();
     }
 
+    @Deprecated
+    private void resetFilterSelection(TextView filterTextView) {
+        filterTextView.setBackgroundResource(R.drawable.filter_unselected);
+
+        filterTextView.setTextColor(getResources().getColor(R.color.filter_text_unselected));
+    }
+
+
+    private void toggleFilterSelection(TextView filterTextView, Set<String> selectedCategories, String category) {
+        if (selectedCategories.contains(category)) {
+            selectedCategories.remove(category);
+            filterTextView.setTextColor(Color.BLACK);
+        } else {
+            selectedCategories.add(category);
+            filterTextView.setTextColor(Color.BLUE);
+        }
+        List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
+        Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
+        updateRecyclerView(filteredTipsSet);
+    }
+
+
+
     /**
      * 根据所选类别过滤tips列表,getFilter()方法来获取分类信息
      * @param tipsList
@@ -267,38 +301,47 @@ public class HomeActivity extends AppCompatActivity {
     private List<Tip> filterTipsByCategories(List<Tip> tipsList, Set<String> selectedCategories) {
         List<Tip> filteredTips = new ArrayList<>();
 
+        Log.d("SelectedCategories", "Selected categories: " + selectedCategories.toString());
+
         for (Tip tip : tipsList) {
-            String[] tipCategories = tip.getFilter().split(" ");
-            for (String tipCategory : tipCategories) {
-                if (selectedCategories.contains(tipCategory)) {
-                    filteredTips.add(tip);
-                    break;
-                }
+            Log.d("TipFilter", "Tip: " + tip.getTitle() + ", Filter: " + tip.getFilter());
+            if (selectedCategories.contains(tip.getFilter())) {
+                filteredTips.add(tip);
             }
         }
+
+        Log.d("FilteredTips", "Filtered Tips: " + filteredTips.toString());
+
         return filteredTips;
     }
+
 
 
     /**
      * 根据所选过滤器更新RecyclerView
      */
-    private void updateFilteredTips() {
+    private void updateFilteredTipsByCategories() {
         Set<String> selectedCategories = new HashSet<>();
         if (isPediatriciansSelected) {
             selectedCategories.add("Pediatricians");
-        } else if (isDaycareSelected) {
+        }
+        if (isDaycareSelected) {
             selectedCategories.add("Daycare");
-        } else if (isEventInfoSelected) {
+        }
+        if (isEventInfoSelected) {
             selectedCategories.add("Event Info");
-        } else {
-            selectedCategories.add("Others");
+        }
+
+        if (selectedCategories.isEmpty()) {
+            updateRecyclerView(new HashSet<>(tipsList));
+            return;
         }
 
         List<Tip> filteredTips = filterTipsByCategories(tipsList, selectedCategories);
         Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
         updateRecyclerView(filteredTipsSet);
     }
+
 
 
 

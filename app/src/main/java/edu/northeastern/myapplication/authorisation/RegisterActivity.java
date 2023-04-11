@@ -3,9 +3,7 @@ package edu.northeastern.myapplication.authorisation;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,21 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
-import edu.northeastern.myapplication.HomeActivity;
 import edu.northeastern.myapplication.MainActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.UserDao;
@@ -44,8 +40,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
-    private String cityName;
+    private FirebaseMessaging firebaseMessaging;
     private FusedLocationProviderClient fusedLocationProviderClient;
+
+    private String cityName;
+    // The current phone's registration token oon FirebaseMessaging Service.
+    private String userToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,17 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         getUserLocationPermission();
+        firebaseMessaging = FirebaseMessaging.getInstance();
+        firebaseMessaging.getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    userToken = task.getResult();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Failed to get registration token", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         registerUsername = findViewById(R.id.registerUsername);
         registerEmail = findViewById(R.id.registerEmail);
@@ -112,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
 
-                    User user = new User(username, email, cityName, new ArrayList<>());
+                    User user = new User(username, email, cityName, new ArrayList<>(), userToken);
                     UserDao userDao = new UserDao();
                     userDao.create(mAuth.getUid(), user);
                     Toast.makeText(RegisterActivity.this, "You have registered successfully.", Toast.LENGTH_SHORT).show();

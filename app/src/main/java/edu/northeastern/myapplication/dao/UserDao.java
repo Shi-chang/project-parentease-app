@@ -12,6 +12,7 @@ import edu.northeastern.myapplication.entity.User;
 public class UserDao {
     private final String PATH_USERS = "users";
     private final String PATH_CITY = "city";
+    private final String PATH_USER_TOKEN = "userToken";
     private DatabaseReference databaseReference;
 
     /**
@@ -51,6 +52,19 @@ public class UserDao {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(cityName);
         return databaseReference.child(PATH_USERS).child(userId).child(PATH_CITY).setValue(cityName);
+    }
+
+    /**
+     * Updates the user's token.
+     *
+     * @param userId    the user's Id
+     * @param userToken the new user token
+     * @return a task
+     */
+    public Task<Void> updateUserToken(String userId, String userToken) {
+        Objects.requireNonNull(userId);
+        Objects.requireNonNull(userToken);
+        return databaseReference.child(PATH_USERS).child(userId).child(PATH_USER_TOKEN).setValue(userToken);
     }
 
     /**

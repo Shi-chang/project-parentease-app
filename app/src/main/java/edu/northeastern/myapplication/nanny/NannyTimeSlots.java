@@ -28,6 +28,7 @@ import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.TimeSlot;
+import edu.northeastern.myapplication.utils.Utils;
 
 /**
  * The available time slots activity.
@@ -139,35 +140,18 @@ public class NannyTimeSlots extends AppCompatActivity {
             // Removes time slots that are outdated.
             Date timeSlotDate = currentTimeSlot.getDate();
             Date today = new Date();
-            if (compareDates(timeSlotDate, today) < 0) {
+            if (Utils.compareDates(timeSlotDate, today) < 0) {
                 timeSlotList.remove(i);
                 continue;
             }
 
             // Updates the currently selected date's time slot check boxes.
-            if (compareDates(currentTimeSlot.getDate(), selectedDate) == 0) {
+            if (Utils.compareDates(currentTimeSlot.getDate(), selectedDate) == 0) {
                 setTimeSlotBoxChecked(currentTimeSlot.getStartTime());
-                if (currentTimeSlot.getClientAddress() != null && currentTimeSlot.getClientAddress().length() != 0) {
+                if (currentTimeSlot.getClientId() != null) {
                     setTimeSlotBoxBooked(currentTimeSlot.getStartTime());
                 }
             }
-        }
-    }
-
-    /**
-     * Compares two dates.
-     *
-     * @param date1 the first date
-     * @param date2 the second date
-     * @return 1, 0 or -1 if the first date is greater than, equal to, or smaller than the second date
-     */
-    private int compareDates(Date date1, Date date2) {
-        if (date1.getYear() >= date2.getYear() && date2.getMonth() >= date2.getMonth() && date1.getDate() > date2.getDate()) {
-            return 1;
-        } else if (date1.getYear() == date2.getYear() && date2.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate()) {
-            return 0;
-        } else {
-            return -1;
         }
     }
 
@@ -201,8 +185,6 @@ public class NannyTimeSlots extends AppCompatActivity {
                 break;
             case 15:
                 checkBox8.setChecked(true);
-                break;
-            default:
                 break;
         }
     }
@@ -332,7 +314,7 @@ public class NannyTimeSlots extends AppCompatActivity {
             timeSlots = new ArrayList<>();
         }
 
-        TimeSlot newTimeSlot = new TimeSlot(selectedDate, startTime, null, null);
+        TimeSlot newTimeSlot = new TimeSlot(selectedDate, startTime, null, null, null);
         timeSlots.add(newTimeSlot);
         nanny.setAvailability(timeSlots);
     }
@@ -350,7 +332,7 @@ public class NannyTimeSlots extends AppCompatActivity {
 
         for (int i = 0; i < timeSlots.size(); i++) {
             TimeSlot currentTimeSlot = timeSlots.get(i);
-            if (compareDates(currentTimeSlot.getDate(), selectedDate) == 0 && currentTimeSlot.getStartTime() == startTime) {
+            if (Utils.compareDates(currentTimeSlot.getDate(), selectedDate) == 0 && currentTimeSlot.getStartTime() == startTime) {
                 timeSlots.remove(i);
             }
         }

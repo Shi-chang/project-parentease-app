@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,14 +37,14 @@ import edu.northeastern.myapplication.entity.User;
  * The NannyInformation activity.
  */
 public class NannyInformation extends AppCompatActivity {
-    private TextView nannyNameTv2;
-    private TextView locationTv2;
+    private TextView nannyNameTv;
+    private TextView locationTv;
     private TextView ratingsTv1;
     private TextView yoePt;
     private Spinner genderSpinner;
     TextView hourlyRatePt;
-    private TextView introductionTv2;
-    CalendarView calendarView2;
+    private TextView introductionTv;
+    MaterialCalendarView calendarView;
 
     FirebaseAuth mAuth;
 
@@ -72,14 +76,14 @@ public class NannyInformation extends AppCompatActivity {
         setContentView(R.layout.activity_nanny_information);
 
         // Binds the widgets.
-        nannyNameTv2 = findViewById(R.id.nannyNameTv2);
-        locationTv2 = findViewById(R.id.locationTv2);
+        nannyNameTv = findViewById(R.id.nannyNameTv);
+        locationTv = findViewById(R.id.locationTv);
         ratingsTv1 = findViewById(R.id.ratingsTv1);
         yoePt = findViewById(R.id.yoePt);
         genderSpinner = findViewById(R.id.genderSpinner);
         hourlyRatePt = findViewById(R.id.hourlyRatePt);
-        introductionTv2 = findViewById(R.id.introductionTv2);
-        calendarView2 = findViewById(R.id.calendarView2);
+        introductionTv = findViewById(R.id.introductionTv);
+        calendarView = findViewById(R.id.calendarView);
 
         user = getIntent().getExtras().getParcelable("user");
         mAuth = FirebaseAuth.getInstance();
@@ -96,14 +100,14 @@ public class NannyInformation extends AppCompatActivity {
                         yoePt.setText(String.valueOf(nanny.getYoe()));
                         genderSpinner.setSelection(getGenderPosition(nanny.getGender()));
                         hourlyRatePt.setText(String.valueOf(nanny.getHourlyRate()));
-                        introductionTv2.setText(String.valueOf(nanny.getIntroduction()));
+                        introductionTv.setText(String.valueOf(nanny.getIntroduction()));
                     }
                 }
             }
         });
 
-        nannyNameTv2.setText(user.getUsername());
-        locationTv2.setText(user.getCity());
+        nannyNameTv.setText(user.getUsername());
+        locationTv.setText(user.getCity());
         genderList = new ArrayList<>();
         List<String> genderStringsList = Arrays.asList("Select", "Female", "Male", "Non-binary", "Not declared");
         genderList.addAll(genderStringsList);
@@ -126,15 +130,32 @@ public class NannyInformation extends AppCompatActivity {
         });
 
         // Sets the dates starting from today to 7 days from now selectable.
-        calendarView2.setMinDate(System.currentTimeMillis() - 1000);
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 7);
-        long maxDate = calendar.getTimeInMillis();
-        calendarView2.setMaxDate(maxDate);
-        calendarView2.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        Calendar oneDayFromNow = Calendar.getInstance();
+        oneDayFromNow.add(Calendar.DATE, 1);
+        CalendarDay minDate = CalendarDay.from(oneDayFromNow);
+        Calendar oneWeekFromNow = Calendar.getInstance();
+        oneWeekFromNow.add(Calendar.DATE, 7);
+        CalendarDay maxDate = CalendarDay.from(oneWeekFromNow);
+        calendarView.setSelectedDate(CalendarDay.today());
+        calendarView.addDecorator(new DayViewDecorator() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                handleDateSelected(year, month, dayOfMonth);
+            public boolean shouldDecorate(CalendarDay day) {
+                if (day.isBefore(minDate) || day.isAfter(maxDate)) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void decorate(DayViewFacade view) {
+                view.setDaysDisabled(true);
+            }
+        });
+
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                handleDateSelected(date.getYear(), date.getMonth(), date.getDay());
             }
         });
     }
@@ -222,7 +243,7 @@ public class NannyInformation extends AppCompatActivity {
             return false;
         }
 
-        introduction = introductionTv2.getText().toString();
+        introduction = introductionTv.getText().toString();
 
         if (introduction.length() == 0 || introduction.split(" ").length <= 5) {
             Toast.makeText(this, "Introduction should have more 5 words.", Toast.LENGTH_SHORT).show();

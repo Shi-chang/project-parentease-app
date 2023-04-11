@@ -34,26 +34,26 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
-    <CalendarView
-        android:id="@+id/calendarView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/introductionTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/introductionTv" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         android:text="Click the date to select"
-        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintBottom_toBottomOf="@+id/calendarView"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <TextView
-        android:id="@+id/nannyNameTv2"
+        android:id="@+id/nannyNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
@@ -70,17 +70,17 @@
         android:text="City: "
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv" />
 
     <TextView
-        android:id="@+id/locationTv2"
+        android:id="@+id/locationTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Vancouver"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/locationLabelTv2"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv" />
 
     <TextView
         android:id="@+id/yoeLabel2"
@@ -90,10 +90,10 @@
         android:text="YOE: "
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/yoePt"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv" />
 
     <EditText
-        android:id="@+id/introductionTv2"
+        android:id="@+id/introductionTv"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
@@ -118,7 +118,7 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv" />
 
     <TextView
         android:id="@+id/textView3"
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/locationTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/locationTv" />
 
     <TextView
         android:id="@+id/hourlyRateTv"
@@ -169,8 +169,8 @@
         android:layout_marginTop="10dp"
         android:text="Ratings: "
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/locationTv2"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+        app:layout_constraintStart_toEndOf="@+id/locationTv"
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv" />
 
     <TextView
         android:id="@+id/ratingsTv1"
@@ -181,6 +181,6 @@
         android:text="0.0"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv2" />
+        app:layout_constraintTop_toBottomOf="@+id/nannyNameTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,6 +41,7 @@ import edu.northeastern.myapplication.dao.TipsDao;
 import edu.northeastern.myapplication.dao.UserDao;
 import edu.northeastern.myapplication.entity.Tip;
 import edu.northeastern.myapplication.entity.User;
+import edu.northeastern.myapplication.nanny.NannyshareMain;
 
 /**
  * The Add Tip activity of this app.
@@ -110,6 +111,16 @@ public class AddTipActivity extends AppCompatActivity {
         });
 
         nannyShareImageView = findViewById(R.id.nannyImageView);
+        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddTipActivity.this, NannyshareMain.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         tipsShareImageView = findViewById(R.id.tipsImageView);
         tipsShareImageView.setOnClickListener(new View.OnClickListener() {

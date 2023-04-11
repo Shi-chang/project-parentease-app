@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyInformation;
+import edu.northeastern.myapplication.nanny.NannyshareMain;
 import edu.northeastern.myapplication.tip.AddTipActivity;
 
 /**
@@ -72,6 +73,16 @@ public class PostActivity extends AppCompatActivity {
         });
 
         nannyShareImageView = findViewById(R.id.nannyImageView);
+        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, NannyshareMain.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         tipsShareImageView = findViewById(R.id.tipsImageView);
         tipsShareImageView.setOnClickListener(new View.OnClickListener() {

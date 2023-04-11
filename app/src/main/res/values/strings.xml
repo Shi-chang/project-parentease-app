@@ -23,4 +23,7 @@
     <string name="add_a_comment">Add a comment</string>
     <string name="addComment">Add</string>
     <string name="tip_from">Tip From:</string>
+    <string name="channel_name">ParentEaseChannelName</string>
+    <string name="channel_description">ParentEaseChannelDescription</string>
+    <string name="channel_id">ParentEaseChannelId</string>
 </resources>

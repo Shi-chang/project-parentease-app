@@ -59,11 +59,11 @@
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/user_name"
+        android:text="@string/tip_from"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
-        app:layout_constraintStart_toStartOf="@+id/guideline10" />
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/pictureImageView"
@@ -71,7 +71,6 @@
         android:layout_height="130dp"
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline1"
         tools:srcCompat="@tools:sample/avatars" />
@@ -82,15 +81,14 @@
         android:layout_height="wrap_content"
         android:text="@string/title"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
         android:id="@+id/contentTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="325dp"
+        android:layout_height="145dp"
         android:text="@string/content"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -98,8 +96,8 @@
 
     <EditText
         android:id="@+id/inputCommentTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="245dp"
+        android:layout_height="60dp"
         android:autofillHints=""
         android:hint="@string/add_a_comment"
         android:minHeight="48dp"
@@ -107,13 +105,15 @@
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-    <ImageView
-        android:id="@+id/addCommentImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/addCommentButton"
+        android:layout_width="74dp"
+        android:layout_height="48dp"
+        android:text="@string/addComment"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/commentRecyclerView"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
@@ -125,6 +125,44 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
+
+    <ImageView
+        android:id="@+id/browseImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:srcCompat="@drawable/ic_baseline_home_24" />
+
+    <ImageView
+        android:id="@+id/nannyImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/browseImageView"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />
+
+    <ImageView
+        android:id="@+id/tipsImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/myAccountImageView"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+
+    <ImageView
+        android:id="@+id/myAccountImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

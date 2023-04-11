@@ -263,7 +263,7 @@ public class AddTipActivity extends AppCompatActivity {
         if (eventInfoCheckBox.isChecked()) {
             filter += "Event Info ";
         }
-        filter.trim();
+        filter = filter.trim();
         if (filter.equals("")) {
             filter += "Others";
         }
@@ -303,6 +303,9 @@ public class AddTipActivity extends AppCompatActivity {
                 Toast.makeText(AddTipActivity.this, "Add Tip successfully.", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(AddTipActivity.this, HomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

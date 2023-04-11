@@ -105,6 +105,9 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Refresh post activity.
+     */
     private void refreshPostActivity() {
         Intent intent = new Intent(this, PostActivity.class);
         Bundle bundle = new Bundle();

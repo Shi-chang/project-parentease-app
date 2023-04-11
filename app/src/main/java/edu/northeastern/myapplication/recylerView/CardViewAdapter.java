@@ -2,7 +2,11 @@ package edu.northeastern.myapplication.recylerView;
 
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.entity.Tip;
+import edu.northeastern.myapplication.tip.SingleTipActivity;
+
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +23,7 @@ import java.util.List;
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
 
     private Context context;
-    private List<Tip> tipDataList;
+    private static List<Tip> tipDataList;
 
     public CardViewAdapter(Context context, List<Tip> tipDataList) {
         this.context = context;
@@ -52,6 +56,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         public ImageView image;
         public TextView title;
         public TextView username;
+        public View cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,6 +64,24 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             image = itemView.findViewById(R.id.imageView);
             title = itemView.findViewById(R.id.titleView);
             username = itemView.findViewById(R.id.usernameView);
+            cardView = itemView.findViewById(R.id.cardView);
+
+            // Set an OnClickListener on the card view
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the position of the clicked item
+                    int position = getAdapterPosition();
+                    // Get the data at the clicked position
+                    Tip tip = tipDataList.get(position);
+                    // Start the new activity
+                    Intent intent = new Intent(v.getContext(), SingleTipActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("tip", tip);
+                    intent.putExtras(bundle);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

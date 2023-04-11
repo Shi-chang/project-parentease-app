@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CalendarViewCustomStyle">
+        <item name="android:backgroundTint">@color/mint_green</item>
+    </style>
+</resources>

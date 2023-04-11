@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import edu.northeastern.myapplication.HomeActivity;
+import edu.northeastern.myapplication.MyInfoActivity;
+import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.TipsDao;
 import edu.northeastern.myapplication.dao.UserDao;
@@ -57,6 +61,11 @@ public class AddTipActivity extends AppCompatActivity {
     String downloadUrl;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private ImageView browseImageView;
+    private ImageView nannyShareImageView;
+    private ImageView tipsShareImageView;
+    private ImageView myAccountImageView;
+    private User user;
 
 
     /**
@@ -66,6 +75,7 @@ public class AddTipActivity extends AppCompatActivity {
      *                           previously being shut down then this Bundle contains the data it most
      *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
      */
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +84,8 @@ public class AddTipActivity extends AppCompatActivity {
         getLoadImagePermission();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        user = getIntent().getExtras().getParcelable("user");
 
         addPictureButton = findViewById(R.id.addPictureButton);
         addPictureImageView = findViewById(R.id.addPictureImageView);
@@ -84,6 +96,45 @@ public class AddTipActivity extends AppCompatActivity {
         eventInfoCheckBox = findViewById(R.id.eventInfoCheckBox);
         postButton = findViewById(R.id.postButton);
         storage = FirebaseStorage.getInstance();
+
+        browseImageView = findViewById(R.id.browseImageView);
+        browseImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddTipActivity.this, HomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        nannyShareImageView = findViewById(R.id.nannyImageView);
+
+        tipsShareImageView = findViewById(R.id.tipsImageView);
+        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddTipActivity.this, PostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        myAccountImageView = findViewById(R.id.myAccountImageView);
+        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddTipActivity.this, MyInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
@@ -96,6 +147,16 @@ public class AddTipActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Get the permission request result.
+     *
+     * @param requestCode The request code passed in the method
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     *
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -119,6 +180,13 @@ public class AddTipActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    /**
+     * Select the image and get the result.
+     *
+     * @param requestCode the request code
+     * @param resultCode the result code
+     * @param data the data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -144,14 +212,11 @@ public class AddTipActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 // Get the URL as a string
                                 downloadUrl = uri.toString();
-                                System.out.println("URL  -----------  " + downloadUrl);
-                                // Do something with the URL (e.g., save it to a database)
                             }
                         });
                     } else {
                         // Handle the error
                         Exception exception = task.getException();
-                        // ...
                     }
                 }
             });
@@ -189,7 +254,7 @@ public class AddTipActivity extends AppCompatActivity {
         }
         filter.trim();
         if (filter.equals("")) {
-            filter += "Other";
+            filter += "Others";
         }
         // get tipId
         UUID uuid = UUID.randomUUID();
@@ -197,12 +262,9 @@ public class AddTipActivity extends AppCompatActivity {
         // get the current user Id
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getUid();
-        System.out.println(userId);
-        // get the urL
-
         // create a tip
         Tip tip = new Tip(tipId, userId, title, downloadUrl, content, filter);
-
+        // post the tip to firebase
         mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -228,6 +290,9 @@ public class AddTipActivity extends AppCompatActivity {
                 tipsDao.create(tipId, tip);
 
                 Toast.makeText(AddTipActivity.this, "Add Tip successfully.", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(AddTipActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
     }

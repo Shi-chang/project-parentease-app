@@ -78,7 +78,6 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline1"
         tools:srcCompat="@tools:sample/avatars" />
@@ -146,5 +145,43 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <ImageView
+        android:id="@+id/browseImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:srcCompat="@drawable/ic_baseline_home_24" />
+
+    <ImageView
+        android:id="@+id/nannyImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/browseImageView"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />
+
+    <ImageView
+        android:id="@+id/tipsImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/myAccountImageView"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+
+    <ImageView
+        android:id="@+id/myAccountImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

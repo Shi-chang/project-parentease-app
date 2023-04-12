@@ -1,6 +1,7 @@
 package edu.northeastern.myapplication;
 
 import edu.northeastern.myapplication.entity.Tip;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +39,9 @@ import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyshareMain;
 import edu.northeastern.myapplication.recylerView.CardViewAdapter;
 
+/**
+ * The HomeActivity class.
+ */
 public class HomeActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout;
@@ -73,7 +75,6 @@ public class HomeActivity extends AppCompatActivity {
     private boolean isDaycareSelected = false;
     private boolean isEventInfoSelected = false;
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
 
         // pass the Open and Close toggle for the drawer layout listener to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -260,6 +260,7 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * 根据所选类别过滤tips列表,getFilter()方法来获取分类信息
+     *
      * @param tipsList
      * @param selectedCategories
      * @return
@@ -300,8 +301,6 @@ public class HomeActivity extends AppCompatActivity {
         updateRecyclerView(filteredTipsSet);
     }
 
-
-
     private void updateRecyclerView(Set<Tip> filteredTips) {
         List<Tip> filteredTipsList = new ArrayList<>(filteredTips);
 
@@ -309,10 +308,8 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-
     private void loadDataFromFirebase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("tips");
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -320,8 +317,10 @@ public class HomeActivity extends AppCompatActivity {
                     Tip tip = tipSnapshot.getValue(Tip.class);
                     tipsList.add(tip);
                 }
+
                 adapter.setTipDataList(tipsList);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
@@ -332,7 +331,6 @@ public class HomeActivity extends AppCompatActivity {
     private void setRecycler() {
         adapter = new CardViewAdapter(this, tipsList);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        //每行两个瀑布流排列
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -354,9 +352,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * Logout in drawer
+     * Logout in drawer.
      */
-
     private void logout() {
         // Perform any necessary cleanup, such as clearing user data
         // Redirect the user to the login screen
@@ -366,9 +363,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * return to and refresh Home page, at the meantime keeping the user login.
+     * Return to and refresh Home page, at the meantime keeping the user login.
      */
-
     private void refreshHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle bundle = new Bundle();
@@ -377,7 +373,4 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-
 }

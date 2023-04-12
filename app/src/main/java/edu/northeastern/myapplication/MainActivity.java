@@ -58,16 +58,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+        // Gets user location permission.
         getUserLocationPermission();
+
+        // Gets the user's registration token in FirebaseMessaging.
         firebaseMessaging = FirebaseMessaging.getInstance();
         firebaseMessaging.getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     userToken = task.getResult();
-                } else {
-                    Toast.makeText(MainActivity.this, "Failed to get registration token", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                Toast.makeText(MainActivity.this, "Failed to get registration token", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -75,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
         login_password = findViewById(R.id.loginPassword);
         btn_login = findViewById(R.id.loginBtn);
         btn_register = findViewById(R.id.goToRegisterBtn);
-
-        mAuth = FirebaseAuth.getInstance();
 
         btn_login.setOnClickListener(v -> {
             String email = login_email.getText().toString().trim();
@@ -107,34 +111,34 @@ public class MainActivity extends AppCompatActivity {
 
             // Signs in the user with the email and password.
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-
-                    String userId = mAuth.getUid();
-                    // Updates the user's city name.
-                    UserDao userDao = new UserDao();
-                    if (cityName != null) {
-                        userDao.updateCity(userId, cityName);
-                    }
-
-                    // Updates the user's token.
-                    if (userToken != null) {
-                        userDao.updateUserToken(userId, userToken);
-                    }
-
-                    userDao.findUserById(userId).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            User user = task.getResult().getValue(User.class);
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("user", user);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        }
-                    });
-
+                if (!task.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Login failed. Try again.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                String userId = mAuth.getUid();
+                // Updates the user's city name.
+                UserDao userDao = new UserDao();
+                if (cityName != null) {
+                    userDao.updateCity(userId, cityName);
+                }
+
+                // Updates the user's token.
+                if (userToken != null) {
+                    userDao.updateUserToken(userId, userToken);
+                }
+
+                userDao.findUserById(userId).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        User user = task.getResult().getValue(User.class);
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("user", user);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
 
                 if (task.getException() != null && task.getException() instanceof FirebaseAuthInvalidUserException) {
                     Toast.makeText(this, "No registration found with the email. Please register.", Toast.LENGTH_SHORT).show();
@@ -204,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             cityName = Utils.getCityName(MainActivity.this, location);
-            System.out.println("city name: " + cityName);
         });
     }
 }

@@ -37,6 +37,7 @@ public class NannyshareSingle extends AppCompatActivity {
 
         currentUser = getIntent().getExtras().getParcelable("user");
         currentNanny = getIntent().getExtras().getParcelable("nanny");
+        System.out.println("hihihi rceived: " + currentNanny.toString());
 
         String name = currentNanny.getUsername();
         System.out.println("NannyshareSingle username: "+name);
@@ -73,6 +74,7 @@ public class NannyshareSingle extends AppCompatActivity {
                 Bundle nannyBundle = new Bundle();
                 nannyBundle.putParcelable("nanny", currentNanny);
                 intent.putExtras(nannyBundle);
+
 
                 startActivity(intent);
             }

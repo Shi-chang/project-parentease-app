@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 public class Tip implements Parcelable {
     private String tipId;
     private String userId;
+    private String userName;
     private String title;
     private String pictureUrl;
     private String content;
@@ -20,9 +21,10 @@ public class Tip implements Parcelable {
     public Tip() {
     }
 
-    public Tip(String tipId, String userId, String title, String pictureUrl, String content, String filter) {
+    public Tip(String tipId, String userId, String userName, String title, String pictureUrl, String content, String filter) {
         this.tipId = tipId;
         this.userId = userId;
+        this.userName = userName;
         this.title = title;
         this.pictureUrl = pictureUrl;
         this.content = content;
@@ -32,6 +34,7 @@ public class Tip implements Parcelable {
     protected Tip(Parcel in) {
         tipId = in.readString();
         userId = in.readString();
+        userName = in.readString();
         title = in.readString();
         pictureUrl = in.readString();
         content = in.readString();
@@ -57,6 +60,7 @@ public class Tip implements Parcelable {
     public String getUserId() {
         return userId;
     }
+    public String getUserName() { return userName; }
 
     public String getTitle() {
         return title;
@@ -83,6 +87,7 @@ public class Tip implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(tipId);
         dest.writeString(userId);
+        dest.writeString(userName);
         dest.writeString(title);
         dest.writeString(pictureUrl);
         dest.writeString(content);

@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import edu.northeastern.myapplication.MainActivity;
 import edu.northeastern.myapplication.R;
 
 /**
@@ -31,13 +32,6 @@ public class MessagingService extends FirebaseMessagingService {
     @Override
     public void onCreate() {
         super.onCreate();
-    }
-
-    @Override
-    public void onNewToken(String token) {
-        super.onNewToken(token);
-        // Save the new token to a database or send it to your server
-
     }
 
     /**
@@ -68,7 +62,8 @@ public class MessagingService extends FirebaseMessagingService {
      * @param remoteMessageNotification remote message notification
      */
     private void sendNotification(RemoteMessage.Notification remoteMessageNotification) {
-        Intent intent = new Intent(this, SingleTipActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         // Create the intent that will be launched when the user clicks the notification
@@ -92,6 +87,5 @@ public class MessagingService extends FirebaseMessagingService {
                 .build();
         notificationManager.notify(0, notification);
     }
-
 
 }

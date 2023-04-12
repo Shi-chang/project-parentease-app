@@ -122,13 +122,16 @@ public class Nanny implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(nannyId);
-        parcel.writeString(username);
         parcel.writeInt(yoe);
         parcel.writeString(gender);
         parcel.writeInt(hourlyRate);
-        //TODO ADD TIMESLOT
         parcel.writeFloat(ratings);
         parcel.writeString(introduction);
+        parcel.writeString(username);
         parcel.writeString(city);
+
+
+        //TODO ADD TIMESLOT
+
     }
 }

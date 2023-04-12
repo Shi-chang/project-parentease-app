@@ -13,18 +13,21 @@ import edu.northeastern.myapplication.MyInfoActivity;
 import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
+import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.User;
 
 public class NannyshareSingle extends AppCompatActivity {
     private TextView tv_name;
     private TextView tv_reviewScore;
+    private TextView tv_yoe;
+    private TextView tv_city;
     private ImageView myAccountImageView;
     private ImageView nannyShareImageView;
     private ImageView tipsShareImageView;
     private Button btn_availability;
     private Button btn_postReview;
     private User currentUser;
-    private Nanny_old currentNanny;
+    private Nanny currentNanny;
 
 
     @Override
@@ -35,15 +38,27 @@ public class NannyshareSingle extends AppCompatActivity {
         currentUser = getIntent().getExtras().getParcelable("user");
         currentNanny = getIntent().getExtras().getParcelable("nanny");
 
-        String name = currentNanny.getName();
-        Double reviewScore = currentNanny.getReviewScore();
+        String name = currentNanny.getUsername();
+        System.out.println("NannyshareSingle username: "+name);
+        Float reviewScore = currentNanny.getRatings();
+        Integer yoe = currentNanny.getYoe();
+        String city = currentNanny.getCity();
+        System.out.println("NannyshareSingle city: "+city);
 
         tv_name = findViewById(R.id.tv_nanny_name);
-        tv_name.setText(name);
+        tv_name.setText("Name: " + name);
 
-        // USE THIS FORMAT for star: android:text="★ 0.00"
+        //ratings: USE THIS FORMAT for star: android:text="★ 0.00"
         tv_reviewScore = findViewById(R.id.tv_star);
         tv_reviewScore.setText("★ "+ reviewScore.toString());
+
+        //yoe
+        tv_yoe = findViewById(R.id.tv_nannyYOE);
+        tv_yoe.setText("YOE: " + yoe);
+
+        //city
+        tv_city = findViewById(R.id.tv_nannyLocation);
+        tv_city.setText("City: " + city);
 
         //button link to check availability
         btn_availability = findViewById(R.id.btn_book);

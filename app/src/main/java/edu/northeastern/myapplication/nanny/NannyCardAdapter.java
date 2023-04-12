@@ -75,7 +75,9 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
 
         void setDetails(Nanny nanny){
             //TODO
+            tv_name.setText(nanny.getUsername());
             tv_yoe.setText("YOE: "+ String.valueOf(nanny.getYoe()));
+            tv_location.setText("City: " + nanny.getCity());
         }
     }
 }

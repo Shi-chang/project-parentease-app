@@ -68,7 +68,6 @@ public class AddTipActivity extends AppCompatActivity {
     private ImageView myAccountImageView;
     private User user;
 
-
     /**
      * Called when the Add Tip activity is starting.
      *
@@ -145,7 +144,6 @@ public class AddTipActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     /**

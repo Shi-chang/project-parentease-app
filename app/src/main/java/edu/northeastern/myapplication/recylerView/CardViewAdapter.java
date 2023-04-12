@@ -42,7 +42,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Tip currentTip = tipDataList.get(position);
         holder.title.setText(currentTip.getTitle());
-        holder.username.setText(currentTip.getUserId());
+        holder.username.setText(currentTip.getTipId());
         String imageUrl = currentTip.getPictureUrl().toString();
 
         Glide.with(context)

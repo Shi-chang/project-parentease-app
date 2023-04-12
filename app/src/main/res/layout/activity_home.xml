@@ -22,10 +22,9 @@
             android:layout_height="wrap_content"
             android:text="Good Morning, "
             android:textSize="18sp"
-            android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toTopOf="@id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline2" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -45,72 +44,47 @@
             android:id="@+id/username_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="196dp"
+            android:layout_marginStart="3dp"
             android:text="Username"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline2"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/greet_tv"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <EditText
             android:id="@+id/search_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:autofillHints=""
             android:ems="10"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         <ImageButton
             android:id="@+id/searchBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:minHeight="48dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintStart_toEndOf="@+id/search_tv"
-            app:layout_constraintTop_toBottomOf="@+id/guideline"
-            app:srcCompat="?android:attr/actionModeWebSearchDrawable"/>
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.14" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.23" />
+            app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.31" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
+            app:layout_constraintGuide_percent="0.2" />
 
 
         <TextView
@@ -119,77 +93,59 @@
             android:layout_height="wrap_content"
             android:text="Pediatricians"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_filter2"
-            app:layout_constraintTop_toBottomOf="@id/guideline3"
-            app:layout_constraintBottom_toTopOf="@id/guideline4" />
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <TextView
             android:id="@+id/tv_filter2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
             android:text="Daycare"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/tv_filter1"
-            app:layout_constraintEnd_toStartOf="@+id/tv_filter3"
-            app:layout_constraintTop_toBottomOf="@id/guideline3"
-            app:layout_constraintBottom_toTopOf="@id/guideline4" />
+            app:layout_constraintStart_toEndOf="@+id/tv_filter1"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <TextView
             android:id="@+id/tv_filter3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
             android:text="Event Info"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/tv_filter2"
-            app:layout_constraintEnd_toStartOf="@id/tv_filter4"
-            app:layout_constraintTop_toBottomOf="@id/guideline3"
-            app:layout_constraintBottom_toTopOf="@id/guideline4" />
+            app:layout_constraintStart_toEndOf="@+id/tv_filter2"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <TextView
             android:id="@+id/tv_filter4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
             android:text="Others"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/tv_filter3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline3"
-            app:layout_constraintBottom_toTopOf="@id/guideline4" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter3"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
-        <TextView
-            android:id="@+id/nannyShareInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="nanny share info"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline4"
-            app:layout_constraintBottom_toTopOf="@id/guideline5"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="401dp"
-            android:layout_height="375dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.437"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline12"
-            app:layout_constraintVertical_bias="0.441" />
-        
+            android:layout_width="match_parent"
+            android:layout_height="446dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toBottomOf="@+id/btn_myTips"
+            app:layout_constraintVertical_bias="0.6" />
 
         <include
             android:id="@+id/bottom_navigation"
             layout="@layout/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline7"
+            tools:layout_editor_absoluteX="-16dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
@@ -203,20 +159,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Tips"
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
-            app:layout_constraintEnd_toStartOf="@+id/btn_myTips"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline5" />
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <Button
             android:id="@+id/btn_myTips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
             android:text="My Tips"
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_allTips"
-            app:layout_constraintTop_toBottomOf="@id/guideline5" />
+            app:layout_constraintStart_toEndOf="@+id/btn_allTips"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:text="My Booking"
+            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintStart_toEndOf="@+id/btn_myTips"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.02" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.98" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

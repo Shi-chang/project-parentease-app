@@ -78,7 +78,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private Set<String> selectedCategories = new HashSet<>();
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
 
         // pass the Open and Close toggle for the drawer layout listener to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -210,7 +208,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
         // nanny share info textview
         nannyShareTextView = findViewById(R.id.nannyShareInfo);
 
@@ -276,7 +273,6 @@ public class HomeActivity extends AppCompatActivity {
         filterTextView.setTextColor(getResources().getColor(R.color.filter_text_unselected));
     }
 
-
     private void toggleFilterSelection(TextView filterTextView, Set<String> selectedCategories, String category) {
         if (selectedCategories.contains(category)) {
             selectedCategories.remove(category);
@@ -289,8 +285,6 @@ public class HomeActivity extends AppCompatActivity {
         Set<Tip> filteredTipsSet = new HashSet<>(filteredTips);
         updateRecyclerView(filteredTipsSet);
     }
-
-
 
     /**
      * 根据所选类别过滤tips列表,getFilter()方法来获取分类信息
@@ -314,8 +308,6 @@ public class HomeActivity extends AppCompatActivity {
 
         return filteredTips;
     }
-
-
 
     /**
      * 根据所选过滤器更新RecyclerView
@@ -342,16 +334,11 @@ public class HomeActivity extends AppCompatActivity {
         updateRecyclerView(filteredTipsSet);
     }
 
-
-
-
     private void updateRecyclerView(Set<Tip> filteredTips) {
         List<Tip> filteredTipsList = new ArrayList<>(filteredTips);
-
         CardViewAdapter adapter = new CardViewAdapter(this, filteredTipsList);
         recyclerView.setAdapter(adapter);
     }
-
 
     private void loadDataFromFirebase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("tips");
@@ -420,7 +407,4 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-
 }

@@ -11,6 +11,7 @@ import java.util.List;
  * The user class.
  */
 public class User implements Parcelable {
+    private String userId;
     private String username;
     private String email;
     private String city;
@@ -20,7 +21,8 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public User(String username, String email, String city, List<Tip> tips, String userToken) {
+    public User(String userId, String username, String email, String city, List<Tip> tips, String userToken) {
+        this.userId = userId;
         this.username = username;
         this.email = email;
         this.city = city;
@@ -29,6 +31,7 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
+        userId = in.readString();
         username = in.readString();
         email = in.readString();
         city = in.readString();
@@ -47,6 +50,10 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public String getUserId() {
+        return userId;
+    }
 
     public String getUsername() {
         return username;
@@ -79,6 +86,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(userId);
         dest.writeString(username);
         dest.writeString(email);
         dest.writeString(city);
@@ -89,7 +97,8 @@ public class User implements Parcelable {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", city='" + city + '\'' +
                 ", tips=" + tips +

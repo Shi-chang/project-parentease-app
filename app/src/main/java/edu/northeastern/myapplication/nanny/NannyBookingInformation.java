@@ -99,7 +99,7 @@ public class NannyBookingInformation extends AppCompatActivity {
 
         // Gets the nanny from the database.
         nannyDao = new NannyDao();
-        nannyId = "kEmagDcBv7PcAWgoLVg2swHJy3G3";
+        nannyId = mAuth.getUid();// temporary
         nannyDao.findNannyById(nannyId).addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Toast.makeText(NannyBookingInformation.this, "Cannot find the nanny.", Toast.LENGTH_SHORT).show();

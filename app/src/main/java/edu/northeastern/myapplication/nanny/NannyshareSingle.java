@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.northeastern.myapplication.MyInfoActivity;
-import edu.northeastern.myapplication.Nanny;
+import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.entity.User;
@@ -24,7 +24,7 @@ public class NannyshareSingle extends AppCompatActivity {
     private Button btn_availability;
     private Button btn_postReview;
     private User currentUser;
-    private Nanny currentNanny;
+    private Nanny_old currentNanny;
 
 
     @Override

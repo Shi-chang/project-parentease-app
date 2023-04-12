@@ -1,5 +1,6 @@
 package edu.northeastern.myapplication.nanny;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,13 +10,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import edu.northeastern.myapplication.MyInfoActivity;
-import edu.northeastern.myapplication.Nanny;
+import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.RecyclerViewInterface;
+import edu.northeastern.myapplication.dao.NannyDao;
+import edu.northeastern.myapplication.dao.UserDao;
+import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.User;
 
 public class NannyshareMain extends AppCompatActivity implements RecyclerViewInterface {
@@ -26,6 +37,18 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private ImageView tipsShareImageView;
     private ImageView myAccountImageView;
     private User currentUser;
+
+    private NannyDao nannyDao;
+    private UserDao userDao;
+    private User user;
+    String nannyId;
+    private edu.northeastern.myapplication.entity.Nanny nanny;
+    private int yoe;
+    private String gender;
+    private int hourlyRate;
+    private float ratings;
+    private String introduction;
+    FirebaseAuth mAuth;
 
 
     @Override
@@ -68,43 +91,35 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         nannyArrayList = new ArrayList<Nanny>();
         //TODO:loadDataFromFirebase();
+        // Gets the nanny from the database.
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("nannies");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot nannySnapshot : dataSnapshot.getChildren()) {
+                    Nanny nanny = nannySnapshot.getValue(Nanny.class);
+                    nannyArrayList.add(nanny);
+                    System.out.println(nanny.toString());
+                    adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
 
-        adapter = new NannyCardAdapter(this, nannyArrayList, this);
-        recyclerView.setAdapter(adapter);
-
-        //test nanny data
-        Nanny nannyA = new Nanny("Nancy Smith", "Female","1990-01-01",4.8,3,"Richmond,BC");
-        nannyArrayList.add(nannyA);
-        Nanny nannyB = new Nanny("John Doe", "Male","1990-01-01",4.6,2,"Vancouver,BC");
-        nannyArrayList.add(nannyB);
-        System.out.println("my list size: " + nannyArrayList.size());
-        adapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
 
     }
 
-    //TODO
-//    private void loadDataFromFirebase() {
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("nannies");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                ArrayList<Nanny> nannyDataList = new ArrayList<>(); //initial tipDataList
-//                for (DataSnapshot nannySnapshot : dataSnapshot.getChildren()) {
-//                    Nanny nanny = nannySnapshot.getValue(Nanny.class);
-//                    nannyDataList.add(nanny);
-//                }
-//                nannyArrayList = nannyDataList;
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Handle error
-//            }
-//        });
-//    }
+
+
 
     @Override
     public void onItemClick(int pos) {
-        Nanny nannyA = new Nanny("Nancy Smith", "Female","1990-01-01",4.8,3,"Richmond,BC");
+        Nanny_old nannyA = new Nanny_old("Nancy Smith", "Female","1990-01-01",4.8,3,"Richmond,BC");
         Intent intent = new Intent(this, NannyshareSingle.class);
 
         Bundle bundle = new Bundle();

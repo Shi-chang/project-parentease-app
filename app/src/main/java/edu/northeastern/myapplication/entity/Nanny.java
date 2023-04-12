@@ -1,10 +1,16 @@
 package edu.northeastern.myapplication.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 /**
  * The nanny class.
  */
+public class Nanny implements Parcelable {
 public class Nanny {
     private String nannyId;
     private int yoe;
@@ -84,5 +90,20 @@ public class Nanny {
                 ", username='" + username + '\'' +
                 ", city='" + city + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(yoe);
+        parcel.writeString(gender);
+        parcel.writeInt(hourlyRate);
+        parcel.writeList(availability);
+        parcel.writeFloat(ratings);
+        parcel.writeString(introduction);
     }
 }

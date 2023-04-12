@@ -125,11 +125,7 @@ public class SingleTipActivity extends AppCompatActivity {
         // get the tip creator's userId
         String userId = currentTip.getUserId();
 
-        // get the tip creator's name
-        String userName = currentTip.getUserName();
-        userNameTextView.setText("Tip From: " + userName);
-
-        // use userId find the tip creator, get the user token
+        // use userId find the tip creator, get the user name and token
         mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -138,6 +134,8 @@ public class SingleTipActivity extends AppCompatActivity {
                     return;
                 }
                 User user = task.getResult().getValue(User.class);
+                String userName = user.getUsername();
+                userNameTextView.setText("Tip From: " + userName);
                 tipOwnerToken = user.getUserToken();
             }
         });

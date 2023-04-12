@@ -11,7 +11,6 @@ import java.util.List;
  * The nanny class.
  */
 public class Nanny implements Parcelable {
-public class Nanny {
     private String nannyId;
     private int yoe;
     private String gender;
@@ -36,6 +35,29 @@ public class Nanny {
         this.username = username;
         this.city = city;
     }
+
+    protected Nanny(Parcel in) {
+        nannyId = in.readString();
+        yoe = in.readInt();
+        gender = in.readString();
+        hourlyRate = in.readInt();
+        ratings = in.readFloat();
+        introduction = in.readString();
+        username = in.readString();
+        city = in.readString();
+    }
+
+    public static final Creator<Nanny> CREATOR = new Creator<Nanny>() {
+        @Override
+        public Nanny createFromParcel(Parcel in) {
+            return new Nanny(in);
+        }
+
+        @Override
+        public Nanny[] newArray(int size) {
+            return new Nanny[size];
+        }
+    };
 
     public String getNannyId() {
         return nannyId;
@@ -99,11 +121,13 @@ public class Nanny {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(nannyId);
         parcel.writeInt(yoe);
         parcel.writeString(gender);
         parcel.writeInt(hourlyRate);
         parcel.writeList(availability);
         parcel.writeFloat(ratings);
         parcel.writeString(introduction);
+        parcel.writeString(city);
     }
 }

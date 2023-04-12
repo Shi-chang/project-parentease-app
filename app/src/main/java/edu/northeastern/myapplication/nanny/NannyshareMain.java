@@ -103,7 +103,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                     adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
-
                 }
             }
             @Override
@@ -111,7 +110,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                 // Handle error
             }
         });
-
     }
 
 
@@ -119,7 +117,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
 
     @Override
     public void onItemClick(int pos) {
-        Nanny_old nannyA = new Nanny_old("Nancy Smith", "Female","1990-01-01",4.8,3,"Richmond,BC");
         Intent intent = new Intent(this, NannyshareSingle.class);
 
         Bundle bundle = new Bundle();
@@ -128,6 +125,7 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
 
         Bundle nannyBundle = new Bundle();
         nannyBundle.putParcelable("nanny", nannyArrayList.get(pos));
+        System.out.println("hihihi: " + nannyArrayList.get(pos).toString());
         intent.putExtras(nannyBundle);
 
         startActivity(intent);

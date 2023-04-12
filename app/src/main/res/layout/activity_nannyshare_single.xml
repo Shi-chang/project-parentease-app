@@ -70,12 +70,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
-        android:layout_width="409dp"
-        android:layout_height="560dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_star" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nannyLocation" />
 
     <Button
         android:id="@+id/btn_postReview"
@@ -86,6 +86,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_book"
         app:layout_constraintTop_toTopOf="@+id/btn_book" />
+
+    <TextView
+        android:id="@+id/tv_nannyYOE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YOE"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_star" />
+
+    <TextView
+        android:id="@+id/tv_nannyLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nanny's Location"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_nannyYOE" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

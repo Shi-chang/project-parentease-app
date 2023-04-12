@@ -60,7 +60,6 @@ public class AddTipActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 2;
     FirebaseStorage storage;
     String downloadUrl;
-    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ImageView browseImageView;
     private ImageView nannyShareImageView;
@@ -271,10 +270,11 @@ public class AddTipActivity extends AppCompatActivity {
         UUID uuid = UUID.randomUUID();
         String tipId = uuid.toString();
         // get the current user Id
-        mAuth = FirebaseAuth.getInstance();
-        String userId = mAuth.getUid();
+        String userId = user.getUserId();
+        // get userName
+        String userName = user.getUsername();
         // create a tip
-        Tip tip = new Tip(tipId, userId, title, downloadUrl, content, filter);
+        Tip tip = new Tip(tipId, userId, userName, title, downloadUrl, content, filter);
         // post the tip to firebase
         mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

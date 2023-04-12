@@ -59,7 +59,6 @@ public class NannyBookingInformation extends AppCompatActivity {
     private NannyDao nannyDao;
     private UserDao userDao;
     private User user;
-    String nannyId;
     private Nanny nanny;
     private int yoe;
     private String gender;
@@ -95,11 +94,11 @@ public class NannyBookingInformation extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
 
         mAuth = FirebaseAuth.getInstance();
-        nannyId = getIntent().getStringExtra("nannyId");
+        nanny = getIntent().getExtras().getParcelable("nanny");
 
         // Gets the nanny from the database.
         nannyDao = new NannyDao();
-        nannyDao.findNannyById(nannyId).addOnCompleteListener(task -> {
+        nannyDao.findNannyById(nanny.getNannyId()).addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Toast.makeText(NannyBookingInformation.this, "Cannot find the nanny.", Toast.LENGTH_SHORT).show();
                 return;
@@ -173,7 +172,7 @@ public class NannyBookingInformation extends AppCompatActivity {
 
         // Gets the nanny's username and city from the database.
         userDao = new UserDao();
-        userDao.findUserById(nannyId).addOnCompleteListener(task -> {
+        userDao.findUserById(nanny.getNannyId()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DataSnapshot dataSnapshot = task.getResult();
                 if (dataSnapshot.exists()) {
@@ -204,7 +203,7 @@ public class NannyBookingInformation extends AppCompatActivity {
         intent.putExtra("year", year);
         intent.putExtra("month", month);
         intent.putExtra("dayOfMonth", dayOfMonth);
-        intent.putExtra("nannyId", nannyId);
+        intent.putExtra("nannyId", nanny.getNannyId());
         startActivity(intent);
     }
 

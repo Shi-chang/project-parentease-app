@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import edu.northeastern.myapplication.Nanny;
+import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.RecyclerViewInterface;
+import edu.northeastern.myapplication.entity.Nanny;
 
 public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.NannyHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
@@ -37,6 +38,7 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
 
     @Override
     public void onBindViewHolder(@NonNull NannyHolder holder, int position) {
+        System.out.println("in nanny card, nanny list size: "+ nannies.size());
         Nanny nanny = nannies.get(position);
         holder.setDetails(nanny);
     }
@@ -72,9 +74,8 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
         }
 
         void setDetails(Nanny nanny){
-            tv_name.setText(nanny.getName());
-            tv_yoe.setText(String.valueOf(nanny.getYoe()));
-            tv_location.setText(nanny.getLocation());
+            //TODO
+            tv_yoe.setText("YOE: "+ String.valueOf(nanny.getYoe()));
         }
     }
 }

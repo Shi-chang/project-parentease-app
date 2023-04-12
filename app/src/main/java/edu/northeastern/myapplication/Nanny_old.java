@@ -4,9 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-public class Nanny implements Parcelable {
+public class Nanny_old implements Parcelable {
     //Nanny: Name, Gender, birthday, review score, Year of experience, location
     private String name;
     private String gender;
@@ -15,7 +14,7 @@ public class Nanny implements Parcelable {
     private double yoe;
     private String location;
 
-    public Nanny(String name, String gender, String birthday, double reviewScore, double yoe, String location) {
+    public Nanny_old(String name, String gender, String birthday, double reviewScore, double yoe, String location) {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
@@ -24,7 +23,7 @@ public class Nanny implements Parcelable {
         this.location = location;
     }
 
-    protected Nanny(Parcel in) {
+    protected Nanny_old(Parcel in) {
         name = in.readString();
         gender = in.readString();
         birthday = in.readString();
@@ -33,15 +32,15 @@ public class Nanny implements Parcelable {
         location = in.readString();
     }
 
-    public static final Creator<Nanny> CREATOR = new Creator<Nanny>() {
+    public static final Creator<Nanny_old> CREATOR = new Creator<Nanny_old>() {
         @Override
-        public Nanny createFromParcel(Parcel in) {
-            return new Nanny(in);
+        public Nanny_old createFromParcel(Parcel in) {
+            return new Nanny_old(in);
         }
 
         @Override
-        public Nanny[] newArray(int size) {
-            return new Nanny[size];
+        public Nanny_old[] newArray(int size) {
+            return new Nanny_old[size];
         }
     };
 

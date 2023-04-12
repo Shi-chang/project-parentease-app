@@ -13,6 +13,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="3.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="314dp" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
@@ -49,6 +60,17 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline29"
         app:layout_constraintStart_toStartOf="@+id/guideline26"
         tools:layout_editor_absoluteY="391dp" />
+
+    <TextView
+        android:id="@+id/tv_nannyReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share your experience to help others"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline32"
+        app:layout_constraintBottom_toTopOf="@id/guideline30"
+        tools:layout_editor_absoluteY="139dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -100,6 +100,5 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         this.tipDataList = tipDataList;
         notifyDataSetChanged();
     }
-
 }
 

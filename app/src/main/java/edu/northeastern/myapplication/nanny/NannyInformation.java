@@ -192,7 +192,9 @@ public class NannyInformation extends AppCompatActivity {
      */
     private void handleDateSelected(int year, int month, int dayOfMonth) {
         Intent intent = new Intent(NannyInformation.this, NannyTimeSlots.class);
-
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        intent.putExtras(bundle);
         if (!isFormValid()) {
             return;
         }

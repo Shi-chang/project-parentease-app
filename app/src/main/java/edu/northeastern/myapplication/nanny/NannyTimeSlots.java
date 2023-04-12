@@ -28,6 +28,7 @@ import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.TimeSlot;
+import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.utils.Utils;
 
 /**
@@ -51,6 +52,7 @@ public class NannyTimeSlots extends AppCompatActivity {
     String userId;
     NannyDao nannyDao;
     Nanny nanny;
+    User user;
     Date selectedDate;
 
     @Override
@@ -73,6 +75,7 @@ public class NannyTimeSlots extends AppCompatActivity {
 
         checkboxList = Arrays.asList(checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8);
         mAuth = FirebaseAuth.getInstance();
+        user = getIntent().getExtras().getParcelable("user");
         userId = mAuth.getUid();
         nannyDao = new NannyDao();
 
@@ -96,7 +99,7 @@ public class NannyTimeSlots extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot dataSnapshot = task.getResult();
                 if (!dataSnapshot.exists()) {
-                    Nanny newNanny = new Nanny(yoe, gender, hourlyRate, new ArrayList<>(), INITIAL_NANNY_RATING, introduction);
+                    Nanny newNanny = new Nanny(userId, yoe, gender, hourlyRate, new ArrayList<>(), INITIAL_NANNY_RATING, introduction, user.getUsername(), user.getCity());
                     nannyDao.create(userId, newNanny);
                     nanny = newNanny;
                 } else {

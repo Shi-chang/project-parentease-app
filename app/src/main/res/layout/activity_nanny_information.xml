@@ -46,7 +46,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
         android:text="Click the date to select"
         app:layout_constraintBottom_toBottomOf="@+id/calendarView"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"

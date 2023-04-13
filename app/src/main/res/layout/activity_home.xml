@@ -87,6 +87,13 @@
             app:layout_constraintGuide_percent="0.2" />
 
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.28" />
+
         <TextView
             android:id="@+id/tv_filter1"
             android:layout_width="wrap_content"
@@ -130,13 +137,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="446dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintEnd_toStartOf="@+id/guideline17"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/btn_myTips"
+            app:layout_constraintTop_toTopOf="@+id/guideline18"
             app:layout_constraintVertical_bias="0.6" />
 
         <include
@@ -198,15 +204,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/navigation_menu">
-
-    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

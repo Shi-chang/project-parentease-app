@@ -1,6 +1,9 @@
 package edu.northeastern.myapplication;
 
+import edu.northeastern.myapplication.dao.ReviewsDao;
+import edu.northeastern.myapplication.entity.Review;
 import edu.northeastern.myapplication.entity.Tip;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,41 +91,11 @@ public class HomeActivity extends AppCompatActivity {
 
         user = getIntent().getExtras().getParcelable("user");
 
-        // drawer layout instance to toggle the menu icon to open
-        // drawer and back button to close drawer
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_account:
-                        // Handle "My Account" click
-                        break;
-                    case R.id.nav_settings:
-                        // Handle "Settings" click
-                        break;
-                    case R.id.nav_logout:
-                        logout();
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        // pass the Open and Close toggle for the drawer layout listener to toggle the button
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        // to make the Navigation drawer icon always appear on the action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         // greeting according to time of day in textView
         greetingTextView = findViewById(R.id.greet_tv);
         LocalDateTime currentTime = LocalDateTime.now();
         int currentHour = currentTime.getHour();
+
         System.out.println("currentHour" + currentHour);
 
         String message = "";
@@ -289,6 +263,7 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * 根据所选类别过滤tips列表,getFilter()方法来获取分类信息
+     *
      * @param tipsList
      * @param selectedCategories
      * @return
@@ -353,6 +328,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 adapter.setTipDataList(tipsList);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error

@@ -1,50 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/tv_browse"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+    <LinearLayout
+        android:id="@+id/layout_browse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_nanny"
+        app:layout_constraintEnd_toStartOf="@+id/layout_nanny"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_home_24" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/tv_nanny"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_baseline_home_24"/>
+
+        <TextView
+            android:id="@+id/tv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_nanny"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_tips"
-        app:layout_constraintStart_toEndOf="@+id/tv_browse"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />
+        app:layout_constraintEnd_toStartOf="@+id/layout_tips"
+        app:layout_constraintStart_toEndOf="@+id/layout_browse"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/tv_tips"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        <ImageView
+            android:id="@+id/iv_nanny"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_baseline_baby_changing_station_24"/>
+
+        <TextView
+            android:id="@+id/tv_nanny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nanny"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_myAccount"
-        app:layout_constraintStart_toEndOf="@+id/tv_nanny"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+        app:layout_constraintEnd_toStartOf="@+id/layout_myAccount"
+        app:layout_constraintStart_toEndOf="@+id/layout_nanny"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/tv_myAccount"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        <ImageView
+            android:id="@+id/iv_tips"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_baseline_add_circle_outline_24"/>
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tips"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_myAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_tips"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+        app:layout_constraintStart_toEndOf="@id/layout_tips"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_account"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_baseline_account_circle_24"/>
+
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:background="@android:color/white"-->
+<!--    android:padding="8dp">-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_browse"-->
+<!--        android:layout_width="36dp"-->
+<!--        android:layout_height="36dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/tv_nanny"-->
+<!--        app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_baseline_home_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_nanny"-->
+<!--        android:layout_width="36dp"-->
+<!--        android:layout_height="36dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/tv_tips"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/tv_browse"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_tips"-->
+<!--        android:layout_width="36dp"-->
+<!--        android:layout_height="36dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/tv_myAccount"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/tv_nanny"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_myAccount"-->
+<!--        android:layout_width="36dp"-->
+<!--        android:layout_height="36dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/tv_tips"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

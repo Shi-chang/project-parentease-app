@@ -31,32 +31,42 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9"/>
 
-    <ImageView
-        android:id="@+id/tv_myAccount"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_tips"
-        app:layout_constraintTop_toBottomOf="@id/guideline6"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
-
-    <ImageView
-        android:id="@+id/tv_nanny"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toStartOf="@id/tv_tips"
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline6"
-        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <ImageView
-        android:id="@+id/tv_tips"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toStartOf="@id/tv_myAccount"
-        app:layout_constraintStart_toEndOf="@id/tv_nanny"
-        app:layout_constraintTop_toBottomOf="@id/guideline6"
-        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_myAccount"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/tv_tips"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
+<!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_nanny"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/tv_tips"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
+<!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/tv_tips"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/tv_myAccount"-->
+<!--        app:layout_constraintStart_toEndOf="@id/tv_nanny"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
+<!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
 
     <Button
         android:id="@+id/btn_book"

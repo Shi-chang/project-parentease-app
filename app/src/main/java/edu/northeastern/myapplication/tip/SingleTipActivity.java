@@ -174,6 +174,19 @@ public class SingleTipActivity extends AppCompatActivity {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+        commentatorId = mAuth.getUid();
+        mDatabase.child("users").child(commentatorId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(SingleTipActivity.this, "Failed to find the current user.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                commentator = task.getResult().getValue(User.class);
+            }
+        });
+
         // on add comment button click
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,44 +197,32 @@ public class SingleTipActivity extends AppCompatActivity {
                 } else {
                     UUID uuid = UUID.randomUUID();
                     commentId = uuid.toString();
-                    mAuth = FirebaseAuth.getInstance();
-                    commentatorId = mAuth.getUid();
-                    mDatabase.child("users").child(commentatorId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    commentatorName = commentator.getUsername();
+                    // create a comment
+                    comment = new Comment(commentId, commentatorId, tipId, commentatorName, commentContent);
+                    commentList.add(comment);
+                    // display the comment in recycler view
+                    commentsAdapter.setCommentList(commentList);
+                    // upload the comment to firebase
+                    mDatabase.child("comments").child(tipId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            List<Comment> newCommentList = new ArrayList<>();
                             if (!task.isSuccessful()) {
-                                Toast.makeText(SingleTipActivity.this, "Failed to find the current user.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SingleTipActivity.this, "Failed to add comment.", Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            commentator = task.getResult().getValue(User.class);
-                            commentatorName = commentator.getUsername();
-                            // create a comment
-                            comment = new Comment(commentId, commentatorId, tipId, commentatorName, commentContent);
-                            commentList.add(comment);
-                            // display the comment in recycler view
-                            commentsAdapter.setCommentList(commentList);
-                            // upload the comment to firebase
-                            mDatabase.child("comments").child(tipId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    List<Comment> newCommentList = new ArrayList<>();
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(SingleTipActivity.this, "Failed to add comment.", Toast.LENGTH_LONG).show();
-                                        return;
-                                    }
-                                    Iterable<DataSnapshot> commentDataList = task.getResult().getChildren();
-                                    for (DataSnapshot commentSnapshot : commentDataList) {
-                                        Comment commentData = commentSnapshot.getValue(Comment.class);
-                                        newCommentList.add(commentData);
-                                    }
-                                    newCommentList.add(comment);
-                                    CommentsDao commentsDao = new CommentsDao();
-                                    commentsDao.updateComments(tipId, newCommentList);
-                                    Toast.makeText(SingleTipActivity.this, "Add comment successfully.", Toast.LENGTH_LONG).show();
-                                    // send the notification to tip owner
-                                    sendMessageToTipOwner(tipOwnerToken, comment);
-                                }
-                            });
+                            Iterable<DataSnapshot> commentDataList = task.getResult().getChildren();
+                            for (DataSnapshot commentSnapshot : commentDataList) {
+                                Comment commentData = commentSnapshot.getValue(Comment.class);
+                                newCommentList.add(commentData);
+                            }
+                            newCommentList.add(comment);
+                            CommentsDao commentsDao = new CommentsDao();
+                            commentsDao.updateComments(tipId, newCommentList);
+                            Toast.makeText(SingleTipActivity.this, "Add comment successfully.", Toast.LENGTH_LONG).show();
+                            // send the notification to tip owner
+                            sendMessageToTipOwner(tipOwnerToken, comment);
                         }
                     });
                 }

@@ -124,49 +124,6 @@ public class HomeActivity extends AppCompatActivity {
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
 
-//        homeImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                refreshHomeActivity();
-//            }
-//        });
-//
-//        nannyShareImageView = findViewById(R.id.tv_nanny);
-//        tipsShareImageView = findViewById(R.id.tv_tips);
-//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        myAccountImageView = findViewById(R.id.tv_myAccount);
-//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(HomeActivity.this, MyInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(HomeActivity.this, NannyshareMain.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-
         recyclerView = findViewById(R.id.recyclerView);
 
         // Sets the filters.
@@ -206,9 +163,8 @@ public class HomeActivity extends AppCompatActivity {
      * Updates the recycler view based on the selected filter.
      */
     private void updateRecyclerViewBasedOnFilter() {
+        filteredTipsList.clear();
         for (Tip tip : allTipsList) {
-            System.out.println("tip.getFilter = " + tip.getFilter());
-            System.out.println("selected filter = " + selectedFilter);
             if (tip.getFilter().equals(selectedFilter)) {
                 filteredTipsList.add(tip);
             }

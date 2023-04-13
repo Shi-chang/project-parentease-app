@@ -13,15 +13,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,9 +51,7 @@ public class AddTipActivity extends AppCompatActivity {
     private ImageView addPictureImageView;
     private EditText addTitleEditText;
     private EditText addContentEditText;
-    private CheckBox pediatriciansCheckBox;
-    private CheckBox daycareCheckBox;
-    private CheckBox eventInfoCheckBox;
+    private RadioGroup radioGroup;
     private Button postButton;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int PICK_IMAGE_REQUEST = 2;
@@ -66,6 +63,7 @@ public class AddTipActivity extends AppCompatActivity {
     private ImageView tipsShareImageView;
     private ImageView myAccountImageView;
     private User user;
+    private String filter;
 
     /**
      * Called when the Add Tip activity is starting.
@@ -90,9 +88,28 @@ public class AddTipActivity extends AppCompatActivity {
         addPictureImageView = findViewById(R.id.addPictureImageView);
         addTitleEditText = findViewById(R.id.addTitleEditText);
         addContentEditText = findViewById(R.id.addContentEditText);
-        pediatriciansCheckBox = findViewById(R.id.pediatriciansCheckBox);
-        daycareCheckBox = findViewById(R.id.daycareCheckBox);
-        eventInfoCheckBox = findViewById(R.id.eventInfoCheckBox);
+        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Handle the checked RadioButton
+                switch (checkedId) {
+                    case R.id.option1:
+                        filter = "Pediatricians";
+                        break;
+                    case R.id.option2:
+                        filter = "Daycare";
+                        break;
+                    case R.id.option3:
+                        filter = "Event Info";
+                        break;
+                    case R.id.option4:
+                        filter = "Other";
+                        break;
+                }
+            }
+        });
+
         postButton = findViewById(R.id.postButton);
         storage = FirebaseStorage.getInstance();
 
@@ -250,20 +267,6 @@ public class AddTipActivity extends AppCompatActivity {
         }
         String content = addContentEditText.getText().toString();
         // get the filter
-        String filter = "";
-        if (pediatriciansCheckBox.isChecked()) {
-            filter = "Pediatricians ";
-        }
-        if (daycareCheckBox.isChecked()) {
-            filter += "Daycare ";
-        }
-        if (eventInfoCheckBox.isChecked()) {
-            filter += "Event Info ";
-        }
-        filter = filter.trim();
-        if (filter.equals("")) {
-            filter += "Others";
-        }
         // get tipId
         UUID uuid = UUID.randomUUID();
         String tipId = uuid.toString();

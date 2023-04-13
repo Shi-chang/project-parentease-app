@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32" />
+        app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -77,8 +77,8 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="323dp"
-        android:layout_height="37dp"
+        android:layout_width="322dp"
+        android:layout_height="62dp"
         android:text="@string/title"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"

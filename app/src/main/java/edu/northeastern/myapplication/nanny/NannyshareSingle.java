@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.northeastern.myapplication.BottomNavClickListener;
 import edu.northeastern.myapplication.MyInfoActivity;
 import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.PostActivity;
@@ -21,9 +22,14 @@ public class NannyshareSingle extends AppCompatActivity {
     private TextView tv_reviewScore;
     private TextView tv_yoe;
     private TextView tv_city;
-    private ImageView myAccountImageView;
     private ImageView nannyShareImageView;
     private ImageView tipsShareImageView;
+    private ImageView myAccountImageView;
+    private ImageView homeImageView;
+    private TextView text_home;
+    private TextView text_nanny;
+    private TextView text_tips;
+    private TextView text_myAccount;
     private Button btn_availability;
     private Button btn_postReview;
     private User currentUser;
@@ -94,41 +100,60 @@ public class NannyshareSingle extends AppCompatActivity {
         });
 
         //button link to other activity
-        nannyShareImageView = findViewById(R.id.tv_nanny);
-        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NannyshareSingle.this, NannyshareMain.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", currentUser);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
-        tipsShareImageView = findViewById(R.id.tv_tips);
-        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NannyshareSingle.this, PostActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", currentUser);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nanny = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tips = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
 
-        myAccountImageView = findViewById(R.id.tv_myAccount);
-        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NannyshareSingle.this, MyInfoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", currentUser);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, currentUser);
+        homeImageView.setOnClickListener(bottomNavClickListener);
+        text_home.setOnClickListener(bottomNavClickListener);
+        nannyShareImageView.setOnClickListener(bottomNavClickListener);
+        text_nanny.setOnClickListener(bottomNavClickListener);
+        tipsShareImageView.setOnClickListener(bottomNavClickListener);
+        text_tips.setOnClickListener(bottomNavClickListener);
+        myAccountImageView.setOnClickListener(bottomNavClickListener);
+        text_myAccount.setOnClickListener(bottomNavClickListener);
+//        nannyShareImageView = findViewById(R.id.tv_nanny);
+//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(NannyshareSingle.this, NannyshareMain.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", currentUser);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        tipsShareImageView = findViewById(R.id.tv_tips);
+//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(NannyshareSingle.this, PostActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", currentUser);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        myAccountImageView = findViewById(R.id.tv_myAccount);
+//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(NannyshareSingle.this, MyInfoActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", currentUser);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }

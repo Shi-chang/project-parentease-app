@@ -229,53 +229,53 @@ public class SingleTipActivity extends AppCompatActivity {
             }
         });
 
-        browseImageView = findViewById(R.id.browseImageView);
-        browseImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SingleTipActivity.this, HomeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", commentator);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        nannyShareImageView = findViewById(R.id.nannyImageView);
-        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SingleTipActivity.this, NannyshareMain.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", commentator);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        tipsShareImageView = findViewById(R.id.tipsImageView);
-        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SingleTipActivity.this, PostActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", commentator);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        myAccountImageView = findViewById(R.id.myAccountImageView);
-        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SingleTipActivity.this, MyInfoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", commentator);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+//        browseImageView = findViewById(R.id.browseImageView);
+//        browseImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SingleTipActivity.this, HomeActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", commentator);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        nannyShareImageView = findViewById(R.id.nannyImageView);
+//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SingleTipActivity.this, NannyshareMain.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", commentator);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        tipsShareImageView = findViewById(R.id.tipsImageView);
+//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SingleTipActivity.this, PostActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", commentator);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        myAccountImageView = findViewById(R.id.myAccountImageView);
+//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SingleTipActivity.this, MyInfoActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", commentator);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     /**

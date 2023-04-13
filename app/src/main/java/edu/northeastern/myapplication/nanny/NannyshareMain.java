@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import edu.northeastern.myapplication.BottomNavClickListener;
 import edu.northeastern.myapplication.MyInfoActivity;
 import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.PostActivity;
@@ -36,6 +38,11 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private ImageView nannyShareImageView;
     private ImageView tipsShareImageView;
     private ImageView myAccountImageView;
+    private ImageView homeImageView;
+    private TextView text_home;
+    private TextView text_nanny;
+    private TextView text_tips;
+    private TextView text_myAccount;
     private User currentUser;
 
     private NannyDao nannyDao;
@@ -59,29 +66,50 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         currentUser = getIntent().getExtras().getParcelable("user");
 
         //button link to other activities
-        tipsShareImageView = findViewById(R.id.tv_tips);
-        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NannyshareMain.this, PostActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", currentUser);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
-        myAccountImageView = findViewById(R.id.tv_myAccount);
-        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NannyshareMain.this, MyInfoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", currentUser);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nanny = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tips = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
+
+        BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, currentUser);
+        homeImageView.setOnClickListener(bottomNavClickListener);
+        text_home.setOnClickListener(bottomNavClickListener);
+        nannyShareImageView.setOnClickListener(bottomNavClickListener);
+        text_nanny.setOnClickListener(bottomNavClickListener);
+        tipsShareImageView.setOnClickListener(bottomNavClickListener);
+        text_tips.setOnClickListener(bottomNavClickListener);
+        myAccountImageView.setOnClickListener(bottomNavClickListener);
+        text_myAccount.setOnClickListener(bottomNavClickListener);
+
+        InitializeCardView();
+//        tipsShareImageView = findViewById(R.id.tv_tips);
+//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(NannyshareMain.this, PostActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", currentUser);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        myAccountImageView = findViewById(R.id.tv_myAccount);
+//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(NannyshareMain.this, MyInfoActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", currentUser);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
 
         InitializeCardView();
     }

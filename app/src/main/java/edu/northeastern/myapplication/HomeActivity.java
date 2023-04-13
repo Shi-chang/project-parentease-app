@@ -61,10 +61,14 @@ public class HomeActivity extends AppCompatActivity {
     private Button myTipsBtn;
     private Button myBookingBtn;
 
-    private ImageView browseImageView;
+    private ImageView homeImageView;
     private ImageView nannyShareImageView;
     private ImageView tipsShareImageView;
     private ImageView myAccountImageView;
+    private TextView text_home;
+    private TextView text_nannyShare;
+    private TextView text_tipsShare;
+    private TextView text_myAccount;
 
     private User user;
 
@@ -101,49 +105,67 @@ public class HomeActivity extends AppCompatActivity {
         searchTextView = findViewById(R.id.search_tv);
         searchBtn = findViewById(R.id.searchBtn);
 
-        browseImageView = findViewById(R.id.tv_browse);
-        browseImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshHomeActivity();
-            }
-        });
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nannyShare = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tipsShare = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
 
-        nannyShareImageView = findViewById(R.id.tv_nanny);
-        tipsShareImageView = findViewById(R.id.tv_tips);
-        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", user);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, user);
+        homeImageView.setOnClickListener(bottomNavClickListener);
+        text_home.setOnClickListener(bottomNavClickListener);
+        nannyShareImageView.setOnClickListener(bottomNavClickListener);
+        text_nannyShare.setOnClickListener(bottomNavClickListener);
+        tipsShareImageView.setOnClickListener(bottomNavClickListener);
+        text_tipsShare.setOnClickListener(bottomNavClickListener);
+        myAccountImageView.setOnClickListener(bottomNavClickListener);
+        text_myAccount.setOnClickListener(bottomNavClickListener);
 
-        myAccountImageView = findViewById(R.id.tv_myAccount);
-        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MyInfoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", user);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, NannyshareMain.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", user);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+//        homeImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                refreshHomeActivity();
+//            }
+//        });
+//
+//        nannyShareImageView = findViewById(R.id.tv_nanny);
+//        tipsShareImageView = findViewById(R.id.tv_tips);
+//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", user);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        myAccountImageView = findViewById(R.id.tv_myAccount);
+//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeActivity.this, MyInfoActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", user);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeActivity.this, NannyshareMain.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("user", user);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
 
         recyclerView = findViewById(R.id.recyclerView);
 

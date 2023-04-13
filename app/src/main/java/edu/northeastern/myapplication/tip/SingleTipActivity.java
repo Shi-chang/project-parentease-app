@@ -149,11 +149,11 @@ public class SingleTipActivity extends AppCompatActivity {
 
         // get the title of the tip and load the title
         String title = currentTip.getTitle();
-        titleTextView.setText("Title: " + title);
+        titleTextView.setText(title);
 
         // get the content of the tip and load the content
         String content = currentTip.getContent();
-        contentTextView.setText("Content: " + content);
+        contentTextView.setText(content);
 
         // get the tipId and use tipId to find the comments
         tipId = currentTip.getTipId();

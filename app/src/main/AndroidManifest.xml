@@ -77,7 +77,6 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/Theme.MyApplication.WithActionBar"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

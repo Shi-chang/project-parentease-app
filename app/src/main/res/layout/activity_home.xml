@@ -107,7 +107,7 @@
             android:id="@+id/tv_filter2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
+            android:layout_marginStart="28dp"
             android:text="Daycare"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/tv_filter1"
@@ -117,21 +117,19 @@
             android:id="@+id/tv_filter3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
+            android:layout_marginEnd="28dp"
             android:text="Event Info"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_filter2"
+            app:layout_constraintEnd_toStartOf="@+id/tv_filter4"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <TextView
             android:id="@+id/tv_filter4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
             android:text="Others"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline17"
-            app:layout_constraintStart_toEndOf="@+id/tv_filter3"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
 
@@ -165,6 +163,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Tips"
+            app:iconPadding="3dp"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -172,8 +171,9 @@
             android:id="@+id/btn_myTips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:text="My Tips"
+            app:iconPadding="3dp"
+            app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintStart_toEndOf="@+id/btn_allTips"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -181,10 +181,9 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:text="My Booking"
+            app:iconPadding="3dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline17"
-            app:layout_constraintStart_toEndOf="@+id/btn_myTips"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <androidx.constraintlayout.widget.Guideline

@@ -96,8 +96,8 @@
 
     <EditText
         android:id="@+id/addContentEditText"
-        android:layout_width="365dp"
-        android:layout_height="223dp"
+        android:layout_width="368dp"
+        android:layout_height="220dp"
         android:autofillHints=""
         android:hint="@string/add_content_here"
         android:minHeight="48dp"

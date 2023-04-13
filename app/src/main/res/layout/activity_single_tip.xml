@@ -76,8 +76,8 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="370dp"
+        android:layout_height="57dp"
         android:text="@string/title"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -85,8 +85,8 @@
 
     <TextView
         android:id="@+id/contentTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="370dp"
+        android:layout_height="190dp"
         android:text="@string/content"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -94,8 +94,8 @@
 
     <EditText
         android:id="@+id/inputCommentTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="293dp"
+        android:layout_height="53dp"
         android:autofillHints=""
         android:hint="@string/add_a_comment"
         android:minHeight="48dp"
@@ -107,6 +107,7 @@
         android:id="@+id/addCommentButton"
         android:layout_width="74dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/addComment"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
@@ -118,7 +119,7 @@
         android:layout_height="156dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 

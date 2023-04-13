@@ -70,4 +70,25 @@ public class Utils {
             return -1;
         }
     }
+
+    /**
+     * Gets the greeting string based on the current hour.
+     *
+     * @param currentHour the current hour
+     * @return the greeting string
+     */
+    public static String getGreetingString(int currentHour) {
+        String message = "";
+        if (currentHour >= 6 && currentHour < 12) {
+            message = "Good Morning, ";
+        } else if (currentHour >= 12 && currentHour < 18) {
+            message = "Good Afternoon, ";
+        } else if (currentHour >= 18 && currentHour < 22) {
+            message = "Good Evening, ";
+        } else {
+            message = "Good Night, ";
+        }
+
+        return message;
+    }
 }

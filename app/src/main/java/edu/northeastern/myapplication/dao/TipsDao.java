@@ -1,6 +1,7 @@
 package edu.northeastern.myapplication.dao;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,5 +32,14 @@ public class TipsDao {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(tip);
         return databaseReference.child(PATH_TIPS).child(userId).setValue(tip);
+    }
+
+    /**
+     * Gets all the tips from the database.
+     *
+     * @return all the tips
+     */
+    public Task<DataSnapshot> getTips() {
+        return databaseReference.child(PATH_TIPS).get();
     }
 }

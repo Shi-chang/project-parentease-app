@@ -173,12 +173,12 @@
             android:layout_height="wrap_content"
             android:text="My Tips"
             app:iconPadding="3dp"
-            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/myBookingBtn"
             app:layout_constraintStart_toEndOf="@+id/btn_allTips"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/myBookingBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Booking"

@@ -21,25 +21,18 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.82" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.92" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
@@ -76,8 +69,8 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="370dp"
-        android:layout_height="57dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/title"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -85,12 +78,13 @@
 
     <TextView
         android:id="@+id/contentTextView"
-        android:layout_width="370dp"
-        android:layout_height="190dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/content"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/commentRecyclerView"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <EditText
         android:id="@+id/inputCommentTextView"
@@ -101,7 +95,8 @@
         android:minHeight="48dp"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline10" />
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <Button
         android:id="@+id/addCommentButton"
@@ -111,23 +106,23 @@
         android:text="@string/addComment"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
-        android:layout_width="369dp"
-        android:layout_height="156dp"
+        android:layout_width="366dp"
+        android:layout_height="175dp"
         android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <ImageView
         android:id="@+id/browseImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
@@ -137,7 +132,7 @@
         android:id="@+id/nannyImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/browseImageView"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
@@ -147,9 +142,9 @@
         android:id="@+id/tipsImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginStart="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/myAccountImageView"
+        app:layout_constraintStart_toEndOf="@+id/nannyImageView"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
 
@@ -157,9 +152,9 @@
         android:id="@+id/myAccountImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintStart_toEndOf="@+id/tipsImageView"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 

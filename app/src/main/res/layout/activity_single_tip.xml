@@ -95,24 +95,21 @@
         android:minHeight="48dp"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <Button
         android:id="@+id/addCommentButton"
         android:layout_width="74dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="5dp"
         android:text="@string/addComment"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline11" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
         android:layout_width="366dp"
-        android:layout_height="175dp"
+        android:layout_height="177dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"

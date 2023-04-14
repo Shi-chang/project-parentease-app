@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,13 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import edu.northeastern.myapplication.BottomNavClickListener;
-import edu.northeastern.myapplication.MyInfoActivity;
-import edu.northeastern.myapplication.Nanny_old;
-import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.RecyclerViewInterface;
 import edu.northeastern.myapplication.dao.NannyDao;
@@ -73,8 +67,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
 
         currentUser = getIntent().getExtras().getParcelable("user");
 
-        //button link to other activities
-
         homeImageView = findViewById(R.id.iv_home);
         text_home = findViewById(R.id.tv_home);
         nannyShareImageView = findViewById(R.id.iv_nanny);
@@ -100,32 +92,25 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         chip_orderByReview = findViewById(R.id.chip_orderByReview);
         chip_orderByRate = findViewById(R.id.chip_orderByRate);
         chip_sameCity = findViewById(R.id.chip_sameCity);
-
     }
-
-//    private void ratingDesc() {
-//        Collections.sort(nannyArrayList, Nanny.ratingDesc);
-//        Collections.reverse(nannyArrayList);
-//        adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
-//        recyclerView.setAdapter(adapter);
-//    }
 
     private void InitializeCardView() {
         recyclerView = findViewById(R.id.rv_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        nannyArrayList = new ArrayList<Nanny>();
-        //TODO:loadDataFromFirebase();
+        nannyArrayList = new ArrayList<>();
+
         // Gets the nanny from the database.
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("nannies");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nannyArrayList.clear();
                 for (DataSnapshot nannySnapshot : dataSnapshot.getChildren()) {
                     Nanny nanny = nannySnapshot.getValue(Nanny.class);
                     nannyArrayList.add(nanny);
-                    System.out.println(nanny.toString());
                 }
 
+                adapter = null;
                 adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
@@ -143,8 +128,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                 };
 
                 chip_orderByRate.setOnCheckedChangeListener(orderByRateCheckedChangeListener);
-
-
                 CompoundButton.OnCheckedChangeListener orderByReviewCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -158,11 +141,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                 };
 
                 chip_orderByReview.setOnCheckedChangeListener(orderByReviewCheckedChangeListener);
-
-                //chip_orderByReview.setOnCheckedChangeListener(checkedChangeListener);
-
-                //chip_sameCity.setOnCheckedChangeListener(checkedChangeListener);
-
             }
 
             @Override
@@ -171,22 +149,16 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
             }
         });
     }
-    
-    
 
     @Override
     public void onItemClick(int pos) {
         Intent intent = new Intent(this, NannyshareSingle.class);
-
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", currentUser);
         intent.putExtras(bundle);
-
         Bundle nannyBundle = new Bundle();
         nannyBundle.putParcelable("nanny", nannyArrayList.get(pos));
-        System.out.println("hihihi: " + nannyArrayList.get(pos).toString());
         intent.putExtras(nannyBundle);
-
         startActivity(intent);
     }
 }

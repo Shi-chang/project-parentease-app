@@ -10,18 +10,21 @@
         android:id="@+id/tv_nanny_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="Nanny's name"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
     <TextView
         android:id="@+id/tv_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="★ 0.00"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:text="★ 0.0"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ratingLabel"
         app:layout_constraintTop_toBottomOf="@+id/tv_nanny_name" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -29,44 +32,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9"/>
+        app:layout_constraintGuide_percent="0.9" />
 
     <include
         android:id="@+id/bottom_navigation"
         layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline6" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/tv_myAccount"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@id/tv_tips"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/tv_myAccount"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/tv_tips"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
+    <!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
 
-<!--    <ImageView-->
-<!--        android:id="@+id/tv_nanny"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/tv_tips"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/tv_nanny"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        app:layout_constraintEnd_toStartOf="@id/tv_tips"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
+    <!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
 
-<!--    <ImageView-->
-<!--        android:id="@+id/tv_tips"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/tv_myAccount"-->
-<!--        app:layout_constraintStart_toEndOf="@id/tv_nanny"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/tv_tips"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        app:layout_constraintEnd_toStartOf="@id/tv_myAccount"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/tv_nanny"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
+    <!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
 
     <Button
         android:id="@+id/btn_book"
@@ -82,10 +85,11 @@
         android:id="@+id/rv_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nannyLocation" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline36"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <Button
         android:id="@+id/btn_postReview"
@@ -98,22 +102,106 @@
         app:layout_constraintTop_toTopOf="@+id/btn_book" />
 
     <TextView
-        android:id="@+id/tv_nannyYOE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="YOE"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_star" />
-
-    <TextView
         android:id="@+id/tv_nannyLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:text="Nanny's Location"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_nannyYOE" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline38"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/yoeTv" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02872777" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toTopOf="@+id/tv_nanny_name" />
+
+    <TextView
+        android:id="@+id/ratingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Rating: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/yoeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="YOE: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toBottomOf="@+id/ratingLabel" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="City: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline38"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toBottomOf="@+id/yoeLabel" />
+
+    <TextView
+        android:id="@+id/yoeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/yoeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_star" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Reviews"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline36"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toTopOf="@+id/guideline38" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

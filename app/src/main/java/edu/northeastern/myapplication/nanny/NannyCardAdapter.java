@@ -32,13 +32,12 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
     @NonNull
     @Override
     public NannyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.nanny_item_card,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.nanny_item_card, parent, false);
         return new NannyHolder(view, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NannyHolder holder, int position) {
-        System.out.println("in nanny card, nanny list size: "+ nannies.size());
         Nanny nanny = nannies.get(position);
         holder.setDetails(nanny);
     }
@@ -48,9 +47,8 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
         return nannies.size();
     }
 
-
     //View Holder: NannyHolder
-    class NannyHolder extends RecyclerView.ViewHolder{
+    class NannyHolder extends RecyclerView.ViewHolder {
         private TextView tv_name, tv_location, tv_yoe, tv_hourlyRate, tv_rating;
 
         public NannyHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
@@ -67,7 +65,7 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
                     if (recyclerViewInterface != null) {
                         int pos = getAdapterPosition();
 
-                        if (pos != RecyclerView.NO_POSITION){
+                        if (pos != RecyclerView.NO_POSITION) {
                             recyclerViewInterface.onItemClick(pos);
                         }
                     }
@@ -75,10 +73,9 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
             });
         }
 
-        void setDetails(Nanny nanny){
-            //TODO
-            tv_name.setText(nanny.getUsername());
-            tv_yoe.setText("YOE: "+ String.valueOf(nanny.getYoe()));
+        void setDetails(Nanny nanny) {
+            tv_name.setText("Name: " + nanny.getUsername());
+            tv_yoe.setText("YOE: " + String.valueOf(nanny.getYoe()));
             tv_location.setText("City: " + nanny.getCity());
             tv_hourlyRate.setText("Hourly Rate: " + nanny.getHourlyRate());
             tv_rating.setText("Review Score: " + nanny.getRatings());

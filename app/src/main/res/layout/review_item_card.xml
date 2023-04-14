@@ -11,10 +11,10 @@
 
 
         <TextView
-            android:id="@+id/tv_reviewByUserId"
+            android:id="@+id/tv_reviewContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Id: "
+            android:text="Review content"
             android:textSize="18sp" />
 
 
@@ -26,11 +26,11 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tv_reviewContent"
+            android:id="@+id/tv_reviewByUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Review Content: "
-            android:textSize="18sp" />
+            android:text="Username"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

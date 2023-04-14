@@ -1,5 +1,6 @@
 package edu.northeastern.myapplication.nanny;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.dao.ReviewsDao;
 import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.Review;
+import edu.northeastern.myapplication.entity.User;
 
 public class NannyPostReview extends AppCompatActivity {
     private TextView et_nannyReview;
@@ -32,6 +34,7 @@ public class NannyPostReview extends AppCompatActivity {
     private Button btnPostANannyReview;
     boolean isRatingBarClicked;
     private Nanny nanny;
+    private User user;
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,8 +42,8 @@ public class NannyPostReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nanny_review);
 
-        // TODO: You need you pass the nanny object from the previous activity.
         nanny = getIntent().getExtras().getParcelable("nanny");
+        user = getIntent().getExtras().getParcelable("user");
         mAuth = FirebaseAuth.getInstance();
 
         et_nannyReview = findViewById(R.id.et_nannyReview);
@@ -73,19 +76,17 @@ public class NannyPostReview extends AppCompatActivity {
                 String reviewId = uuid.toString();
 
                 // Creates a review, puts the review to the database.
-                Review review = new Review(reviewId, mAuth.getUid(), ratingBar.getRating(), et_nannyReview.getText().toString());
+                Review review = new Review(reviewId, mAuth.getUid(), user.getUsername(), ratingBar.getRating(), et_nannyReview.getText().toString());
                 ReviewsDao reviewsDao = new ReviewsDao();
                 reviewsDao.create(nanny.getNannyId(), review).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        System.out.println("on complete 1");
                         // Updates the nanny's ratings.
                         List<Review> reviewList = new ArrayList<>();
 
                         reviewsDao.getReviews(nanny.getNannyId()).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                System.out.println("on complete 2");
 
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(NannyPostReview.this, "Failed to get reviews.", Toast.LENGTH_LONG).show();
@@ -110,11 +111,16 @@ public class NannyPostReview extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Toast.makeText(NannyPostReview.this, "Nanny's ratings updated successfully.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(NannyPostReview.this, NannyshareSingle.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putParcelable("user", user);
+                                        bundle.putParcelable("nanny", nanny);
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
                                     }
                                 });
                             }
                         });
-
                     }
                 });
             }

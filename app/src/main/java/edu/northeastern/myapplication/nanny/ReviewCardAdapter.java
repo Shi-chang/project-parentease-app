@@ -1,6 +1,7 @@
 package edu.northeastern.myapplication.nanny;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.RecyclerViewInterface;
 import edu.northeastern.myapplication.entity.Review;
 
-public class ReviewCardAdapter extends  RecyclerView.Adapter<ReviewCardAdapter.ReviewHolder>  {
+public class ReviewCardAdapter extends RecyclerView.Adapter<ReviewCardAdapter.ReviewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
 
     //ReviewCardAdapter class
@@ -31,16 +32,14 @@ public class ReviewCardAdapter extends  RecyclerView.Adapter<ReviewCardAdapter.R
     @NonNull
     @Override
     public ReviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.review_item_card,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.review_item_card, parent, false);
         return new ReviewCardAdapter.ReviewHolder(view, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
-        System.out.println("in review card, review list size: "+ reviews.size());
         Review review = reviews.get(position);
         holder.setDetails(review);
-
     }
 
     @Override
@@ -49,17 +48,16 @@ public class ReviewCardAdapter extends  RecyclerView.Adapter<ReviewCardAdapter.R
     }
 
     //View Holder: NannyHolder
-    class ReviewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_reviewByUserId;
+    class ReviewHolder extends RecyclerView.ViewHolder {
+        private TextView tv_reviewByUsername;
         private TextView tv_reviewByUserRating;
         private TextView tv_reviewContent;
 
         public ReviewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-            tv_reviewByUserId = itemView.findViewById(R.id.tv_reviewByUserId);
-            tv_reviewByUserRating = itemView.findViewById(R.id.tv_reviewByUserRating);
             tv_reviewContent = itemView.findViewById(R.id.tv_reviewContent);
-
+            tv_reviewByUserRating = itemView.findViewById(R.id.tv_reviewByUserRating);
+            tv_reviewByUsername = itemView.findViewById(R.id.tv_reviewByUsername);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,7 +65,7 @@ public class ReviewCardAdapter extends  RecyclerView.Adapter<ReviewCardAdapter.R
                     if (recyclerViewInterface != null) {
                         int pos = getAdapterPosition();
 
-                        if (pos != RecyclerView.NO_POSITION){
+                        if (pos != RecyclerView.NO_POSITION) {
                             recyclerViewInterface.onItemClick(pos);
                         }
                     }
@@ -75,10 +73,11 @@ public class ReviewCardAdapter extends  RecyclerView.Adapter<ReviewCardAdapter.R
             });
         }
 
-        void setDetails(Review review){
-            tv_reviewByUserId.setText("Reviewer User ID: " + review.getReviewerId());
-            tv_reviewByUserRating.setText("Rating Given: "+ String.valueOf(review.getRating()));
-            tv_reviewContent.setText("Review Content: " + review.getReviewContent());
+        void setDetails(Review review) {
+            tv_reviewContent.setText("Comment: " + review.getReviewContent());
+            tv_reviewByUserRating.setText("Rating: ★ " + String.valueOf(review.getRating()));
+            tv_reviewByUsername.setText("-by client: " + review.getReviewerName());
+            tv_reviewByUsername.setTextColor(Color.GRAY);
         }
     }
 }

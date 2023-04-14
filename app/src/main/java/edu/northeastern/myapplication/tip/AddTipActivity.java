@@ -151,12 +151,11 @@ public class AddTipActivity extends AppCompatActivity {
     /**
      * Get the permission request result.
      *
-     * @param requestCode The request code passed in the method
-     * @param permissions The requested permissions. Never null.
+     * @param requestCode  The request code passed in the method
+     * @param permissions  The requested permissions. Never null.
      * @param grantResults The grant results for the corresponding permissions
-     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
-     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
-     *
+     *                     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *                     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -185,8 +184,8 @@ public class AddTipActivity extends AppCompatActivity {
      * Select the image and get the result.
      *
      * @param requestCode the request code
-     * @param resultCode the result code
-     * @param data the data
+     * @param resultCode  the result code
+     * @param data        the data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -288,6 +287,7 @@ public class AddTipActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", user);
                 intent.putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });

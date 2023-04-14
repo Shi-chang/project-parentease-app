@@ -3,6 +3,7 @@ package edu.northeastern.myapplication.nanny;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -122,6 +123,11 @@ public class NannyTimeSlots extends AppCompatActivity {
                             System.out.println(nannyAvailability.get(i));
                         }
                         Toast.makeText(NannyTimeSlots.this, "Ad posted successfully.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(NannyTimeSlots.this, NannyInformation.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("user", user);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 });
             }

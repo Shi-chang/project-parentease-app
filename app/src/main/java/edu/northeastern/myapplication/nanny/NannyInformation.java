@@ -37,6 +37,8 @@ import edu.northeastern.myapplication.entity.User;
  * The NannyInformation activity.
  */
 public class NannyInformation extends AppCompatActivity {
+    private final int BOOKABLE_DATE_MIN = 1;
+    private final int BOOKABLE_DATE_MAX = 14;
     private TextView nannyNameTv;
     private TextView locationTv;
     private TextView ratingsTv1;
@@ -128,10 +130,10 @@ public class NannyInformation extends AppCompatActivity {
 
         // Sets the dates starting from today to 7 days from now selectable.
         Calendar oneDayFromNow = Calendar.getInstance();
-        oneDayFromNow.add(Calendar.DATE, 1);
+        oneDayFromNow.add(Calendar.DATE, BOOKABLE_DATE_MIN);
         CalendarDay minDate = CalendarDay.from(oneDayFromNow);
         Calendar oneWeekFromNow = Calendar.getInstance();
-        oneWeekFromNow.add(Calendar.DATE, 7);
+        oneWeekFromNow.add(Calendar.DATE, BOOKABLE_DATE_MAX);
         CalendarDay maxDate = CalendarDay.from(oneWeekFromNow);
         calendarView.setSelectedDate(CalendarDay.today());
         calendarView.addDecorator(new DayViewDecorator() {
@@ -203,7 +205,7 @@ public class NannyInformation extends AppCompatActivity {
         intent.putExtra("gender", gender);
         intent.putExtra("hourlyRate", hourlyRate);
         intent.putExtra("introduction", introduction);
-
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 

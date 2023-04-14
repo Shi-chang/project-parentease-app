@@ -78,7 +78,7 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
             tv_yoe.setText("YOE: " + String.valueOf(nanny.getYoe()));
             tv_location.setText("City: " + nanny.getCity());
             tv_hourlyRate.setText("Hourly Rate: " + nanny.getHourlyRate());
-            tv_rating.setText("Review Score: " + nanny.getRatings());
+            tv_rating.setText("Review Score: " + String.format("%.1f", nanny.getRatings()));
         }
     }
 }

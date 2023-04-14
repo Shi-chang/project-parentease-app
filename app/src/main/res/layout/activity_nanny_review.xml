@@ -69,8 +69,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline29"
         app:layout_constraintStart_toStartOf="@+id/guideline26" />
 
-    <TextView
-        android:id="@+id/tv_nannyReview"
+    <EditText
+        android:id="@+id/et_nannyReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Share your experience to help others"

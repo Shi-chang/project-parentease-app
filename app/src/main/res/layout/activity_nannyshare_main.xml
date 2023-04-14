@@ -14,34 +14,31 @@
         app:layout_constraintGuide_begin="73dp" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_gender"
+        android:id="@+id/chip_orderByReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gender"
+        android:text="By Review"
         app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/chip_yoegreater1"
-        app:layout_constraintStart_toStartOf="parent"
-       />
+        app:layout_constraintEnd_toStartOf="@+id/chip_orderByRate"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_yoegreater1"
+        android:id="@+id/chip_orderByRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YOE>=1"
+        android:text="By Rate"
         app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/chip_distancelessthanfive"
-        app:layout_constraintStart_toEndOf="@+id/chip_gender"
-         />
+        app:layout_constraintEnd_toStartOf="@+id/chip_sameCity"
+        app:layout_constraintStart_toEndOf="@+id/chip_orderByReview" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_distancelessthanfive"
+        android:id="@+id/chip_sameCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Within 5 km"
+        android:text="Same City"
         app:layout_constraintBottom_toBottomOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/chip_yoegreater1"
-        />
+        app:layout_constraintStart_toEndOf="@+id/chip_orderByRate" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"

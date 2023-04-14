@@ -24,14 +24,14 @@ public class TipsDao {
     /**
      * Creates a tip in the Firebase Realtime Database.
      *
-     * @param userId the tip id
-     * @param tip    the tip object
+     * @param tipId the tip id
+     * @param tip   the tip object
      * @return a task
      */
-    public Task<Void> create(String userId, Tip tip) {
-        Objects.requireNonNull(userId);
+    public Task<Void> create(String tipId, Tip tip) {
+        Objects.requireNonNull(tipId);
         Objects.requireNonNull(tip);
-        return databaseReference.child(PATH_TIPS).child(userId).setValue(tip);
+        return databaseReference.child(PATH_TIPS).child(tipId).setValue(tip);
     }
 
     /**

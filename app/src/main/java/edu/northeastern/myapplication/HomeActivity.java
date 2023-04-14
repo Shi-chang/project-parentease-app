@@ -13,7 +13,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,20 +26,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import edu.northeastern.myapplication.entity.User;
-import edu.northeastern.myapplication.nanny.NannyshareMain;
 import edu.northeastern.myapplication.recylerView.CardViewAdapter;
 import edu.northeastern.myapplication.utils.Utils;
 
@@ -69,16 +63,15 @@ public class HomeActivity extends AppCompatActivity {
     private TextView text_nannyShare;
     private TextView text_tipsShare;
     private TextView text_myAccount;
-
-    private User user;
-
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
     private StaggeredGridLayoutManager layoutManager;
 
+    private User user;
     private List<Tip> allTipsList;
     private List<Tip> filteredTipsList;
-    private String selectedFilter;
+    private TextView selectedFilter;
+    private boolean userInteracting;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -88,6 +81,8 @@ public class HomeActivity extends AppCompatActivity {
 
         allTipsList = new ArrayList<>();
         filteredTipsList = new ArrayList<>();
+        selectedFilter = null;
+        userInteracting = false;
         loadTipsFromFromDatabase();
         user = getIntent().getExtras().getParcelable("user");
 
@@ -101,10 +96,8 @@ public class HomeActivity extends AppCompatActivity {
         // Sets the username in textview.
         userNameTextView = findViewById(R.id.username_tv);
         userNameTextView.setText(user.getUsername());
-
         searchTextView = findViewById(R.id.search_tv);
         searchBtn = findViewById(R.id.searchBtn);
-
         homeImageView = findViewById(R.id.iv_home);
         text_home = findViewById(R.id.tv_home);
         nannyShareImageView = findViewById(R.id.iv_nanny);
@@ -113,6 +106,7 @@ public class HomeActivity extends AppCompatActivity {
         text_tipsShare = findViewById(R.id.tv_tips);
         myAccountImageView = findViewById(R.id.iv_account);
         text_myAccount = findViewById(R.id.tv_account);
+        recyclerView = findViewById(R.id.recyclerView);
 
         BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, user);
         homeImageView.setOnClickListener(bottomNavClickListener);
@@ -123,8 +117,6 @@ public class HomeActivity extends AppCompatActivity {
         text_tipsShare.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
-
-        recyclerView = findViewById(R.id.recyclerView);
 
         // Sets the filters.
         filter1TextView = findViewById(R.id.tv_filter1);
@@ -137,26 +129,79 @@ public class HomeActivity extends AppCompatActivity {
         myTipsBtn = findViewById(R.id.btn_myTips);
         myBookingBtn = findViewById(R.id.myBookingBtn);
 
+        // Sets the on click listener for filters.
         for (TextView textView : filtersTextViewList) {
             textView.setOnClickListener(new View.OnClickListener() {
                 boolean isSelected = false;
 
                 @Override
                 public void onClick(View v) {
-                    if (isSelected) {
-                        selectedFilter = "";
-                        v.setBackgroundColor(Color.TRANSPARENT);
-                        setRecyclerView(allTipsList);
-                        isSelected = false;
-                    } else {
-                        selectedFilter = textView.getText().toString();
-                        v.setBackgroundColor(Color.GRAY);
-                        updateRecyclerViewBasedOnFilter();
+                    // Handles when no filter has been selected yet.
+                    if (selectedFilter == null) {
+                        selectedFilter = textView;
+                        selectedFilter.setBackgroundColor(Color.LTGRAY);
                         isSelected = true;
+                        updateRecyclerViewBasedOnFilter();
+                        return;
                     }
+
+                    // Handles when the selected filter is selected again.
+                    if (selectedFilter == textView && isSelected) {
+                        selectedFilter.setBackgroundColor(Color.TRANSPARENT);
+                        isSelected = !isSelected;
+                        selectedFilter = null;
+                        setRecyclerView(allTipsList);
+                        return;
+                    }
+
+                    // Handles when another filter is selected.
+                    selectedFilter.setBackgroundColor(Color.TRANSPARENT);
+                    selectedFilter = textView;
+                    selectedFilter.setBackgroundColor(Color.LTGRAY);
+                    updateRecyclerViewBasedOnFilter();
                 }
             });
         }
+
+        // Sets the on focus change listener for the search bar.
+        searchTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                userInteracting = hasFocus;
+            }
+        });
+
+        // Sets the text watcher for the search bar. When the user deletes all the input on the search
+        // bar, the tips in the recycler view will appear.
+        searchTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (userInteracting && s.length() == 0) {
+                    setRecyclerView(allTipsList);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        // Sets the on click listener for the search icon.
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchTextView.getText().toString().strip().length() == 0) {
+                    Toast.makeText(HomeActivity.this, "Please input keywords.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                updateRecyclerViewBasedOnSearchBar(searchTextView.getText().toString().strip());
+            }
+        });
     }
 
     /**
@@ -165,7 +210,23 @@ public class HomeActivity extends AppCompatActivity {
     private void updateRecyclerViewBasedOnFilter() {
         filteredTipsList.clear();
         for (Tip tip : allTipsList) {
-            if (tip.getFilter().equals(selectedFilter)) {
+            if (tip.getFilter().equals(selectedFilter.getText().toString())) {
+                filteredTipsList.add(tip);
+            }
+        }
+
+        setRecyclerView(filteredTipsList);
+    }
+
+    /**
+     * Updates the recycler view based on the input on the search bar.
+     *
+     * @param keyword
+     */
+    private void updateRecyclerViewBasedOnSearchBar(String keyword) {
+        filteredTipsList.clear();
+        for (Tip tip : allTipsList) {
+            if (tip.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
                 filteredTipsList.add(tip);
             }
         }

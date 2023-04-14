@@ -25,12 +25,6 @@
             android:text="Year of Exp." />
 
         <TextView
-            android:id="@+id/tv_hourlyRate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hourly Rate: " />
-
-        <TextView
             android:id="@+id/tv_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -15,6 +15,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_orderByReview"
+        style="@style/Widget.MaterialComponents.Chip.Filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="By Review"
@@ -34,6 +35,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_sameCity"
+        style="@style/Widget.MaterialComponents.Chip.Filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Same City"

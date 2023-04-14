@@ -2,6 +2,7 @@ package edu.northeastern.myapplication.nanny;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +20,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import edu.northeastern.myapplication.BottomNavClickListener;
 import edu.northeastern.myapplication.R;
@@ -47,6 +50,7 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private Chip chip_orderByRate;
     private Chip chip_sameCity;
     private ArrayList<String> selectedChipData;
+    private ArrayList<Nanny> nannyArrayListTemp;
 
     private NannyDao nannyDao;
     private UserDao userDao;
@@ -108,47 +112,99 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                 for (DataSnapshot nannySnapshot : dataSnapshot.getChildren()) {
                     Nanny nanny = nannySnapshot.getValue(Nanny.class);
                     nannyArrayList.add(nanny);
+                    System.out.println(nanny.toString());
                 }
 
-                adapter = null;
-                adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
-                adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(adapter);
+                setRecyclerView(nannyArrayList);
+                for (Nanny n : nannyArrayList) {
+                    System.out.println("before: " + n.getUsername());
+                }
 
-                CompoundButton.OnCheckedChangeListener orderByRateCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        if (isChecked) {
-                            ArrayList<Nanny> nannyArrayListTemp = nannyArrayList;
-                            Collections.sort(nannyArrayListTemp, Nanny.rateAsc);
-                            adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayListTemp, NannyshareMain.this);
-                            recyclerView.setAdapter(adapter);
-                        }
-                    }
-                };
+                initChip(nannyArrayList);
 
-                chip_orderByRate.setOnCheckedChangeListener(orderByRateCheckedChangeListener);
-                CompoundButton.OnCheckedChangeListener orderByReviewCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        if (isChecked) {
-                            Collections.sort(nannyArrayList, Nanny.ratingDesc);
-                            Collections.reverse(nannyArrayList);
-                            adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
-                            recyclerView.setAdapter(adapter);
-                        }
-                    }
-                };
-
-                chip_orderByReview.setOnCheckedChangeListener(orderByReviewCheckedChangeListener);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
+
+    private void initChip(ArrayList<Nanny> nannyArrayList) {
+        nannyArrayListTemp = new ArrayList<Nanny>();
+        for (Nanny n : nannyArrayList) {
+            nannyArrayListTemp.add(n);
+        }
+        CompoundButton.OnCheckedChangeListener byRateCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isByRateChecked) {
+                if (isByRateChecked) {
+                    Collections.sort(nannyArrayListTemp, Nanny.rateAsc);
+                    setRecyclerView(nannyArrayListTemp);
+                } else {
+                    isByRateChecked = false;
+                    setRecyclerView(nannyArrayList);
+                }
+            }
+        };
+
+        chip_orderByRate.setOnCheckedChangeListener(byRateCheckedChangeListener);
+        //by review score filter
+        CompoundButton.OnCheckedChangeListener byReviewCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isByReviewChecked) {
+                if (isByReviewChecked) {
+                    Collections.sort(nannyArrayListTemp, Nanny.ratingDesc);
+                    Collections.reverse(nannyArrayListTemp);
+                    setRecyclerView(nannyArrayListTemp);
+                } else {
+                    isByReviewChecked = false;
+                    setRecyclerView(nannyArrayList);
+                }
+
+            }
+
+        };
+
+        chip_orderByReview.setOnCheckedChangeListener(byReviewCheckedChangeListener);
+
+        CompoundButton.OnCheckedChangeListener bySameCityCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isSameCityChecked) {
+                if (isSameCityChecked) {
+                    String targetCity = currentUser.getCity();
+                    System.out.println("my city: " + targetCity);
+                    ArrayList<Nanny> filterCity = new ArrayList<Nanny>();
+                    for (Nanny n : nannyArrayList) {
+                        if (n.getCity() == targetCity) {
+                            filterCity.add(n);
+                        }
+                    }
+                    ;
+                    setRecyclerView(filterCity);
+                } else {
+                    isSameCityChecked = false;
+                    setRecyclerView(nannyArrayListTemp);
+                }
+            }
+        };
+
+        chip_sameCity.setOnCheckedChangeListener(bySameCityCheckedChangeListener);
+    }
+
+
+
+    private void setRecyclerView(ArrayList<Nanny> nannyArrayList) {
+        adapter = null;
+        adapter = new NannyCardAdapter(this, nannyArrayList,this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
 
     @Override
     public void onItemClick(int pos) {

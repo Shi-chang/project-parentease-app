@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +52,7 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private Chip chip_orderByReview;
     private Chip chip_orderByRate;
     private Chip chip_sameCity;
+    private ArrayList<String> selectedChipData;
 
     private NannyDao nannyDao;
     private UserDao userDao;
@@ -99,17 +101,15 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         chip_orderByReview = findViewById(R.id.chip_orderByReview);
         chip_orderByRate = findViewById(R.id.chip_orderByRate);
         chip_sameCity = findViewById(R.id.chip_sameCity);
-        
-        ratingDesc();
 
     }
 
-    private void ratingDesc() {
-        Collections.sort(nannyArrayList, Nanny.ratingDesc);
-        Collections.reverse(nannyArrayList);
-        adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
-        recyclerView.setAdapter(adapter);
-    }
+//    private void ratingDesc() {
+//        Collections.sort(nannyArrayList, Nanny.ratingDesc);
+//        Collections.reverse(nannyArrayList);
+//        adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
+//        recyclerView.setAdapter(adapter);
+//    }
 
     private void InitializeCardView() {
         recyclerView = findViewById(R.id.rv_recyclerView);
@@ -126,10 +126,46 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                     nannyArrayList.add(nanny);
                     System.out.println(nanny.toString());
                 }
+
                 adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
+
+                CompoundButton.OnCheckedChangeListener orderByRateCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (isChecked) {
+                            ArrayList<Nanny> nannyArrayListTemp = nannyArrayList;
+                            Collections.sort(nannyArrayListTemp, Nanny.rateAsc);
+                            adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayListTemp, NannyshareMain.this);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                };
+
+                chip_orderByRate.setOnCheckedChangeListener(orderByRateCheckedChangeListener);
+
+
+                CompoundButton.OnCheckedChangeListener orderByReviewCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (isChecked) {
+                            Collections.sort(nannyArrayList, Nanny.ratingDesc);
+                            Collections.reverse(nannyArrayList);
+                            adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                };
+
+                chip_orderByReview.setOnCheckedChangeListener(orderByReviewCheckedChangeListener);
+
+                //chip_orderByReview.setOnCheckedChangeListener(checkedChangeListener);
+
+                //chip_sameCity.setOnCheckedChangeListener(checkedChangeListener);
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error

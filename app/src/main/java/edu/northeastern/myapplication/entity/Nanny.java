@@ -136,6 +136,15 @@ public class Nanny implements Parcelable {
 
     }
 
+    public static Comparator<Nanny> rateAsc = new Comparator<Nanny>() {
+        @Override
+        public int compare(Nanny nanny1, Nanny nanny2) {
+            float rate1 = nanny1.getHourlyRate();
+            float rate2 = nanny2.getHourlyRate();
+            return Float.compare(rate1, rate2);
+        }
+    };
+
     public static Comparator<Nanny> ratingDesc = new Comparator<Nanny>() {
         @Override
         public int compare(Nanny nanny1, Nanny nanny2) {

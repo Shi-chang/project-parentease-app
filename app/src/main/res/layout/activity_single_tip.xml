@@ -21,13 +21,6 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82216144" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,13 +89,12 @@
         android:id="@+id/inputCommentTextView"
         android:layout_width="283dp"
         android:layout_height="45dp"
-        android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/add_a_comment"
         android:minHeight="48dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toBottomOf="@+id/guideline6" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <Button
         android:id="@+id/addCommentButton"
@@ -110,10 +102,9 @@
         android:layout_height="48dp"
         android:text="@string/addComment"
         android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@id/inputCommentTextView"
-        app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintStart_toEndOf="@id/inputCommentTextView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
@@ -121,7 +112,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintBottom_toTopOf="@+id/inputCommentTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />

@@ -60,7 +60,10 @@ public class Tip implements Parcelable {
     public String getUserId() {
         return userId;
     }
-    public String getUserName() { return userName; }
+
+    public String getUserName() {
+        return userName;
+    }
 
     public String getTitle() {
         return title;
@@ -92,5 +95,18 @@ public class Tip implements Parcelable {
         dest.writeString(pictureUrl);
         dest.writeString(content);
         dest.writeString(filter);
+    }
+
+    @Override
+    public String toString() {
+        return "Tip{" +
+                "tipId='" + tipId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", title='" + title + '\'' +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                ", content='" + content + '\'' +
+                ", filter='" + filter + '\'' +
+                '}';
     }
 }

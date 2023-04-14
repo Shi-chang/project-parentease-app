@@ -148,8 +148,11 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
                     String clientPhoneNumber = phoneInput.getText().toString();
                     String clientAddress = addressInput.getText().toString();
                     updateNannyBookingInformation(userId, clientPhoneNumber, clientAddress);
-
                     Intent intent = new Intent(NannyBookingTimeSlots.this, NannyBookingInformation.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("nanny", nanny);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             });

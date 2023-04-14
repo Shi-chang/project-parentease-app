@@ -266,6 +266,7 @@ public class HomeActivity extends AppCompatActivity {
      * Sets up the recycler view based on the tips list.
      */
     private void setRecyclerView(List<Tip> tipsList) {
+        System.out.println("tips list size: " + tipsList.size());
         adapter = null;
         adapter = new CardViewAdapter(this, tipsList);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);

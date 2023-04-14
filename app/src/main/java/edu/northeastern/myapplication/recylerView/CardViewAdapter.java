@@ -43,7 +43,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         Tip currentTip = tipDataList.get(position);
         holder.title.setText(currentTip.getTitle());
         holder.username.setText(currentTip.getUserName());
-        String imageUrl = currentTip.getPictureUrl().toString();
+
+        System.out.println("current tip: " + currentTip);
+
+        String imageUrl = currentTip.getPictureUrl();
 
         Glide.with(context)
                 .load(imageUrl)

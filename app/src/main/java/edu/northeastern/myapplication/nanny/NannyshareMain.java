@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.northeastern.myapplication.BottomNavClickListener;
 import edu.northeastern.myapplication.MyInfoActivity;
@@ -44,6 +47,9 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private TextView text_tips;
     private TextView text_myAccount;
     private User currentUser;
+    private Chip chip_orderByReview;
+    private Chip chip_orderByRate;
+    private Chip chip_sameCity;
 
     private NannyDao nannyDao;
     private UserDao userDao;
@@ -87,31 +93,12 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         text_myAccount.setOnClickListener(bottomNavClickListener);
 
         InitializeCardView();
-//        tipsShareImageView = findViewById(R.id.tv_tips);
-//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(NannyshareMain.this, PostActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", currentUser);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        myAccountImageView = findViewById(R.id.tv_myAccount);
-//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(NannyshareMain.this, MyInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", currentUser);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
 
-        InitializeCardView();
+        // Sets the filters.
+        chip_orderByReview = findViewById(R.id.chip_orderByReview);
+        chip_orderByRate = findViewById(R.id.chip_orderByRate);
+        chip_sameCity = findViewById(R.id.chip_sameCity);
+
     }
 
     private void InitializeCardView() {
@@ -128,10 +115,10 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                     Nanny nanny = nannySnapshot.getValue(Nanny.class);
                     nannyArrayList.add(nanny);
                     System.out.println(nanny.toString());
-                    adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
                 }
+                adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

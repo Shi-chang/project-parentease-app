@@ -6,14 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".nanny.NannyshareSingle">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
     <TextView
         android:id="@+id/tv_nanny_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nanny's name"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintTop_toTopOf="@id/guideline2" />
 
     <TextView
         android:id="@+id/tv_star"
@@ -21,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="★ 0.00"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/tv_nanny_name" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -41,33 +64,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/tv_myAccount"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@id/tv_tips"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/tv_nanny"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/tv_tips"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/tv_tips"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/tv_myAccount"-->
-<!--        app:layout_constraintStart_toEndOf="@id/tv_nanny"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
-
     <Button
         android:id="@+id/btn_book"
         android:layout_width="wrap_content"
@@ -83,8 +79,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/tv_nannyLocation" />
 
     <Button
@@ -103,7 +100,7 @@
         android:layout_height="wrap_content"
         android:text="YOE"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/tv_star" />
 
     <TextView
@@ -112,7 +109,7 @@
         android:layout_height="wrap_content"
         android:text="Nanny's Location"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@id/tv_nannyYOE" />
 
 

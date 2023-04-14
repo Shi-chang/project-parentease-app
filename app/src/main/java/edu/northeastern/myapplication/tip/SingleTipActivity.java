@@ -116,6 +116,14 @@ public class SingleTipActivity extends AppCompatActivity {
         inputCommentTextView = findViewById(R.id.inputCommentTextView);
         addCommentButton = findViewById(R.id.addCommentButton);
         commentRecyclerView = findViewById(R.id.commentRecyclerView);
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nanny = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tips = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
 
         // initial the comment recycler view
         commentsAdapter = new CommentsAdapter(this, commentList);
@@ -233,16 +241,6 @@ public class SingleTipActivity extends AppCompatActivity {
                 }
             }
         });
-
-        homeImageView = findViewById(R.id.iv_home);
-        text_home = findViewById(R.id.tv_home);
-        nannyShareImageView = findViewById(R.id.iv_nanny);
-        text_nanny = findViewById(R.id.tv_nanny);
-        tipsShareImageView = findViewById(R.id.iv_tips);
-        text_tips = findViewById(R.id.tv_tips);
-        myAccountImageView = findViewById(R.id.iv_account);
-        text_myAccount = findViewById(R.id.tv_account);
-
         BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, commentator);
         homeImageView.setOnClickListener(bottomNavClickListener);
         text_home.setOnClickListener(bottomNavClickListener);
@@ -252,54 +250,6 @@ public class SingleTipActivity extends AppCompatActivity {
         text_tips.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
-
-//        browseImageView = findViewById(R.id.browseImageView);
-//        browseImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SingleTipActivity.this, HomeActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", commentator);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        nannyShareImageView = findViewById(R.id.nannyImageView);
-//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SingleTipActivity.this, NannyshareMain.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", commentator);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        tipsShareImageView = findViewById(R.id.tipsImageView);
-//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SingleTipActivity.this, PostActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", commentator);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        myAccountImageView = findViewById(R.id.myAccountImageView);
-//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SingleTipActivity.this, MyInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", commentator);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     /**

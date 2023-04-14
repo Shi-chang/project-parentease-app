@@ -81,50 +81,6 @@ public class PostActivity extends AppCompatActivity {
         text_tips.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
-
-//        browseImageView = findViewById(R.id.browseImageView);
-//        browseImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        nannyShareImageView = findViewById(R.id.nannyImageView);
-//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PostActivity.this, NannyshareMain.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        tipsShareImageView = findViewById(R.id.tipsImageView);
-//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                refreshPostActivity();
-//            }
-//        });
-//
-//        myAccountImageView = findViewById(R.id.myAccountImageView);
-//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PostActivity.this, MyInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     /**

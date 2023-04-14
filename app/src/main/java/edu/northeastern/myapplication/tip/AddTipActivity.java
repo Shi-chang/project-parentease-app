@@ -70,6 +70,7 @@ public class AddTipActivity extends AppCompatActivity {
     private TextView text_myAccount;
     private User user;
     private String filter;
+    private int picFlag;
 
     /**
      * Called when the Add Tip activity is starting.
@@ -88,12 +89,23 @@ public class AddTipActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        storage = FirebaseStorage.getInstance();
+
         user = getIntent().getExtras().getParcelable("user");
 
         addPictureButton = findViewById(R.id.addPictureButton);
         addPictureImageView = findViewById(R.id.addPictureImageView);
         addTitleEditText = findViewById(R.id.addTitleEditText);
         addContentEditText = findViewById(R.id.addContentEditText);
+        postButton = findViewById(R.id.postButton);
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nanny = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tips = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
         radioGroup = findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -115,19 +127,6 @@ public class AddTipActivity extends AppCompatActivity {
                 }
             }
         });
-
-        postButton = findViewById(R.id.postButton);
-        storage = FirebaseStorage.getInstance();
-
-        homeImageView = findViewById(R.id.iv_home);
-        text_home = findViewById(R.id.tv_home);
-        nannyShareImageView = findViewById(R.id.iv_nanny);
-        text_nanny = findViewById(R.id.tv_nanny);
-        tipsShareImageView = findViewById(R.id.iv_tips);
-        text_tips = findViewById(R.id.tv_tips);
-        myAccountImageView = findViewById(R.id.iv_account);
-        text_myAccount = findViewById(R.id.tv_account);
-
         BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, user);
         homeImageView.setOnClickListener(bottomNavClickListener);
         text_home.setOnClickListener(bottomNavClickListener);
@@ -137,54 +136,6 @@ public class AddTipActivity extends AppCompatActivity {
         text_tips.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
-
-//        browseImageView = findViewById(R.id.browseImageView);
-//        browseImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(AddTipActivity.this, HomeActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        nannyShareImageView = findViewById(R.id.nannyImageView);
-//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(AddTipActivity.this, NannyshareMain.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        tipsShareImageView = findViewById(R.id.tipsImageView);
-//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(AddTipActivity.this, PostActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        myAccountImageView = findViewById(R.id.myAccountImageView);
-//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(AddTipActivity.this, MyInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", user);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     /**
@@ -262,6 +213,7 @@ public class AddTipActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 // Get the URL as a string
                                 downloadUrl = uri.toString();
+                                picFlag = 1;
                             }
                         });
                     } else {
@@ -291,6 +243,10 @@ public class AddTipActivity extends AppCompatActivity {
             return;
         }
         String content = addContentEditText.getText().toString();
+        if (picFlag != 1) {
+            Toast.makeText(AddTipActivity.this, "Please add a picture", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // get the filter
         // get tipId
         UUID uuid = UUID.randomUUID();

@@ -57,7 +57,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private String introduction;
     FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,15 +132,13 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                     recyclerView.setAdapter(adapter);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
             }
         });
     }
-
-
-
 
     @Override
     public void onItemClick(int pos) {

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.MyApplication.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".MyBooking"
+            android:exported="false" />
+        <activity
             android:name=".nanny.NannyBookingTimeSlots"
             android:exported="false" />
         <activity
@@ -84,7 +87,7 @@
         </activity>
 
         <service
-            android:name="edu.northeastern.myapplication.tip.MessagingService"
+            android:name=".tip.MessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

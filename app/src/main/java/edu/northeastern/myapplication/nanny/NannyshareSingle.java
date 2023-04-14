@@ -35,7 +35,6 @@ public class NannyshareSingle extends AppCompatActivity {
     private User currentUser;
     private Nanny currentNanny;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +79,6 @@ public class NannyshareSingle extends AppCompatActivity {
                 Bundle nannyBundle = new Bundle();
                 nannyBundle.putParcelable("nanny", currentNanny);
                 intent.putExtras(nannyBundle);
-
 
                 startActivity(intent);
             }

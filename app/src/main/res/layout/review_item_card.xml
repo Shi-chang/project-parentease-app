@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,27 +11,24 @@
 
 
         <TextView
-            android:id="@+id/tv_nameCard"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_reviewByUserId"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="User Id: " />
+
 
         <TextView
-            android:id="@+id/tv_yoe"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_reviewByUserRating"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Year of Exp." />
+            android:text="Rating Given: " />
 
         <TextView
-            android:id="@+id/tv_hourlyRate"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_reviewContent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hourly Rate: " />
+            android:text="Review Content: " />
 
-        <TextView
-            android:id="@+id/tv_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Location" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

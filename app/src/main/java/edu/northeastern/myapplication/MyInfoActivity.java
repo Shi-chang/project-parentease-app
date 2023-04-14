@@ -6,8 +6,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyshareMain;
@@ -30,6 +33,9 @@ public class MyInfoActivity extends AppCompatActivity {
     private TextView text_tips;
     private ImageView myAccountImageView;
     private TextView text_myAccount;
+    private Button logoutButton;
+
+    private FirebaseAuth mAuth;
 
     /**
      * Called when the activity is starting.
@@ -42,6 +48,8 @@ public class MyInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
+
+        mAuth = FirebaseAuth.getInstance();
 
         currentUser = getIntent().getExtras().getParcelable("user");
 
@@ -74,6 +82,18 @@ public class MyInfoActivity extends AppCompatActivity {
         text_tips.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
+
+        logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(MyInfoActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     /**

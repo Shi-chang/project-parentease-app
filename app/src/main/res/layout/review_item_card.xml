@@ -14,20 +14,23 @@
             android:id="@+id/tv_reviewByUserId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Id: " />
+            android:text="User Id: "
+            android:textSize="18sp" />
 
 
         <TextView
             android:id="@+id/tv_reviewByUserRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rating Given: " />
+            android:text="Rating Given: "
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_reviewContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Review Content: " />
+            android:text="Review Content: "
+            android:textSize="18sp" />
 
     </LinearLayout>
 

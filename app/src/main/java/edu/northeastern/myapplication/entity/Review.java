@@ -47,6 +47,16 @@ public class Review {
     public String getReviewContent() {
         return reviewContent;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId='" + reviewId + '\'' +
+                ", reviewerId=" + reviewerId +
+                ", rating='" + rating + '\'' +
+                ", reviewContent=" + reviewContent +
+                '}';
+    }
 }
 
 //TODO YE: given a nanny id, get all reviews for the nanny

@@ -1,6 +1,9 @@
 package edu.northeastern.myapplication.nanny;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,16 +11,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.northeastern.myapplication.BottomNavClickListener;
+import edu.northeastern.myapplication.HomeActivity;
 import edu.northeastern.myapplication.MyInfoActivity;
 import edu.northeastern.myapplication.Nanny_old;
 import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
+import edu.northeastern.myapplication.RecyclerViewInterface;
+import edu.northeastern.myapplication.dao.ReviewsDao;
 import edu.northeastern.myapplication.entity.Nanny;
+import edu.northeastern.myapplication.entity.Review;
 import edu.northeastern.myapplication.entity.User;
 
-public class NannyshareSingle extends AppCompatActivity {
+public class NannyshareSingle extends AppCompatActivity  implements RecyclerViewInterface {
+    private RecyclerView recyclerView;
+    private ReviewCardAdapter adapter;
+    private ArrayList<Review> reviewArrayList;
     private TextView tv_name;
     private TextView tv_reviewScore;
     private TextView tv_yoe;
@@ -118,44 +136,50 @@ public class NannyshareSingle extends AppCompatActivity {
         text_tips.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
-//        nannyShareImageView = findViewById(R.id.tv_nanny);
-//        nannyShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(NannyshareSingle.this, NannyshareMain.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", currentUser);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        tipsShareImageView = findViewById(R.id.tv_tips);
-//        tipsShareImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(NannyshareSingle.this, PostActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", currentUser);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        myAccountImageView = findViewById(R.id.tv_myAccount);
-//        myAccountImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(NannyshareSingle.this, MyInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("user", currentUser);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
 
+        initReviewCardView();
 
     }
 
+    private void initReviewCardView() {
+        recyclerView = findViewById(R.id.rv_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewArrayList = new ArrayList<Review>();
 
+        ReviewsDao reviewsDao = new ReviewsDao();
+        reviewsDao.getReviews(currentNanny.getNannyId()).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DataSnapshot> task) {
+            if (!task.isSuccessful()) {
+                Toast.makeText(NannyshareSingle.this, "Failed to get reviews.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            DataSnapshot taskResult = task.getResult();
+            if (!taskResult.exists()) {
+                Toast.makeText(NannyshareSingle.this, "The nanny has no review.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            for (DataSnapshot dataSnapshot : taskResult.getChildren()) {
+                reviewArrayList.add(dataSnapshot.getValue(Review.class));
+                System.out.println("review list size: "+reviewArrayList.size());
+                for(Review r: reviewArrayList){
+                  System.out.println("this review is saying: " + r);
+                }
+            }
+
+            adapter = new ReviewCardAdapter(NannyshareSingle.this, reviewArrayList, NannyshareSingle.this);
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+
+        }
+    });
+    }
+
+
+    @Override
+    public void onItemClick(int pos) {
+
+    }
 }

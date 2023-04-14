@@ -116,14 +116,6 @@ public class SingleTipActivity extends AppCompatActivity {
         inputCommentTextView = findViewById(R.id.inputCommentTextView);
         addCommentButton = findViewById(R.id.addCommentButton);
         commentRecyclerView = findViewById(R.id.commentRecyclerView);
-        homeImageView = findViewById(R.id.iv_home);
-        text_home = findViewById(R.id.tv_home);
-        nannyShareImageView = findViewById(R.id.iv_nanny);
-        text_nanny = findViewById(R.id.tv_nanny);
-        tipsShareImageView = findViewById(R.id.iv_tips);
-        text_tips = findViewById(R.id.tv_tips);
-        myAccountImageView = findViewById(R.id.iv_account);
-        text_myAccount = findViewById(R.id.tv_account);
 
         // initial the comment recycler view
         commentsAdapter = new CommentsAdapter(this, commentList);
@@ -241,6 +233,16 @@ public class SingleTipActivity extends AppCompatActivity {
                 }
             }
         });
+
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nanny = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tips = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
+
         BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, commentator);
         homeImageView.setOnClickListener(bottomNavClickListener);
         text_home.setOnClickListener(bottomNavClickListener);

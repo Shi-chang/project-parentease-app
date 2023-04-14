@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -134,4 +135,13 @@ public class Nanny implements Parcelable {
         //TODO ADD TIMESLOT
 
     }
+
+    public static Comparator<Nanny> ratingDesc = new Comparator<Nanny>() {
+        @Override
+        public int compare(Nanny nanny1, Nanny nanny2) {
+            float rating1 = nanny1.getRatings();
+            float rating2 = nanny2.getRatings();
+            return Float.compare(rating1, rating2);
+        }
+    };
 }

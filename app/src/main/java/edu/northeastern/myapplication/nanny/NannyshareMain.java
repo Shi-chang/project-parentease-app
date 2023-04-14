@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import edu.northeastern.myapplication.BottomNavClickListener;
 import edu.northeastern.myapplication.MyInfoActivity;
@@ -98,7 +99,16 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         chip_orderByReview = findViewById(R.id.chip_orderByReview);
         chip_orderByRate = findViewById(R.id.chip_orderByRate);
         chip_sameCity = findViewById(R.id.chip_sameCity);
+        
+        ratingDesc();
 
+    }
+
+    private void ratingDesc() {
+        Collections.sort(nannyArrayList, Nanny.ratingDesc);
+        Collections.reverse(nannyArrayList);
+        adapter = new NannyCardAdapter(NannyshareMain.this, nannyArrayList, NannyshareMain.this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void InitializeCardView() {
@@ -126,6 +136,8 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
             }
         });
     }
+    
+    
 
 
 

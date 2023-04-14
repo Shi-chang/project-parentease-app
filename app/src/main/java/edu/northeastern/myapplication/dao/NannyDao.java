@@ -38,9 +38,9 @@ public class NannyDao {
         return databaseReference.child(PATH_NANNIES).child(userId).get();
     }
 
-    public Task<Void> update(String userId, Nanny nanny) {
-        Objects.requireNonNull(userId);
+    public Task<Void> update(String nannyId, Nanny nanny) {
+        Objects.requireNonNull(nannyId);
         Objects.requireNonNull(nanny);
-        return databaseReference.child(PATH_NANNIES).child(userId).setValue(nanny);
+        return databaseReference.child(PATH_NANNIES).child(nannyId).setValue(nanny);
     }
 }

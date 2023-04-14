@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyInformation;
-import edu.northeastern.myapplication.nanny.NannyshareMain;
 import edu.northeastern.myapplication.tip.AddTipActivity;
 
 /**

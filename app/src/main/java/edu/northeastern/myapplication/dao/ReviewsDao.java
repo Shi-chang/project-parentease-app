@@ -22,7 +22,7 @@ public class ReviewsDao {
     }
 
     /**
-     * Creates a review in the Firebase Realtime Database.
+     * Appends a review to the end of the nanny's reviews in the Firebase Realtime Database.
      *
      * @param nannyId the nanny id
      * @param review  the review object
@@ -31,7 +31,7 @@ public class ReviewsDao {
     public Task<Void> create(String nannyId, Review review) {
         Objects.requireNonNull(nannyId);
         Objects.requireNonNull(review);
-        return databaseReference.child(PATH_REVIEWS).child(nannyId).setValue(review);
+        return databaseReference.child(PATH_REVIEWS).child(nannyId).push().setValue(review);
     }
 
     /**
@@ -41,6 +41,8 @@ public class ReviewsDao {
      * @return teh reviews of the nanny
      */
     public Task<DataSnapshot> getReviews(String nannyId) {
+        System.out.println("here 3");
+        System.out.println(nannyId);
         Objects.requireNonNull(nannyId);
         return databaseReference.child(PATH_REVIEWS).child(nannyId).get();
     }

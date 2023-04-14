@@ -87,6 +87,10 @@ public class Nanny implements Parcelable {
         return ratings;
     }
 
+    public void setRatings(float ratings) {
+        this.ratings = ratings;
+    }
+
     public String getIntroduction() {
         return introduction;
     }

@@ -45,18 +45,18 @@ public class NannyshareSingle extends AppCompatActivity {
         System.out.println("hihihi rceived: " + currentNanny.toString());
 
         String name = currentNanny.getUsername();
-        System.out.println("NannyshareSingle username: "+name);
+        System.out.println("NannyshareSingle username: " + name);
         Float reviewScore = currentNanny.getRatings();
         Integer yoe = currentNanny.getYoe();
         String city = currentNanny.getCity();
-        System.out.println("NannyshareSingle city: "+city);
+        System.out.println("NannyshareSingle city: " + city);
 
         tv_name = findViewById(R.id.tv_nanny_name);
         tv_name.setText("Name: " + name);
 
         //ratings: USE THIS FORMAT for star: android:text="★ 0.00"
         tv_reviewScore = findViewById(R.id.tv_star);
-        tv_reviewScore.setText("★ "+ reviewScore.toString());
+        tv_reviewScore.setText("★ " + reviewScore.toString());
 
         //yoe
         tv_yoe = findViewById(R.id.tv_nannyYOE);
@@ -92,6 +92,7 @@ public class NannyshareSingle extends AppCompatActivity {
                 Intent intent = new Intent(NannyshareSingle.this, NannyPostReview.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", currentUser);
+                bundle.putParcelable("nanny", currentNanny);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

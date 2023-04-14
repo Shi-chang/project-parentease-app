@@ -19,11 +19,10 @@
         android:layout_height="wrap_content"
         android:numStars="5"
         android:rating="3.5"
-        app:layout_constraintBottom_toTopOf="@+id/btnPostANannyAd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+        app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
@@ -33,18 +32,11 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline32"
@@ -60,24 +52,26 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
 
+    <EditText
+        android:id="@+id/et_nannyReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Share your experience to help others"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline34"
+        app:layout_constraintEnd_toStartOf="@+id/guideline29"
+        app:layout_constraintStart_toStartOf="@+id/guideline26"
+        app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
     <Button
-        android:id="@+id/btnPostANannyAd"
+        android:id="@+id/btnPostANannyReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Post Review"
         app:layout_constraintBottom_toTopOf="@+id/guideline31"
         app:layout_constraintEnd_toStartOf="@+id/guideline29"
-        app:layout_constraintStart_toStartOf="@+id/guideline26" />
-
-    <EditText
-        android:id="@+id/et_nannyReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Share your experience to help others"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline29"
         app:layout_constraintStart_toStartOf="@+id/guideline26"
-        app:layout_constraintTop_toTopOf="@+id/guideline32" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

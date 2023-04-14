@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import edu.northeastern.myapplication.BottomNavClickListener;
 import edu.northeastern.myapplication.HomeActivity;
 import edu.northeastern.myapplication.MyInfoActivity;
 import edu.northeastern.myapplication.PostActivity;
@@ -78,10 +79,14 @@ public class SingleTipActivity extends AppCompatActivity {
     private User commentator;
     private String commentatorName;
     private Comment comment;
-    private ImageView browseImageView;
+    private ImageView homeImageView;
+    private TextView text_home;
     private ImageView nannyShareImageView;
+    private TextView text_nanny;
     private ImageView tipsShareImageView;
+    private TextView text_tips;
     private ImageView myAccountImageView;
+    private TextView text_myAccount;
     private static String SERVER_KEY;
     private String tipOwnerToken;
 
@@ -228,6 +233,25 @@ public class SingleTipActivity extends AppCompatActivity {
                 }
             }
         });
+
+        homeImageView = findViewById(R.id.iv_home);
+        text_home = findViewById(R.id.tv_home);
+        nannyShareImageView = findViewById(R.id.iv_nanny);
+        text_nanny = findViewById(R.id.tv_nanny);
+        tipsShareImageView = findViewById(R.id.iv_tips);
+        text_tips = findViewById(R.id.tv_tips);
+        myAccountImageView = findViewById(R.id.iv_account);
+        text_myAccount = findViewById(R.id.tv_account);
+
+        BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, commentator);
+        homeImageView.setOnClickListener(bottomNavClickListener);
+        text_home.setOnClickListener(bottomNavClickListener);
+        nannyShareImageView.setOnClickListener(bottomNavClickListener);
+        text_nanny.setOnClickListener(bottomNavClickListener);
+        tipsShareImageView.setOnClickListener(bottomNavClickListener);
+        text_tips.setOnClickListener(bottomNavClickListener);
+        myAccountImageView.setOnClickListener(bottomNavClickListener);
+        text_myAccount.setOnClickListener(bottomNavClickListener);
 
 //        browseImageView = findViewById(R.id.browseImageView);
 //        browseImageView.setOnClickListener(new View.OnClickListener() {

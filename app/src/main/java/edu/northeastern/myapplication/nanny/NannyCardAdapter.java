@@ -51,13 +51,15 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
 
     //View Holder: NannyHolder
     class NannyHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name, tv_location, tv_yoe;
+        private TextView tv_name, tv_location, tv_yoe, tv_hourlyRate, tv_rating;
 
         public NannyHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             tv_name = itemView.findViewById(R.id.tv_nameCard);
             tv_yoe = itemView.findViewById(R.id.tv_yoe);
             tv_location = itemView.findViewById(R.id.tv_location);
+            tv_hourlyRate = itemView.findViewById(R.id.tv_hourlyRate);
+            tv_rating = itemView.findViewById(R.id.tv_rating);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,6 +80,8 @@ public class NannyCardAdapter extends RecyclerView.Adapter<NannyCardAdapter.Nann
             tv_name.setText(nanny.getUsername());
             tv_yoe.setText("YOE: "+ String.valueOf(nanny.getYoe()));
             tv_location.setText("City: " + nanny.getCity());
+            tv_hourlyRate.setText("Hourly Rate: " + nanny.getHourlyRate());
+            tv_rating.setText("Review Score: " + nanny.getRatings());
         }
     }
 }

@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
         selectedFilter = null;
         userInteracting = false;
         loadTipsFromFromDatabase();
+
         user = getIntent().getExtras().getParcelable("user");
 
         // Sets the greeting string according to time of day in textView.
@@ -126,7 +128,21 @@ public class HomeActivity extends AppCompatActivity {
         filtersTextViewList = Arrays.asList(filter1TextView, filter2TextView, filter3TextView, filter4TextView);
 
         allTipsBtn = findViewById(R.id.btn_allTips);
+        allTipsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setRecyclerView(allTipsList);
+            }
+        });
+
         myTipsBtn = findViewById(R.id.btn_myTips);
+        myTipsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMyTips();
+            }
+        });
+
         myBookingBtn = findViewById(R.id.myBookingBtn);
 
         // Sets the on click listener for filters.
@@ -203,6 +219,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Updates the recycler view based on the selected filter.
@@ -294,4 +311,21 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    /**
+     * Get all tips from the current user
+     */
+    private void showMyTips() {
+        List<Tip> myTipsList = new ArrayList<>();
+
+        for (Tip tip : allTipsList) {
+            if (tip.getUserId().equals(user.getUserId())) {
+                myTipsList.add(tip);
+            }
+        }
+
+        setRecyclerView(myTipsList);
+    }
+
+
 }

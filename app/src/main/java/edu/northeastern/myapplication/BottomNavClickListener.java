@@ -9,8 +9,8 @@ import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.nanny.NannyshareMain;
 
 public class BottomNavClickListener implements View.OnClickListener {
-    private final Context context;
-    private final User user;
+    private Context context;
+    private User user;
 
     public BottomNavClickListener(Context context, User user) {
         this.context = context;

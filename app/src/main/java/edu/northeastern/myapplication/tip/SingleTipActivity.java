@@ -189,6 +189,16 @@ public class SingleTipActivity extends AppCompatActivity {
                     return;
                 }
                 commentator = task.getResult().getValue(User.class);
+
+                BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(SingleTipActivity.this, commentator);
+                homeImageView.setOnClickListener(bottomNavClickListener);
+                text_home.setOnClickListener(bottomNavClickListener);
+                nannyShareImageView.setOnClickListener(bottomNavClickListener);
+                text_nanny.setOnClickListener(bottomNavClickListener);
+                tipsShareImageView.setOnClickListener(bottomNavClickListener);
+                text_tips.setOnClickListener(bottomNavClickListener);
+                myAccountImageView.setOnClickListener(bottomNavClickListener);
+                text_myAccount.setOnClickListener(bottomNavClickListener);
             }
         });
 
@@ -242,16 +252,6 @@ public class SingleTipActivity extends AppCompatActivity {
         text_tips = findViewById(R.id.tv_tips);
         myAccountImageView = findViewById(R.id.iv_account);
         text_myAccount = findViewById(R.id.tv_account);
-
-        BottomNavClickListener bottomNavClickListener = new BottomNavClickListener(this, commentator);
-        homeImageView.setOnClickListener(bottomNavClickListener);
-        text_home.setOnClickListener(bottomNavClickListener);
-        nannyShareImageView.setOnClickListener(bottomNavClickListener);
-        text_nanny.setOnClickListener(bottomNavClickListener);
-        tipsShareImageView.setOnClickListener(bottomNavClickListener);
-        text_tips.setOnClickListener(bottomNavClickListener);
-        myAccountImageView.setOnClickListener(bottomNavClickListener);
-        text_myAccount.setOnClickListener(bottomNavClickListener);
     }
 
     /**
@@ -281,7 +281,7 @@ public class SingleTipActivity extends AppCompatActivity {
      * Send message to the tip owner.
      *
      * @param tipOwnerToken the token from the tip owner
-     * @param comment the comment being made
+     * @param comment       the comment being made
      */
     private void sendMessageToTipOwner(String tipOwnerToken, Comment comment) {
         // Get notification json file
@@ -320,7 +320,7 @@ public class SingleTipActivity extends AppCompatActivity {
      * FCM http connection method.
      *
      * @param serverToken the firebase server token
-     * @param jsonObject the jsonObject need to be sent
+     * @param jsonObject  the jsonObject need to be sent
      * @return return a string
      */
     private static String fcmHttpConnection(String serverToken, JSONObject jsonObject) {

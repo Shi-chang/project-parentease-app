@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.northeastern.myapplication.entity.User;
+import edu.northeastern.myapplication.booking.MyBooking;
 import edu.northeastern.myapplication.recylerView.CardViewAdapter;
 import edu.northeastern.myapplication.utils.Utils;
 
@@ -144,6 +144,16 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         myBookingBtn = findViewById(R.id.myBookingBtn);
+        myBookingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, MyBooking.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         // Sets the on click listener for filters.
         for (TextView textView : filtersTextViewList) {

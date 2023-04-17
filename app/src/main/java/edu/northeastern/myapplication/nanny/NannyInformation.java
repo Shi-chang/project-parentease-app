@@ -38,7 +38,7 @@ import edu.northeastern.myapplication.entity.User;
  */
 public class NannyInformation extends AppCompatActivity {
     private final int BOOKABLE_DATE_MIN = 1;
-    private final int BOOKABLE_DATE_MAX = 14;
+    private final int BOOKABLE_DATE_MAX = 21;
     private TextView nannyNameTv;
     private TextView locationTv;
     private TextView ratingsTv1;

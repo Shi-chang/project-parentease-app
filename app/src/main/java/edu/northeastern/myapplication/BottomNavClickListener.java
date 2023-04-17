@@ -27,6 +27,7 @@ public class BottomNavClickListener implements View.OnClickListener {
             case R.id.iv_home:
             case R.id.tv_home:
                 intent = new Intent(context, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 break;
 
             case R.id.iv_nanny:

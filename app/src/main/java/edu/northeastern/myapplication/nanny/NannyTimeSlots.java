@@ -138,7 +138,6 @@ public class NannyTimeSlots extends AppCompatActivity {
      * Updates the time slot check boxes based on the data from the database.
      */
     private void updateTimeSlotsBasedOnDatabase() {
-        System.out.println(nanny);
         List<TimeSlot> timeSlotList = nanny.getAvailability();
         if (timeSlotList == null || timeSlotList.size() == 0) {
             return;
@@ -147,15 +146,23 @@ public class NannyTimeSlots extends AppCompatActivity {
         for (int i = 0; i < timeSlotList.size(); i++) {
             TimeSlot currentTimeSlot = timeSlotList.get(i);
             // Removes time slots that are outdated.
-            Date timeSlotDate = currentTimeSlot.getDate();
-            Date today = new Date();
-            if (Utils.compareDates(timeSlotDate, today) < 0) {
-                timeSlotList.remove(i);
-                continue;
-            }
+//            Date timeSlotDate = currentTimeSlot.getDate();
+//            Date today = new Date();
+//
+//            System.out.println("today " + today);
+//            System.out.println("selected day " + selectedDate);
+//            System.out.println(timeSlotDate);
+//
+//            if (Utils.compareDates(timeSlotDate, today) < 0) {
+//                System.out.println("here2");
+//                timeSlotList.remove(i);
+//                continue;
+//            }
 
+            System.out.println("selected date" + selectedDate);
             // Updates the currently selected date's time slot check boxes.
             if (Utils.compareDates(currentTimeSlot.getDate(), selectedDate) == 0) {
+
                 setTimeSlotBoxChecked(currentTimeSlot.getStartTime());
                 if (currentTimeSlot.getClientId() != null) {
                     setTimeSlotBoxBooked(currentTimeSlot.getStartTime());

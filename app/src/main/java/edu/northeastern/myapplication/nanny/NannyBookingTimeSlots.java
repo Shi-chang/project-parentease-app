@@ -149,11 +149,11 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
                     String clientAddress = addressInput.getText().toString();
                     updateNannyBookingInformation(userId, clientPhoneNumber, clientAddress);
                     Intent intent = new Intent(NannyBookingTimeSlots.this, NannyBookingInformation.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("nanny", nanny);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    
                 }
             });
 
@@ -205,12 +205,12 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
         for (int i = 0; i < timeSlotList.size(); i++) {
             TimeSlot currentTimeSlot = timeSlotList.get(i);
             // Removes time slots that are outdated.
-            Date timeSlotDate = currentTimeSlot.getDate();
-            Date today = new Date();
-            if (Utils.compareDates(timeSlotDate, today) < 0) {
-                timeSlotList.remove(i);
-                continue;
-            }
+//            Date timeSlotDate = currentTimeSlot.getDate();
+//            Date today = new Date();
+//            if (Utils.compareDates(timeSlotDate, today) < 0) {
+//                timeSlotList.remove(i);
+//                continue;
+//            }
 
             // If the time slot is on the same day as the selected date and the time slot is not booked by anybody, sets the
             // time slot clickable.

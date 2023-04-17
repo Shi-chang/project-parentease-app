@@ -201,6 +201,7 @@ public class NannyBookingInformation extends AppCompatActivity {
         intent.putExtra("month", month);
         intent.putExtra("dayOfMonth", dayOfMonth);
         intent.putExtra("nannyId", nanny.getNannyId());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 

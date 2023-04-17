@@ -17,17 +17,19 @@ public class User implements Parcelable {
     private String city;
     private List<Tip> tips;
     private String userToken;
+    private List<Booking> bookings;
 
     public User() {
     }
 
-    public User(String userId, String username, String email, String city, List<Tip> tips, String userToken) {
+    public User(String userId, String username, String email, String city, List<Tip> tips, String userToken, List<Booking> bookings) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.city = city;
         this.tips = tips;
         this.userToken = userToken;
+        this.bookings = bookings;
     }
 
     protected User(Parcel in) {
@@ -37,6 +39,7 @@ public class User implements Parcelable {
         city = in.readString();
         tips = in.readArrayList(Tip.class.getClassLoader());
         userToken = in.readString();
+        bookings = in.readArrayList(Booking.class.getClassLoader());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -79,6 +82,14 @@ public class User implements Parcelable {
         return userToken;
     }
 
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -92,6 +103,7 @@ public class User implements Parcelable {
         dest.writeString(city);
         dest.writeList(tips);
         dest.writeString(userToken);
+        dest.writeList(bookings);
     }
 
     @Override
@@ -103,6 +115,7 @@ public class User implements Parcelable {
                 ", city='" + city + '\'' +
                 ", tips=" + tips +
                 ", userToken='" + userToken + '\'' +
+                ", bookings=" + bookings +
                 '}';
     }
 }

@@ -60,7 +60,6 @@ public class PostActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putParcelable("user", user);
             intent.putExtras(bundle);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
         });
 

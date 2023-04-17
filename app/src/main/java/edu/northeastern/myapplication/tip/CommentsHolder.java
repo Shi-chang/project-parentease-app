@@ -12,6 +12,7 @@ import edu.northeastern.myapplication.R;
  * The Comments holder for recycler view.
  */
 public class CommentsHolder extends RecyclerView.ViewHolder {
+
     TextView commentContent;
 
     /**

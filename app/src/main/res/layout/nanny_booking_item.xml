@@ -2,10 +2,12 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nanny_booking_item_cardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nanny_booking_item_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,7 +15,7 @@
             android:id="@+id/bookingInfoTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="5dp"
             android:text="Booking Info"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +27,7 @@
             android:id="@+id/bookingTimeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="5dp"
             android:text="Time"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"

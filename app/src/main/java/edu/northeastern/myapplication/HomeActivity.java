@@ -165,7 +165,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (!taskResult.exists()) {
                             Intent intent = new Intent(HomeActivity.this, NannyBookingRecords.class);
                             Bundle bundle = new Bundle();
-                            bundle.putParcelable("user", user);
+                            bundle.putString("userId", user.getUserId());
                             intent.putExtras(bundle);
                             startActivity(intent);
                             return;
@@ -175,7 +175,6 @@ public class HomeActivity extends AppCompatActivity {
                         Nanny nanny = taskResult.getValue(Nanny.class);
                         Intent intent = new Intent(HomeActivity.this, ClientBookingRecords.class);
                         Bundle bundle = new Bundle();
-                        bundle.putParcelable("user", user);
                         bundle.putString("nannyId", nanny.getNannyId());
                         intent.putExtras(bundle);
                         startActivity(intent);

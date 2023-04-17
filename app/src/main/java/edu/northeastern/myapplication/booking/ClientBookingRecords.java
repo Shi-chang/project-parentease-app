@@ -22,7 +22,6 @@ import edu.northeastern.myapplication.entity.TimeSlot;
 import edu.northeastern.myapplication.entity.User;
 
 public class ClientBookingRecords extends AppCompatActivity {
-    User user;
     String nannyId;
     Nanny nanny;
     NannyDao nannyDao;
@@ -35,7 +34,6 @@ public class ClientBookingRecords extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_records);
 
-        user = getIntent().getExtras().getParcelable("user");
         nannyId = getIntent().getStringExtra("nannyId");
         nannyDao = new NannyDao();
         nannyDao.findNannyById(nannyId).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -68,6 +66,11 @@ public class ClientBookingRecords extends AppCompatActivity {
             if (timeSlot.getClientId() != null) {
                 bookingsList.add(timeSlot);
             }
+        }
+
+        if (bookingsList == null || bookingsList.size() == 0) {
+            Toast.makeText(ClientBookingRecords.this, "No booking records.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         clientsAdapter = new ClientsAdapter(bookingsList);

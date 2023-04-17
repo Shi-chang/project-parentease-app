@@ -33,8 +33,11 @@ import java.util.List;
 
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.NannyDao;
+import edu.northeastern.myapplication.dao.UserDao;
+import edu.northeastern.myapplication.entity.Booking;
 import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.TimeSlot;
+import edu.northeastern.myapplication.entity.User;
 import edu.northeastern.myapplication.utils.Utils;
 
 public class NannyBookingTimeSlots extends AppCompatActivity {
@@ -51,10 +54,11 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
     Button btnConfirmAvailability;
 
     private FirebaseAuth mAuth;
-    String userId;
     NannyDao nannyDao;
+    UserDao userDao;
     String nannyId;
     Nanny nanny;
+    User user;
     Date selectedDate;
     private List<TimeSlot> newlyBookedTimeSlots;
 
@@ -81,9 +85,9 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
             checkBox.setClickable(false);
             checkBox.setTextColor(Color.GRAY);
         }
-        mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getUid();
+
         nannyDao = new NannyDao();
+        userDao = new UserDao();
         newlyBookedTimeSlots = new ArrayList<>();
 
         // Gets the information passed via the intent.
@@ -95,6 +99,8 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         selectedDate = calendar.getTime();
+
+        user = getIntent().getExtras().getParcelable("user");
 
         // Gets the current nanny.
         nannyId = getIntent().getStringExtra("nannyId");
@@ -128,7 +134,12 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
 
             // Creates a dialog that allows the user to input the phone number and address.
             AlertDialog.Builder builder = new AlertDialog.Builder(NannyBookingTimeSlots.this);
-            builder.setTitle("Please enter your phone number and address");
+            builder.setTitle("Please enter your name, phone number and address");
+
+            EditText nameInput = new EditText(NannyBookingTimeSlots.this);
+            nameInput.setHint("Name");
+            builder.setView(nameInput);
+
             EditText phoneInput = new EditText(NannyBookingTimeSlots.this);
             phoneInput.setHint("Phone number");
             builder.setView(phoneInput);
@@ -139,21 +150,23 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
 
             LinearLayout layout = new LinearLayout(NannyBookingTimeSlots.this);
             layout.setOrientation(LinearLayout.VERTICAL);
+            layout.addView(nameInput);
             layout.addView(phoneInput);
             layout.addView(addressInput);
             builder.setView(layout);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    String clientName = nameInput.getText().toString();
                     String clientPhoneNumber = phoneInput.getText().toString();
                     String clientAddress = addressInput.getText().toString();
-                    updateNannyBookingInformation(userId, clientPhoneNumber, clientAddress);
+                    updateNannyBookingInformation(user.getUserId(), clientName, clientPhoneNumber, clientAddress);
                     Intent intent = new Intent(NannyBookingTimeSlots.this, NannyBookingInformation.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("nanny", nanny);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    
                 }
             });
 
@@ -172,21 +185,27 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
     /**
      * Updates nanny booking information in the database.
      */
-    private void updateNannyBookingInformation(String clientId, String clientPhoneNumber, String clientAddress) {
+    private void updateNannyBookingInformation(String clientId, String clientName, String clientPhoneNumber, String clientAddress) {
         List<TimeSlot> timeSlots = nanny.getAvailability();
+        List<Booking> bookings = new ArrayList<>();
         for (TimeSlot timeSlot : newlyBookedTimeSlots) {
             timeSlot.setClientId(clientId);
+            timeSlot.setClientName(clientName);
             timeSlot.setClientPhoneNumber(clientPhoneNumber);
             timeSlot.setClientAddress(clientAddress);
+
+            Booking booking = new Booking(timeSlot.getDate().toString(), timeSlot.getStartTime(), nannyId, nanny.getUsername(), nanny.getHourlyRate(), nanny.getGender());
+            bookings.add(booking);
         }
 
         timeSlots.addAll(newlyBookedTimeSlots);
         nanny.setAvailability(timeSlots);
-        System.out.println(nanny);
-
-        nannyDao.update(userId, nanny).addOnSuccessListener(new OnSuccessListener<Void>() {
+        nannyDao.update(nanny.getNannyId(), nanny).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                user.setBookings(bookings);
+                userDao.updateUser(user.getUserId(), user);
+
                 Toast.makeText(NannyBookingTimeSlots.this, "Book successfully.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -204,13 +223,6 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
 
         for (int i = 0; i < timeSlotList.size(); i++) {
             TimeSlot currentTimeSlot = timeSlotList.get(i);
-            // Removes time slots that are outdated.
-//            Date timeSlotDate = currentTimeSlot.getDate();
-//            Date today = new Date();
-//            if (Utils.compareDates(timeSlotDate, today) < 0) {
-//                timeSlotList.remove(i);
-//                continue;
-//            }
 
             // If the time slot is on the same day as the selected date and the time slot is not booked by anybody, sets the
             // time slot clickable.
@@ -222,7 +234,7 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
             // the time slot clickable and checked.
             if (Utils.compareDates(currentTimeSlot.getDate(), selectedDate) == 0
                     && currentTimeSlot.getClientId() != null
-                    && currentTimeSlot.getClientId().equals(userId)) {
+                    && currentTimeSlot.getClientId().equals(user.getUserId())) {
                 setTimeSlotBoxClickable(currentTimeSlot.getStartTime());
                 setTimeSlotBoxChecked(currentTimeSlot.getStartTime());
             }

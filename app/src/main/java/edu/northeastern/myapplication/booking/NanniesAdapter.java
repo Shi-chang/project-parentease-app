@@ -14,11 +14,11 @@ import edu.northeastern.myapplication.entity.Booking;
 /**
  * The NanniesAdapter class.
  */
-public class NanniesAdapter extends RecyclerView.Adapter<BookingHolder> {
+public class NanniesAdapter extends RecyclerView.Adapter<BookingItemHolder> {
     private List<Booking> bookingList;
 
-    public NanniesAdapter(List<Booking> nanniesList) {
-        this.bookingList = nanniesList;
+    public NanniesAdapter(List<Booking> bookingList) {
+        this.bookingList = bookingList;
     }
 
     /**
@@ -31,8 +31,8 @@ public class NanniesAdapter extends RecyclerView.Adapter<BookingHolder> {
      */
     @NonNull
     @Override
-    public BookingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BookingHolder(LayoutInflater.from(parent.getContext())
+    public BookingItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new BookingItemHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.nanny_booking_item, parent, false));
     }
 
@@ -44,12 +44,20 @@ public class NanniesAdapter extends RecyclerView.Adapter<BookingHolder> {
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull BookingHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BookingItemHolder holder, int position) {
         Booking currentBooking = bookingList.get(position);
-        holder.nannyBookingItemTimeTv.setText(currentBooking.getDate().toString());
-        holder.nannyBookingItemNameTv.setText(currentBooking.getNannyName());
-        holder.nannyBookingItemHourlyRateTv.setText(currentBooking.getNannyHourlyRate());
-        holder.nannyBookingItemGenderTv.setText(currentBooking.getNannyGender());
+        String timeString = currentBooking.getDate();
+        holder.bookingTimeTv.setText(timeString);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        String separator = " ";
+        stringBuilder.append(currentBooking.getNannyName())
+                .append(separator)
+                .append(currentBooking.getNannyHourlyRate())
+                .append(separator)
+                .append(currentBooking.getNannyGender());
+
+        holder.bookingInfoTv.setText(stringBuilder.toString());
     }
 
     /**

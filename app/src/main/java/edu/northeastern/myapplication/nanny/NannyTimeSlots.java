@@ -330,7 +330,7 @@ public class NannyTimeSlots extends AppCompatActivity {
             timeSlots = new ArrayList<>();
         }
 
-        TimeSlot newTimeSlot = new TimeSlot(selectedDate, startTime, null, null, null);
+        TimeSlot newTimeSlot = new TimeSlot(selectedDate, startTime, null, null, null, null);
         timeSlots.add(newTimeSlot);
         nanny.setAvailability(timeSlots);
     }

@@ -1,6 +1,9 @@
 package edu.northeastern.myapplication;
 
+import edu.northeastern.myapplication.booking.ClientBookingRecords;
+import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.dao.TipsDao;
+import edu.northeastern.myapplication.entity.Nanny;
 import edu.northeastern.myapplication.entity.Tip;
 
 import androidx.annotation.NonNull;
@@ -33,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.northeastern.myapplication.entity.User;
-import edu.northeastern.myapplication.booking.MyBooking;
+import edu.northeastern.myapplication.booking.NannyBookingRecords;
 import edu.northeastern.myapplication.recylerView.CardViewAdapter;
 import edu.northeastern.myapplication.utils.Utils;
 
@@ -69,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
     private StaggeredGridLayoutManager layoutManager;
 
     private User user;
+    NannyDao nannyDao;
     private List<Tip> allTipsList;
     private List<Tip> filteredTipsList;
     private TextView selectedFilter;
@@ -87,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         loadTipsFromFromDatabase();
 
         user = getIntent().getExtras().getParcelable("user");
+        nannyDao = new NannyDao();
 
         // Sets the greeting string according to time of day in textView.
         greetingTextView = findViewById(R.id.greet_tv);
@@ -147,11 +152,35 @@ public class HomeActivity extends AppCompatActivity {
         myBookingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MyBooking.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("user", user);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                nannyDao.findNannyById(user.getUserId()).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(HomeActivity.this, "Failed to get data from dabatabase.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // If the user is not a nanny, show the user's booking records.
+                        DataSnapshot taskResult = task.getResult();
+                        if (!taskResult.exists()) {
+                            Intent intent = new Intent(HomeActivity.this, NannyBookingRecords.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("user", user);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            return;
+                        }
+
+                        // If the user is a nanny, show the nanny's client booking records.
+                        Nanny nanny = taskResult.getValue(Nanny.class);
+                        Intent intent = new Intent(HomeActivity.this, ClientBookingRecords.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("user", user);
+                        bundle.putString("nannyId", nanny.getNannyId());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 

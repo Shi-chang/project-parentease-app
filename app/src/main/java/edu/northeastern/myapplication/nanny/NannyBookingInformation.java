@@ -92,6 +92,7 @@ public class NannyBookingInformation extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         nanny = getIntent().getExtras().getParcelable("nanny");
+        user = getIntent().getExtras().getParcelable("user");
 
         // Gets the nanny from the database.
         nannyDao = new NannyDao();
@@ -132,11 +133,6 @@ public class NannyBookingInformation extends AppCompatActivity {
             List<Date> availableDays = new ArrayList<>();
             for (int i = 0; i < timeSlots.size(); i++) {
                 TimeSlot currentTimeSlot = timeSlots.get(i);
-                // Removes the time slot if it is outdated.
-                if (Utils.compareDates(currentTimeSlot.getDate(), new Date()) < 0) {
-                    timeSlots.remove(i);
-                    continue;
-                }
 
                 // Adds the current time slot to available days.
                 if (currentTimeSlot.getClientId() == null || currentTimeSlot.getClientId().equals(mAuth.getUid())) {
@@ -201,6 +197,12 @@ public class NannyBookingInformation extends AppCompatActivity {
         intent.putExtra("month", month);
         intent.putExtra("dayOfMonth", dayOfMonth);
         intent.putExtra("nannyId", nanny.getNannyId());
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        bundle.putParcelable("nanny", nanny);
+        intent.putExtras(bundle);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }

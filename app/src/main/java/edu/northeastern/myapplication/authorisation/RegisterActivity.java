@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
 
-                    User user = new User(mAuth.getUid(), username, email, cityName, new ArrayList<>(), userToken);
+                    User user = new User(mAuth.getUid(), username, email, cityName, new ArrayList<>(), userToken, null);
                     UserDao userDao = new UserDao();
                     userDao.create(mAuth.getUid(), user);
                     Toast.makeText(RegisterActivity.this, "You have registered successfully.", Toast.LENGTH_SHORT).show();

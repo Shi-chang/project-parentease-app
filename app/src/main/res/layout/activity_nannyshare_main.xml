@@ -13,35 +13,50 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="73dp" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip_orderByReview"
-        style="@style/Widget.MaterialComponents.Chip.Filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="By Review"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/chip_orderByRate"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip_orderByRate"
-        style="@style/Widget.MaterialComponents.Chip.Filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="By Rate"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/chip_sameCity"
-        app:layout_constraintStart_toEndOf="@+id/chip_orderByReview" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip_sameCity"
-        style="@style/Widget.MaterialComponents.Chip.Filter"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Same City"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/chip_orderByRate" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/langsChipGroup"
+            app:singleSelection="true"
+            >
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_orderByReview"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="By Review"
+              />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_orderByRate"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="By Rate"
+            />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sameCity"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Same City"
+               />
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"

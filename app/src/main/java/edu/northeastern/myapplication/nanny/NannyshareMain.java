@@ -62,6 +62,9 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     private int hourlyRate;
     private float ratings;
     private String introduction;
+    private boolean isSameCityChecked = false;
+    private boolean isByRateChecked = false;
+    private boolean isByReviewChecked = false;
     FirebaseAuth mAuth;
 
     @Override
@@ -112,14 +115,9 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
                 for (DataSnapshot nannySnapshot : dataSnapshot.getChildren()) {
                     Nanny nanny = nannySnapshot.getValue(Nanny.class);
                     nannyArrayList.add(nanny);
-                    System.out.println(nanny.toString());
                 }
 
                 setRecyclerView(nannyArrayList);
-                for (Nanny n : nannyArrayList) {
-                    System.out.println("before: " + n.getUsername());
-                }
-
                 initChip(nannyArrayList);
 
             }
@@ -136,14 +134,28 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         for (Nanny n : nannyArrayList) {
             nannyArrayListTemp.add(n);
         }
+
+        //sort nanny list by hourly rate
+        ArrayList<Nanny> nannyArrayListTempByRate = new ArrayList<Nanny>();
+        for (Nanny n : nannyArrayList) {
+            nannyArrayListTempByRate.add(n);
+        }
+        Collections.sort(nannyArrayListTempByRate, Nanny.rateAsc);
+
+        //sort nanny lit by nanny ratings
+        ArrayList<Nanny> nannyArrayListTempByRating = new ArrayList<Nanny>();
+        for (Nanny n : nannyArrayList) {
+            nannyArrayListTempByRating.add(n);
+        }
+        Collections.sort(nannyArrayListTempByRating, Nanny.ratingDesc);
+        Collections.reverse(nannyArrayListTempByRating);
+
         CompoundButton.OnCheckedChangeListener byRateCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isByRateChecked) {
                 if (isByRateChecked) {
-                    Collections.sort(nannyArrayListTemp, Nanny.rateAsc);
-                    setRecyclerView(nannyArrayListTemp);
+                    setRecyclerView(nannyArrayListTempByRate);
                 } else {
-                    isByRateChecked = false;
                     setRecyclerView(nannyArrayList);
                 }
             }
@@ -156,11 +168,8 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isByReviewChecked) {
                 if (isByReviewChecked) {
-                    Collections.sort(nannyArrayListTemp, Nanny.ratingDesc);
-                    Collections.reverse(nannyArrayListTemp);
-                    setRecyclerView(nannyArrayListTemp);
+                    setRecyclerView(nannyArrayListTempByRating);
                 } else {
-                    isByReviewChecked = false;
                     setRecyclerView(nannyArrayList);
                 }
 
@@ -176,17 +185,14 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
             public void onCheckedChanged(CompoundButton compoundButton, boolean isSameCityChecked) {
                 if (isSameCityChecked) {
                     String targetCity = currentUser.getCity();
-                    System.out.println("my city: " + targetCity);
                     ArrayList<Nanny> filterCity = new ArrayList<Nanny>();
                     for (Nanny n : nannyArrayList) {
-                        if (n.getCity() == targetCity) {
+                        if (n.getCity().equals(targetCity)) {
                             filterCity.add(n);
                         }
                     }
-                    ;
                     setRecyclerView(filterCity);
                 } else {
-                    isSameCityChecked = false;
                     setRecyclerView(nannyArrayListTemp);
                 }
             }

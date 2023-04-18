@@ -11,28 +11,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.0998632" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.37" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.46" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5512996" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -60,10 +69,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/my_profile"
+        android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7" />
+
+    <ImageView
+        android:id="@+id/userImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintHorizontal_bias="0.517"
+        android:background="@drawable/image_border"
+        app:layout_constraintStart_toStartOf="@id/guideline7"
+        app:layout_constraintTop_toTopOf="@id/guideline1"
+        tools:srcCompat="@tools:sample/avatars" />
+
 
     <TextView
         android:id="@+id/nameTextView"
@@ -71,9 +94,9 @@
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
         android:id="@+id/inputNameTextView"
@@ -81,9 +104,9 @@
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
         android:id="@+id/emailTextView"
@@ -91,9 +114,9 @@
         android:layout_height="32dp"
         android:text="Email"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/inputEmailTextView"
@@ -101,9 +124,9 @@
         android:layout_height="wrap_content"
         android:text="Email"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/locationTextView"
@@ -111,9 +134,10 @@
         android:layout_height="wrap_content"
         android:text="@string/location"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <TextView
         android:id="@+id/inputLocationTextView"
@@ -121,21 +145,21 @@
         android:layout_height="wrap_content"
         android:text="@string/location"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Logout"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@id/guideline9"
         app:layout_constraintEnd_toEndOf="@id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintStart_toStartOf="@id/guideline7" />
 
     <include
         android:id="@+id/bottom_navigation"
@@ -145,44 +169,5 @@
         app:layout_constraintTop_toTopOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-<!--    <ImageView-->
-<!--        android:id="@+id/browseImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_home_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/nannyImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="60dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/browseImageView"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/tipsImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginEnd="60dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/myAccountImageView"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/myAccountImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline6"-->
-<!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import edu.northeastern.myapplication.entity.User;
@@ -23,6 +24,7 @@ public class MyInfoActivity extends AppCompatActivity {
     private TextView inputNameTextView;
     private TextView inputEmailTextView;
     private TextView inputLocationTextView;
+    private ImageView userImageView;
     private User currentUser;
 
     private ImageView homeImageView;
@@ -56,6 +58,18 @@ public class MyInfoActivity extends AppCompatActivity {
         inputNameTextView = findViewById(R.id.inputNameTextView);
         inputEmailTextView = findViewById(R.id.inputEmailTextView);
         inputLocationTextView = findViewById(R.id.inputLocationTextView);
+
+        userImageView = findViewById(R.id.userImageView);
+        String profileImageUrl = currentUser.getProfileImageUrl();
+        if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(profileImageUrl)
+                    .placeholder(R.drawable.default_profile_image)
+                    .into(userImageView);
+        } else {
+            userImageView.setImageResource(R.drawable.default_profile_image);
+        }
+
         homeImageView = findViewById(R.id.iv_home);
         text_home = findViewById(R.id.tv_home);
         nannyShareImageView = findViewById(R.id.iv_nanny);

@@ -18,11 +18,12 @@ public class User implements Parcelable {
     private List<Tip> tips;
     private String userToken;
     private List<Booking> bookings;
+    private String profileImageUrl;
 
     public User() {
     }
 
-    public User(String userId, String username, String email, String city, List<Tip> tips, String userToken, List<Booking> bookings) {
+    public User(String userId, String username, String email, String city, List<Tip> tips, String userToken, List<Booking> bookings, String profileImageUrl) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -30,6 +31,7 @@ public class User implements Parcelable {
         this.tips = tips;
         this.userToken = userToken;
         this.bookings = bookings;
+        this.profileImageUrl = profileImageUrl;
     }
 
     protected User(Parcel in) {
@@ -40,6 +42,7 @@ public class User implements Parcelable {
         tips = in.readArrayList(Tip.class.getClassLoader());
         userToken = in.readString();
         bookings = in.readArrayList(Booking.class.getClassLoader());
+        profileImageUrl = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -90,6 +93,14 @@ public class User implements Parcelable {
         this.bookings = bookings;
     }
 
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -104,6 +115,7 @@ public class User implements Parcelable {
         dest.writeList(tips);
         dest.writeString(userToken);
         dest.writeList(bookings);
+        dest.writeString(profileImageUrl);
     }
 
     @Override
@@ -116,6 +128,7 @@ public class User implements Parcelable {
                 ", tips=" + tips +
                 ", userToken='" + userToken + '\'' +
                 ", bookings=" + bookings +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
                 '}';
     }
 }

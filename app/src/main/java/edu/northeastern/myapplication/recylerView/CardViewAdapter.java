@@ -41,12 +41,23 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Tip currentTip = tipDataList.get(position);
-        holder.title.setText(currentTip.getTitle());
+        String titleText = currentTip.getTitle();
+
+        // set display the max length of title
+        int maxTitleLength = 36;
+        if (titleText.length() > maxTitleLength) {
+            titleText = titleText.substring(0, maxTitleLength) + "...";
+        }
+        holder.title.setText(titleText);
+
         holder.username.setText(currentTip.getUserName());
 
-        System.out.println("current tip: " + currentTip);
+        holder.userAvatarImageView.setImageResource(R.drawable.default_profile_image);
 
         String imageUrl = currentTip.getPictureUrl();
+        String userId = currentTip.getUserId();
+
+        holder.userAvatarImageView.setImageResource(R.drawable.default_profile_image);
 
         Glide.with(context)
                 .load(imageUrl)
@@ -57,6 +68,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View tipView;
         public ImageView image;
+        public ImageView userAvatarImageView;
         public TextView title;
         public TextView username;
         public View cardView;
@@ -65,6 +77,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             super(itemView);
             tipView = itemView;
             image = itemView.findViewById(R.id.imageView);
+            userAvatarImageView = itemView.findViewById(R.id.userAvatarImageView);
             title = itemView.findViewById(R.id.titleView);
             username = itemView.findViewById(R.id.usernameView);
             cardView = itemView.findViewById(R.id.cardView);

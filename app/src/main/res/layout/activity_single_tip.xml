@@ -138,45 +138,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/browseImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline10"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline5"-->
-<!--        app:srcCompat="@drawable/ic_baseline_home_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/nannyImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="55dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/browseImageView"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline5"-->
-<!--        app:srcCompat="@drawable/ic_baseline_baby_changing_station_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/tipsImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="55dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/nannyImageView"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline5"-->
-<!--        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/myAccountImageView"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="55dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/tipsImageView"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline5"-->
-<!--        app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -103,6 +103,7 @@ public class HomeActivity extends AppCompatActivity {
         // Sets the username in textview.
         userNameTextView = findViewById(R.id.username_tv);
         userNameTextView.setText(user.getUsername());
+
         searchTextView = findViewById(R.id.search_tv);
         searchBtn = findViewById(R.id.searchBtn);
         homeImageView = findViewById(R.id.iv_home);
@@ -328,14 +329,6 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    /**
-     * Logs out the user.
-     */
-    private void logout() {
-        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 
     /**

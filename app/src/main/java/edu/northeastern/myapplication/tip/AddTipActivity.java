@@ -137,6 +137,7 @@ public class AddTipActivity extends AppCompatActivity {
         text_tips.setOnClickListener(bottomNavClickListener);
         myAccountImageView.setOnClickListener(bottomNavClickListener);
         text_myAccount.setOnClickListener(bottomNavClickListener);
+        filter = "Other";
     }
 
     /**

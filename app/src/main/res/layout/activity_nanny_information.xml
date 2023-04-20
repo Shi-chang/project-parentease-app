@@ -94,6 +94,7 @@
         android:ems="10"
         android:hint="About me..."
         android:inputType="textMultiLine|textPersonName"
+        android:maxLines="4"
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline12"

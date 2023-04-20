@@ -179,6 +179,7 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
                     Intent intent = new Intent(NannyBookingTimeSlots.this, NannyBookingInformation.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     Bundle bundle = new Bundle();
+                    bundle.putParcelable("user", user);
                     bundle.putParcelable("nanny", nanny);
                     intent.putExtras(bundle);
                     startActivity(intent);

@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import edu.northeastern.myapplication.HomeActivity;
 import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.NannyDao;
@@ -130,6 +131,12 @@ public class NannyBookingInformation extends AppCompatActivity {
             List<TimeSlot> timeSlots = nanny.getAvailability();
             if (timeSlots == null || timeSlots.size() == 0) {
                 Toast.makeText(this, "This nanny has no available time slot.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(NannyBookingInformation.this, NannyshareMain.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return;
             }
 
             List<Date> availableDays = new ArrayList<>();
@@ -144,6 +151,12 @@ public class NannyBookingInformation extends AppCompatActivity {
 
             if (availableDays == null || availableDays.size() == 0) {
                 Toast.makeText(this, "This nanny has no available time slot.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(NannyBookingInformation.this, NannyshareMain.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return;
             }
 
             calendarView.setSelectedDate(CalendarDay.today());
@@ -235,7 +248,7 @@ public class NannyBookingInformation extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, PostActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         intent.putExtras(bundle);

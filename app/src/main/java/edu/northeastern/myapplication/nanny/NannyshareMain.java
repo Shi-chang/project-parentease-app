@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.northeastern.myapplication.BottomNavClickListener;
+import edu.northeastern.myapplication.HomeActivity;
+import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.RecyclerViewInterface;
 import edu.northeastern.myapplication.dao.NannyDao;
@@ -202,7 +204,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
     }
 
 
-
     private void setRecyclerView(ArrayList<Nanny> nannyArrayList) {
         adapter = null;
         adapter = new NannyCardAdapter(this, nannyArrayList,this);
@@ -210,7 +211,6 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
-
 
     @Override
     public void onItemClick(int pos) {
@@ -221,6 +221,17 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         Bundle nannyBundle = new Bundle();
         nannyBundle.putParcelable("nanny", nannyArrayList.get(pos));
         intent.putExtras(nannyBundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", currentUser);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

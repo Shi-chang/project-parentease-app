@@ -52,6 +52,7 @@ public class PostActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putParcelable("user", user);
             intent.putExtras(bundle);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
 

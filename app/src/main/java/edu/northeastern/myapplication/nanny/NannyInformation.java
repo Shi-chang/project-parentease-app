@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.entity.Nanny;
@@ -252,5 +253,15 @@ public class NannyInformation extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, PostActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

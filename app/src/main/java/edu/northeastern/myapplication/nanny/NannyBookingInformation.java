@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import edu.northeastern.myapplication.PostActivity;
 import edu.northeastern.myapplication.R;
 import edu.northeastern.myapplication.dao.NannyDao;
 import edu.northeastern.myapplication.dao.UserDao;
@@ -88,6 +89,7 @@ public class NannyBookingInformation extends AppCompatActivity {
         hourlyRatePt = findViewById(R.id.hourlyRatePt);
         hourlyRatePt.setEnabled(false);
         introductionTv = findViewById(R.id.introductionTv);
+        introductionTv.setEnabled(false);
         calendarView = findViewById(R.id.calendarView);
 
         mAuth = FirebaseAuth.getInstance();
@@ -228,5 +230,15 @@ public class NannyBookingInformation extends AppCompatActivity {
             default:
                 return 0;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, PostActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

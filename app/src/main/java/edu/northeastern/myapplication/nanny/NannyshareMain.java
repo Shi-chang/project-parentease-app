@@ -152,10 +152,20 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
         Collections.sort(nannyArrayListTempByRating, Nanny.ratingDesc);
         Collections.reverse(nannyArrayListTempByRating);
 
+        // filter nanny by city
+        String targetCity = currentUser.getCity();
+        ArrayList<Nanny> nannyArrayListTempByCity = new ArrayList<Nanny>();
+        for (Nanny n : nannyArrayList) {
+            if (n.getCity().equals(targetCity)) {
+                nannyArrayListTempByCity.add(n);
+            }
+        }
+
         CompoundButton.OnCheckedChangeListener byRateCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isByRateChecked) {
                 if (isByRateChecked) {
+                    setNannyArrayList(nannyArrayListTempByRate);
                     setRecyclerView(nannyArrayListTempByRate);
                 } else {
                     setRecyclerView(nannyArrayList);
@@ -170,6 +180,7 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isByReviewChecked) {
                 if (isByReviewChecked) {
+                    setNannyArrayList(nannyArrayListTempByRating);
                     setRecyclerView(nannyArrayListTempByRating);
                 } else {
                     setRecyclerView(nannyArrayList);
@@ -186,21 +197,19 @@ public class NannyshareMain extends AppCompatActivity implements RecyclerViewInt
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isSameCityChecked) {
                 if (isSameCityChecked) {
-                    String targetCity = currentUser.getCity();
-                    ArrayList<Nanny> filterCity = new ArrayList<Nanny>();
-                    for (Nanny n : nannyArrayList) {
-                        if (n.getCity().equals(targetCity)) {
-                            filterCity.add(n);
-                        }
-                    }
-                    setRecyclerView(filterCity);
+                    setNannyArrayList(nannyArrayListTempByCity);
+                    setRecyclerView(nannyArrayListTempByCity);
                 } else {
-                    setRecyclerView(nannyArrayListTemp);
+                    setRecyclerView(nannyArrayList);
                 }
             }
         };
 
         chip_sameCity.setOnCheckedChangeListener(bySameCityCheckedChangeListener);
+    }
+
+    private void setNannyArrayList(ArrayList<Nanny> nannyArrayListTemp) {
+        this.nannyArrayList = nannyArrayListTemp;
     }
 
 

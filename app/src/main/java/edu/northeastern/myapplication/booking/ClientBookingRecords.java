@@ -42,7 +42,6 @@ public class ClientBookingRecords extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DataSnapshot taskResult = task.getResult();
                     nanny = taskResult.getValue(Nanny.class);
-
                     updateBookingRecords();
                 }
             }

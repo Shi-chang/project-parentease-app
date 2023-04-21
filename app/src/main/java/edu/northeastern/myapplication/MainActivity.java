@@ -211,4 +211,10 @@ public class MainActivity extends AppCompatActivity {
             cityName = Utils.getCityName(MainActivity.this, location);
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 }

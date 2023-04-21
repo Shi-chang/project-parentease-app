@@ -104,10 +104,10 @@ public class MyInfoActivity extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intent = new Intent(MyInfoActivity.this, MainActivity.class);
                 startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 finish();
             }
         });
-
     }
 
     /**

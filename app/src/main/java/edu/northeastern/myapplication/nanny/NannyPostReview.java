@@ -34,6 +34,7 @@ public class NannyPostReview extends AppCompatActivity {
     private Button btnPostANannyReview;
     boolean isRatingBarClicked;
     private Nanny nanny;
+    private NannyDao nannyDao;
     private User user;
     private FirebaseAuth mAuth;
 
@@ -42,7 +43,6 @@ public class NannyPostReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nanny_review);
 
-        nanny = getIntent().getExtras().getParcelable("nanny");
         user = getIntent().getExtras().getParcelable("user");
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,65 +58,87 @@ public class NannyPostReview extends AppCompatActivity {
             }
         });
 
-        btnPostANannyReview.setOnClickListener(new View.OnClickListener() {
+        // Gets the current nanny.
+        nanny = getIntent().getExtras().getParcelable("nanny");
+        String nannyId = nanny.getNannyId();
+        nannyDao = new NannyDao();
+        nannyDao.findNannyById(nannyId).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onClick(View v) {
-                if (et_nannyReview.getText().toString().strip().length() == 0) {
-                    Toast.makeText(NannyPostReview.this, "Please input your review.", Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(NannyPostReview.this, "Failed to get the nanny.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!isRatingBarClicked) {
-                    Toast.makeText(NannyPostReview.this, "Please provide rating.", Toast.LENGTH_SHORT).show();
+                DataSnapshot dataSnapshot = task.getResult();
+                if (!dataSnapshot.exists()) {
+                    Toast.makeText(NannyPostReview.this, "This nanny does not exist.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Gets a unique id for the review.
-                UUID uuid = UUID.randomUUID();
-                String reviewId = uuid.toString();
+                nanny = dataSnapshot.getValue(Nanny.class);
 
-                // Creates a review, puts the review to the database.
-                Review review = new Review(reviewId, mAuth.getUid(), user.getUsername(), ratingBar.getRating(), et_nannyReview.getText().toString());
-                ReviewsDao reviewsDao = new ReviewsDao();
-                reviewsDao.create(nanny.getNannyId(), review).addOnCompleteListener(new OnCompleteListener<Void>() {
+                btnPostANannyReview.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // Updates the nanny's ratings.
-                        List<Review> reviewList = new ArrayList<>();
+                    public void onClick(View v) {
+                        if (et_nannyReview.getText().toString().strip().length() == 0) {
+                            Toast.makeText(NannyPostReview.this, "Please input your review.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                        reviewsDao.getReviews(nanny.getNannyId()).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        if (!isRatingBarClicked) {
+                            Toast.makeText(NannyPostReview.this, "Please provide rating.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Gets a unique id for the review.
+                        UUID uuid = UUID.randomUUID();
+                        String reviewId = uuid.toString();
+
+                        // Creates a review, puts the review to the database.
+                        Review review = new Review(reviewId, mAuth.getUid(), user.getUsername(), ratingBar.getRating(), et_nannyReview.getText().toString());
+                        ReviewsDao reviewsDao = new ReviewsDao();
+                        reviewsDao.create(nanny.getNannyId(), review).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            public void onComplete(@NonNull Task<Void> task) {
+                                // Updates the nanny's ratings.
+                                List<Review> reviewList = new ArrayList<>();
 
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(NannyPostReview.this, "Failed to get reviews.", Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-
-                                DataSnapshot taskResult = task.getResult();
-                                for (DataSnapshot dataSnapshot : taskResult.getChildren()) {
-                                    reviewList.add(dataSnapshot.getValue(Review.class));
-                                }
-
-                                float sumOfRatings = 0;
-                                for (int i = 0; i < reviewList.size(); i++) {
-                                    sumOfRatings += reviewList.get(i).getRating();
-                                }
-
-                                float updatedRatings = sumOfRatings / reviewList.size();
-                                nanny.setRatings(updatedRatings);
-
-                                NannyDao nannyDao = new NannyDao();
-                                nannyDao.update(nanny.getNannyId(), nanny).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                reviewsDao.getReviews(nanny.getNannyId()).addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(NannyPostReview.this, "Nanny's ratings updated successfully.", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(NannyPostReview.this, NannyshareSingle.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putParcelable("user", user);
-                                        bundle.putParcelable("nanny", nanny);
-                                        intent.putExtras(bundle);
-                                        startActivity(intent);
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                                        if (!task.isSuccessful()) {
+                                            Toast.makeText(NannyPostReview.this, "Failed to get reviews.", Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+
+                                        DataSnapshot taskResult = task.getResult();
+                                        for (DataSnapshot dataSnapshot : taskResult.getChildren()) {
+                                            reviewList.add(dataSnapshot.getValue(Review.class));
+                                        }
+
+                                        float sumOfRatings = 0;
+                                        for (int i = 0; i < reviewList.size(); i++) {
+                                            sumOfRatings += reviewList.get(i).getRating();
+                                        }
+
+                                        float updatedRatings = sumOfRatings / reviewList.size();
+                                        nanny.setRatings(updatedRatings);
+
+                                        NannyDao nannyDao = new NannyDao();
+                                        nannyDao.update(nanny.getNannyId(), nanny).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(NannyPostReview.this, "Nanny's ratings updated successfully.", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(NannyPostReview.this, NannyshareSingle.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putParcelable("user", user);
+                                                bundle.putParcelable("nanny", nanny);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            }
+                                        });
                                     }
                                 });
                             }

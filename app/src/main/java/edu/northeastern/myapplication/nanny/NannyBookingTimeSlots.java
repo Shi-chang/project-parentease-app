@@ -367,77 +367,6 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
     /**
      * Updates the time slots based on check box events.
      */
-//    private void updateTimeSlotsBasedOnCheckBoxEvents() {
-//        for (int i = 0; i < checkboxList.size(); i++) {
-//            CheckBox currentCheckBox = checkboxList.get(i);
-//
-//            currentCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if (currentCheckBox == checkBox1) {
-//                        if (isChecked) {
-//                            bookTimeSlot(8);
-//                        } else {
-//                            unbookTimeSlot(8);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox2) {
-//                        if (isChecked) {
-//                            bookTimeSlot(9);
-//                        } else {
-//                            unbookTimeSlot(9);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox3) {
-//                        if (isChecked) {
-//                            bookTimeSlot(10);
-//                        } else {
-//                            unbookTimeSlot(10);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox4) {
-//                        if (isChecked) {
-//                            bookTimeSlot(11);
-//                        } else {
-//                            unbookTimeSlot(11);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox5) {
-//                        if (isChecked) {
-//                            bookTimeSlot(12);
-//                        } else {
-//                            unbookTimeSlot(12);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox6) {
-//                        if (isChecked) {
-//                            bookTimeSlot(13);
-//                        } else {
-//                            unbookTimeSlot(13);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox7) {
-//                        if (isChecked) {
-//                            bookTimeSlot(14);
-//                        } else {
-//                            unbookTimeSlot(14);
-//                        }
-//                    }
-//                    if (currentCheckBox == checkBox8) {
-//                        if (isChecked) {
-//                            bookTimeSlot(15);
-//                        } else {
-//                            unbookTimeSlot(15);
-//                        }
-//                    }
-//                }
-//            });
-//        }
-//    }
-
-    /**
-     * Updates the time slots based on check box events.
-     */
     private void updateTimeSlotsBasedOnCheckBoxEvents() {
         for (int i = 0; i < checkboxList.size(); i++) {
             CheckBox currentCheckBox = checkboxList.get(i);
@@ -465,36 +394,4 @@ public class NannyBookingTimeSlots extends AppCompatActivity {
             }
         }
     }
-
-    /**
-     * Books a time slot.
-     *
-     * @param startTime the start time
-     */
-//    private void bookTimeSlot(int startTime) {
-//        List<TimeSlot> timeSlots = nanny.getAvailability();
-//        for (TimeSlot timeSlot : timeSlots) {
-//            if (Utils.compareDates(timeSlot.getDate(), selectedDate) == 0 && timeSlot.getStartTime() == startTime) {
-//                newlyBookedTimeSlots.add(timeSlot);
-//            }
-//        }
-//        timeSlots.removeAll(newlyBookedTimeSlots);
-//        nanny.setAvailability(timeSlots);
-//    }
-
-    /**
-     * Unbooks a time slot.
-     *
-     * @param startTime the start time
-     */
-//    private void unbookTimeSlot(int startTime) {
-//        List<TimeSlot> timeSlots = nanny.getAvailability();
-//        for (TimeSlot timeSlot : newlyBookedTimeSlots) {
-//            if (Utils.compareDates(timeSlot.getDate(), selectedDate) == 0 && timeSlot.getStartTime() == startTime) {
-//                timeSlots.add(timeSlot);
-//            }
-//        }
-//        newlyBookedTimeSlots.removeAll(timeSlots);
-//        nanny.setAvailability(timeSlots);
-//    }
 }
